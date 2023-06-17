@@ -128,7 +128,7 @@ class ProfileController extends Controller
     {
         //echo 'admin';
        // die;
-       return view('admin');
+       return view('admin/index');
     }
      
     public function edit(Request $request): View

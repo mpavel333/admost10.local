@@ -17,22 +17,22 @@ use App\Http\Middleware\Authenticate;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('index');
+})->name('index');
 
 
 
 /////////////// USER
     
-Route::group(['prefix'=>'/','middleware' => 'user'], function () {
+Route::group(['prefix'=>'user','middleware' => 'user'], function () {
     
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');    
+    Route::get('/', function () {
+        return view('user.index');
+    })->name('user.index');    
     
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+   // Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+   // Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+   // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
 
 
@@ -52,7 +52,7 @@ Route::group(['prefix'=>'/','middleware' => 'user'], function () {
 Route::group(['prefix'=>'admin','middleware' => 'admin'], function () {
     
     
-    Route::get('/', [ProfileController::class, 'admin'])->name('profile.admin');
+    Route::get('/', [ProfileController::class, 'admin'])->name('admin.index'); 
     
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

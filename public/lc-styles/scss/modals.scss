@@ -1,0 +1,324 @@
+.modal {
+    .modal-dialog {
+        .modal-content {
+            padding: 30px 40px;
+            border-radius: var(--brs-big);
+
+            @media(max-width: 767px) {
+                padding: 30px;
+            }
+
+            .btn-close {
+                position: absolute;
+                right: 35px;
+                top: 32px;
+                opacity: 1;
+                z-index: 5;
+                font-size: 15px;
+                cursor: pointer;
+                padding: 0;
+                box-shadow: none;
+
+                &:hover {
+                    opacity: 0.5;
+                    transform: scale(1.1);
+                }
+            }
+
+            .title {
+                font-size: 20px;
+                margin: 0 0 40px 0;
+                line-height: 1;
+
+                &.min-offset {
+                    margin: 0 0 30px 0;
+                }
+            }
+
+            .modal-blocks {
+                &.min-offset {
+                    .modal-block {
+                        &:not(:last-of-type) {
+                            margin-bottom: 20px;
+                        }
+                    }
+                }
+
+                .modal-block {
+                    &:not(:last-of-type) {
+                        margin-bottom: 30px;
+                    }
+
+                    .tit {
+                        margin: 0 0 10px 0;
+                        font-size: 14px;
+                    }
+                }
+            }
+
+            hr {
+                border: none;
+                height: 1px;
+                background: var(--border-color);
+                margin: 30px 0;
+            }
+
+            .for-btn {
+                margin: 40px 0 0 0;
+
+                .cl-btn {
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    &.min-modal {
+        .modal-dialog {
+            max-width: 450px;
+            margin-left: auto;
+            margin-right: auto;
+
+            .modal-content {}
+        }
+    }
+
+    &.preview-modal {
+        .modal-dialog {
+            .modal-content {
+                .pic {
+                    border-radius: var(--brs);
+                    overflow: hidden;
+                }
+            }
+        }
+    }
+
+    &.chat-modal {
+        --bs-modal-width: 1200px;
+        --chat-width: 100%;
+        --preview-width: 430px;
+
+        @media(min-width: 1600px) {
+            &.active {
+                --bs-modal-width: 1600px;
+            }
+        }
+
+        @media(min-width: 1200px) and (max-width: 1600px) {
+            --preview-width: 330px;
+        }
+
+        @media(min-width: 1200px) {
+            &.active {
+                .for-chat {
+                    max-width: calc(var(--bs-modal-width) - var(--preview-width));
+                    transform: translateX(calc(calc(var(--preview-width) * -1) / 2));
+                    margin-left: -10px;
+                }
+            }
+        }
+
+        .modal-dialog {
+            .modal-content {
+                padding: 0;
+                background: none;
+                border-radius: 0;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                column-gap: 10px;
+                border: none;
+
+                .for-chat {
+                    transition: 0.2s;
+
+                    .title {
+                        margin: 0;
+                    }
+                }
+
+                .preview-modal-block {
+                    width: var(--preview-width);
+                    transform: translateX(-100%);
+                    opacity: 0;
+                    visibility: hidden;
+                    padding: 30px;
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    height: 100%;
+
+                    @media(min-width: 1200px) and (max-width: 1600px) {
+                        padding: 20px;
+                        max-width: 330px;
+                    }
+
+                    &.active {
+                        opacity: 1;
+                        visibility: visible;
+                        transform: none;
+                    }
+
+                    @media(min-width: 768px) and (max-width: 1199px) {
+                        right: 30px;
+                        bottom: 20px;
+                        border: 1px solid rgba(0, 0, 0, 0.05);
+                        box-shadow: 0px 40px 60px -10px rgba(0, 0, 0, 0.15);
+                        z-index: 10;
+                    }
+
+                    @media(max-width: 767px) {
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        right: initial;
+                        height: 100%;
+                        width: 100%;
+                        max-width: 100%;
+                        z-index: 10;
+                        overflow: auto;
+                    }
+                }
+
+                @media(min-width: 1200px) and (max-width: 1599px) {
+                    .preview-modal-block {
+                        .btn-close {
+                            right: 21px;
+                            top: 26px;
+                        }
+                    }
+                }
+
+                @media(min-width: 1200px) and (max-width: 1599px) {
+
+                    .number-block {
+                        .number {
+                            font-size: 18px;
+                        }
+                    }
+                }
+
+                @media(max-width: 1199px) {
+                    column-gap: 0;
+                }
+
+                @media(max-width: 1199px) {
+                    justify-content: stretch;
+
+                    .for-chat {
+                        margin: auto;
+
+                        .chat-inner {
+                            min-height: calc(100vh - calc(var(--bs-modal-margin) * 2));
+                            display: flex;
+                            flex-direction: column;
+
+                            .chat-messages {
+                                flex-grow: 1;
+                            }
+                        }
+                    }
+                }
+
+                @media(max-width: 767px) {
+                    .for-chat {
+                        .chat-inner {
+                            .chat-messages {
+                                height: 300px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &.file-modal {
+        .modal-dialog {
+            max-width: 460px;
+            border-radius: var(--brs);
+
+            .modal-content {
+
+                .fields-links {
+                    .all-links {
+                        .inputblock {
+                            border: none !important;
+                            padding: 0 20px;
+                            background: var(--bg-gray);
+                            margin-bottom: 30px;
+                            border-radius: var(--brs-min);
+
+                            input {
+                                width: 100%;
+                                padding: 0;
+
+                                &:not(:last-of-type) {
+                                    border-bottom: 1px solid var(--border-color);
+                                }
+                            }
+
+                            .delete-icon-main {
+                                right: 20px;
+                                top: 14px;
+                                transform: none;
+                            }
+                        }
+                    }
+
+                    .cl-btn {
+                        background: var(--bg-gray);
+                        padding: 5px 15px;
+                        border-radius: var(--brs-min);
+                    }
+                }
+            }
+        }
+    }
+
+    &.filters-modal {
+        .modal-dialog {
+            .modal-content {
+                --padding: 25px 30px;
+                padding: 0;
+
+                .btn-close {
+                    right: 22px;
+                    top: 23px;
+                }
+
+                .modal-head {
+                    padding: var(--padding);
+                    border-bottom: 1px solid var(--border-color);
+
+                    .title {
+                        margin: 0;
+                    }
+                }
+
+                .modal-filters {
+                    padding: var(--padding);
+                }
+
+                @media(max-width: 767px) {
+                    --padding: 20px;
+                }
+            }
+        }
+    }
+}
+
+.preview-modal-block {
+    background: #FFFFFF;
+    border-radius: var(--brs-big);
+    position: relative;
+    transition: 0.3s;
+    overflow: hidden;
+    padding: 0;
+
+    .title {
+        font-size: 20px;
+        font-weight: 600;
+    }
+}

@@ -23,7 +23,7 @@ class IsAdmin
     public function handle(Request $request, Closure $next): Response
     {
 
-       if (! $request->user()->isAdmin()) {
+       if (Auth::guest() or !$request->user()->isAdmin()) {
           return redirect('/');
        }
           return $next($request);      

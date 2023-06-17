@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class IsUser
 {
@@ -17,7 +18,7 @@ class IsUser
     {
         //return $next($request);
         
-       if (! $request->user()->isUser()) {
+       if (Auth::guest() or !$request->user()->isUser()) {
           return redirect('/');
        }
           return $next($request);          

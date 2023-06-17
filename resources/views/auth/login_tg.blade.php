@@ -47,7 +47,7 @@
                             
                             if (data.result == "ok") {
                                 
-                                window.location.href = "/dashboard";
+                                window.location.href = "{{ route('user.index') }}";
                                 
                                 //error.style = "display: none"
                                 //submit && submit.setAttribute("disable", false)
