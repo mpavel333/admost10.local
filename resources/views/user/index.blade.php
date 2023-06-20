@@ -29,7 +29,7 @@
                             <a href="" class="channel-btn new-channel-btn">
                                 <div class="icon">
                                     <?php //include 'images/plus.svg'; ?>
-                                    <img src="lc-styles/images/plus.jpg">
+                                    <img src="lc-styles/images/plus.svg">
                                 </div>
                                 <p>Додати канал</p>
                             </a>
