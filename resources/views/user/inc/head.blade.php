@@ -20,6 +20,7 @@ $meta->url = './';
 $meta->image = $meta->url . 'images/social.jpg';
 
 ?>
+<base href="http://admost10.local/" />
 
 <title><?php echo $meta->title; ?></title>
 

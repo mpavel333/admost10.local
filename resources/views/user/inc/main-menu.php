@@ -1,7 +1,7 @@
 <div class="panel-banner white-block min-banner for-panel-menu d-none d-xl-block">
     <div class="panel-menu panel-menu-move">
         <div class="link">
-            <a class="active" href="">
+            <a class="active" href=" <?php echo route('user.index') ?>">
                 <div class="icon fill-inherit">
                     <img src="lc-styles/images/m1.svg"/>
                     <?php //include 'images/m1.svg'; ?>
