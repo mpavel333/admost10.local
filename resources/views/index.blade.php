@@ -168,17 +168,14 @@ $meta->image = $meta->url . 'images/social.jpg';
                 </div>
                 
             <?php } ?>
-            
+
                 <div class="for-btn">
-                    
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        
-                        <input class="login cl-btn blue-l-btn" type="submit" value="{{ __('Log Out') }}"/>
-                        
-                    </form>                    
-                    
-                    
+                    <a href="{{ route('logout') }}" class="login cl-btn blue-l-btn">
+                        <div class="icon">
+                            <img src="main-page/images/login.svg">
+                        </div>
+                        <p>Выход</p>
+                    </a>
                 </div>
         
         <?php } ?>

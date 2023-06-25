@@ -117,7 +117,7 @@
 										<ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
 											<!--begin::Item-->
 											<li class="breadcrumb-item text-muted">
-												<a href="#" class="text-muted text-hover-primary">Home</a>
+												<a href="../../demo1/dist/index.html" class="text-muted text-hover-primary">Home</a>
 											</li>
 											<!--end::Item-->
 											<!--begin::Item-->
@@ -134,7 +134,12 @@
 									<!--end::Page title-->
 									<!--begin::Actions-->
 									<div class="d-flex align-items-center gap-2 gap-lg-3">
-
+										<!--begin::Secondary button-->
+										<a href="#" class="btn btn-sm fw-bold bg-body btn-color-gray-700 btn-active-color-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_create_app">Rollover</a>
+										<!--end::Secondary button-->
+										<!--begin::Primary button-->
+										<a href="#" class="btn btn-sm fw-bold btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_new_target">Add Telegram channel</a>
+										<!--end::Primary button-->
 									</div>
 									<!--end::Actions-->
 								</div>
@@ -165,14 +170,91 @@
                                             
 												<!--begin::Header-->
 												<div class="card-header pt-7">
-
-
+													<!--begin::Title-->
+													<h3 class="card-title align-items-start flex-column">
+														<span class="card-label fw-bold text-gray-800">Projects Stats</span>
+														<span class="text-gray-400 mt-1 fw-semibold fs-6">Updated 37 minutes ago</span>
+													</h3>
+													<!--end::Title-->
+													<!--begin::Toolbar-->
+													<div class="card-toolbar">
+														<a href="../../demo1/dist/apps/ecommerce/catalog/add-product.html" class="btn btn-sm btn-light">History</a>
+													</div>
+													<!--end::Toolbar-->
 												</div>
 												<!--end::Header-->
 												<!--begin::Body-->
-												<div class="card-body pt-6">
+												
+                                                    <div class="card-body pt-6">
+                                                     
+                                                     
+                                                    <div class="rounded border p-10">
+                                                    
+                                                          <form action="<?php echo route('admin.channels.save',$channel->id) ?>" method="post" enctype="multipart/form-data"> 
+                                                              @csrf  
+                                                              <input type="hidden" name="id" value="<?php echo $channel->id ?>" />  
+                                                    
+                                                                <!--begin::Input group-->
+                                                                <div class="input-group mb-5">
+                                                                    <span class="input-group-text" id="basic-addon1">@</span>
+                                                                    <input type="text" class="form-control" placeholder="Link" name="link" value="<?php echo $channel->link ?>"
+                                                                    aria-label="Link" aria-describedby="basic-addon1">
+                                                                </div>
+                                                                <!--end::Input group-->
+                                                    
+                                                    
+                                                                <!--begin::Input group-->
+                                                                <div class="input-group mb-5">
+                                                                    <input type="text" class="form-control" placeholder="Name" name="name" value="<?php echo $channel->name ?>"
+                                                                    aria-label="Name" 
+                                                                    aria-describedby="basic-addon2">
+                                                                </div>
+                                                                <!--end::Input group-->
+                                                    
+                                                                <!--begin::Input group-->
+                                                    <!--
+                                                                <div class="input-group mb-5">
+                                                                    <span class="input-group-text">Description</span>
+                                                                    <textarea class="form-control" aria-label="Description"></textarea>
+                                                                </div>
+                                                    -->
+                                                                <!--end::Input group-->
+                                                                
+                                                                <!--begin::Input group-->
+                                                                <div class="input-group mb-5">
+                                                                    <div class="form-floating">
+                                                                        <select name="status" class="form-select" id="statusSelect" aria-label="Floating label select example">
+                                                                            <option selected>Open this select menu</option>
+                                                                            <option value="0">In Process</option>
+                                                                            <option value="1">Complated</option>
+                                                                            <option value="2">Cancel</option>
+                                                                        </select>
+                                                                        <label for="floatingSelect">Select status channel</label>
+                                                                    </div>
+                                                                </div>
+                                                                <!--end::Input group-->
+                                                                
+                                                                <script type="text/javascript">
+                                                                
+                                                                    document.getElementById('statusSelect').value='<?php echo $channel->status ?>';
+                                                                    
+                                                                </script>
+                                                    
+                                                        
+                                                        
+                                                                 <div class="input-group">
+                                                                    <a class="btn btn-secondary" href="/admin/channels">Cancel</a>
+                                                                    <input class="btn btn-primary" name="submit" type="submit" value="Сохранить" />
+                                                                 </div>
+                                                    
+                                                              </form>             
+                                                                
+                                                    </div> 
+ 
+ 
+
+												</div>                                                
                                                 
-                                                </div>
 												<!--end: Card Body-->
 											</div>
 											<!--end::Table widget 14-->

@@ -59,18 +59,12 @@
             <div class="account-dropdown dropdown-default">
                 <div class="dropdown-inner">
                     <div class="link">
-                        <a href="">Налаштування</a>
+                        <a href="#">Налаштування</a>
                     </div>
                     <div class="link">
-
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            
-                            <input type="submit" value="{{ __('Log Out') }}"/>
-                            
-                        </form>
-
+                        <a href="{{ route('logout') }}">Вихід</a>
                     </div>
+
                 </div>
             </div>
         </div>

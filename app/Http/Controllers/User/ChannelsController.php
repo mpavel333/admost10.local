@@ -7,9 +7,8 @@ use Illuminate\Http\Request;
 use DB;
 use Auth;
 
-class UserController extends Controller
+class ChannelsController extends Controller
 {
-    
     private const TELEGRAM_TOKEN = '6106644969:AAEDR6n9gVN-tXa2-pqTJeuQ8E4a7Q_b-ZY';
     
     public function channels()
@@ -90,6 +89,7 @@ class UserController extends Controller
                     
                     $Data = json_decode($getData);
                     if($Data->ok){
+                        //print_r($Data); die;
                         
                        foreach($channels as $channel){
     
