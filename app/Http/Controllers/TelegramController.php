@@ -11,7 +11,11 @@ use Illuminate\View\View;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 
+use Illuminate\Console\Command;
+use Workerman\Worker;
+
 use DB;
+
 
 use Crypter;
 
@@ -81,57 +85,163 @@ class TelegramController extends Controller
                 //'data'=>'test'
             ]);
     
-    }   
+    }  
     
-    public function admin(Request $request)
+    
+    public function test_post()
     {
-       return view('admin/index');
+
+    
+    //$tg_user = '1371820205'; // id пользователя, для отправки сообщения
+    //$bot_token = '5265136546:AOG0bRakk4gApuJDRLdHL9J6tg_FUCSnlVA'; // токен бота
+      
+    //$text = "Первая строка сообщения со ссылкой \n Вторая строка с жирным текстом";
+      
+    // параметры, которые отправятся в api телеграм
+    $params = array(
+        //'chat_id' => '@1001823070497', // id получателя
+        'chat_id' => '@proitteh',
+        'text' => 'test', // текст сообщения
+        //'parse_mode' => 'HTML', // режим отображения сообщения HTML (не все HTML теги работают)
+    );
+    
+    $post = json_encode($params);  
+      
+    //$post = 'chat_id=@proitteh&message=ddddddddd&parse_mode=markdown';
+      
+    $curl = curl_init();
+    curl_setopt($curl, CURLOPT_URL, 'https://api.telegram.org/bot'.self::TELEGRAM_TOKEN.'/sendMessage'); // адрес вызова api функции телеграм
+
+    curl_setopt($curl, CURLOPT_HTTPHEADER, [
+        'Content-Type: application/json'
+    ]);
+    
+    curl_setopt($curl, CURLOPT_POST, true); // отправка методом POST
+    curl_setopt($curl, CURLOPT_TIMEOUT, 10); // время выполнения запроса
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl, CURLOPT_FOLLOWLOCATION , true);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $post); // параметры запроса
+    $result = curl_exec($curl); // запрос к api
+    curl_close($curl);
+      
+    var_dump(json_decode($result));
+
+
+
+
+
     }
-     
-    public function edit(Request $request): View
+    
+
+    
+    public function del_post()
+    {
+
+    
+    //$tg_user = '1371820205'; // id пользователя, для отправки сообщения
+    //$bot_token = '5265136546:AOG0bRakk4gApuJDRLdHL9J6tg_FUCSnlVA'; // токен бота
+      
+    //$text = "Первая строка сообщения со ссылкой \n Вторая строка с жирным текстом";
+      
+    // параметры, которые отправятся в api телеграм
+    $params = array(
+        //'chat_id' => '@1001823070497', // id получателя
+        'chat_id' => '@proitteh',
+        'message_id' => 11, // текст сообщения
+        //'parse_mode' => 'HTML', // режим отображения сообщения HTML (не все HTML теги работают)
+    );
+    
+    $post = json_encode($params);  
+      
+    //$post = 'chat_id=@proitteh&message=ddddddddd&parse_mode=markdown';
+      
+    $curl = curl_init();
+    curl_setopt($curl, CURLOPT_URL, 'https://api.telegram.org/bot'.self::TELEGRAM_TOKEN.'/deleteMessage'); // адрес вызова api функции телеграм
+
+    curl_setopt($curl, CURLOPT_HTTPHEADER, [
+        'Content-Type: application/json'
+    ]);
+    
+    curl_setopt($curl, CURLOPT_POST, true); // отправка методом POST
+    curl_setopt($curl, CURLOPT_TIMEOUT, 10); // время выполнения запроса
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($curl, CURLOPT_FOLLOWLOCATION , true);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $post); // параметры запроса
+    $result = curl_exec($curl); // запрос к api
+    curl_close($curl);
+      
+    var_dump(json_decode($result));
+
+
+
+
+
+    }
+    
+ 
+ 
+    public function sendMessage(Request $request)
     {
         
-        $user = $request->user();
+        $user = Auth::user();
+
+        DB::table('orders_chat')->insert(['order_id'=>$request->input('order_id'),
+                                          'user_id'=>$user->id,
+                                          'message'=>$request->input('message'),
+                                          //'view'=>now(),
+                                          "created_at"=>now(),
+                                          "updated_at"=>now()
+                                         ]);
+
         
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
-    }
+        return response()->json(['result'=>'ok']);
 
-    /**
-     * Update the user's profile information.
-     */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+
+
+
+    } 
+    
+    
+ 
+    public static function getChatMessages($order_id,$user_id,$view=0)
     {
-        $request->user()->fill($request->validated());
+        
+        //$user = Auth::user();
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        $messages = DB::table('orders_chat')->where('order_id', $order_id)->get();
+
+        $out = '';
+        foreach($messages as $message){
+           
+           if($message->user_id != $user_id && $view){
+               DB::table('orders_chat')->where('id', $message->id)->update(['status'=>1]); 
+           }
+            
+           if($message->user_id == $user_id){
+                $message_type = 'message-to';
+           }else{
+                $message_type = 'message-from';
+           }
+            
+           $out.='<div class="message-row '.$message_type.'">
+                    <div class="message-block">
+                        <div class="message">
+                            '.$message->message.'
+                        </div>
+                        <div class="message-info">
+                            <div class="time">'.$message->created_at.'</div>
+                            <div class="status">'.(($message->status!=1 and $message->user_id != $user_id) ? 'Ще не переглянуто' : '').'</div>
+                        </div>
+                    </div>
+                </div>';
         }
 
-        $request->user()->save();
+        return $out;
+        
+        //return response()->json(['result'=>'success','messages'=>$messages]);
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
-    }
 
-    /**
-     * Delete the user's account.
-     */
-    public function destroy(Request $request): RedirectResponse
-    {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
-        ]);
+    } 
+            
 
-        $user = $request->user();
-
-        Auth::logout();
-
-        $user->delete();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return Redirect::to('/');
-    }
 }

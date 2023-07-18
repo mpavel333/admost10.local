@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Channels extends Model
 {
     use HasFactory;
-    protected $table = 'tg_channels';
+    protected $table = 'channels';
     
     
     

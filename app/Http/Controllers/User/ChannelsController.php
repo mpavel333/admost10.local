@@ -14,7 +14,7 @@ class ChannelsController extends Controller
     public function channels()
     {
         $user = Auth::user();
-        $channels = DB::table('tg_channels')->where('user_id', $user->id)->get();        
+        $channels = DB::table('channels')->where('user_id', $user->id)->get();        
         
         return view('user.index',['channels'=>$channels]);      
     }       
@@ -23,7 +23,7 @@ class ChannelsController extends Controller
     public function channel($id)
     {
         $user = Auth::user();
-        $channel = DB::table('tg_channels')->where('id', $id)->where('user_id', $user->id)->first();        
+        $channel = DB::table('channels')->where('id', $id)->where('user_id', $user->id)->first();        
         
         return view('user.channels.channel',['channel'=>$channel]);      
     }       
@@ -40,14 +40,14 @@ class ChannelsController extends Controller
       
         $user = Auth::user();
 
-        $check = DB::table('tg_channels')
+        $check = DB::table('channels')
             ->where('user_id', $user->id)
             ->where('link', $request->input('link'))
             ->first();
 
         if(!$check){
         
-            DB::table('tg_channels')->insert([
+            DB::table('channels')->insert([
                 'user_id'=>$user->id,
                 'link'=>$request->input('link'),
                 'description'=>$request->input('description')
@@ -72,7 +72,7 @@ class ChannelsController extends Controller
             $with = [];
             
             $user = Auth::user();
-            $channels = DB::table('tg_channels')->where('user_id', $user->id)->where('tg_status', 0)->get();
+            $channels = DB::table('channels')->where('user_id', $user->id)->where('tg_status', 0)->get();
             
             if($channels){
             
@@ -103,7 +103,7 @@ class ChannelsController extends Controller
                                    
                                    ){
                                     
-                                    DB::table('tg_channels')
+                                    DB::table('channels')
                                     ->where('id', $channel->id)
                                     ->update([
                                         'tg_status' => 1

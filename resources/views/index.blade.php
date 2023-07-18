@@ -80,7 +80,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                                     <a href="">Про нас</a>
                                 </div>
                                 <div class="link">
-                                    <a href="">Каталог каналів</a>
+                                    <a href="{{route('channels')}}">Каталог каналів</a>
                                 </div>
                                 <div class="link">
                                     <a href="">Категорії</a>

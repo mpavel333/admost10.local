@@ -1,5 +1,8 @@
 $(document).ready(function () {
-
+    
+   // $( "#date-1" ).datepicker({
+  //      "dateFormat":"dd.mm.yy"
+  //  });
 
     var emailBodyConfig = {
         selector: 'textarea#description',
@@ -171,10 +174,12 @@ function mediaDropzone() {
     const formClass = document.querySelector('.media-dropzone');
     const filesBlock = formClass.querySelector('.file-media');
     const uploadArea = formClass.querySelector('.open-upload-prompt');
+    
 
     // Dropzone configuration
     let dropzoneConfig = {
-        url: 'handler.php',
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        url: 'user/add/file',
         dictDefaultMessage: "Drop documents here (or click) to capture/upload.",
         clickable: uploadArea,
         timeout: "360000",
@@ -183,15 +188,34 @@ function mediaDropzone() {
         maxFilesize: 400000000,
         chunkSize: 1000000,
         parallelChunkUploads: true,
-        autoProcessQueue: true,
-        parallelUploads: 1,
+        autoProcessQueue: false,
+        parallelUploads: 10,
         addRemoveLinks: true,
         previewsContainer: filesBlock,
-        acceptedFiles: 'image/jpg'
+        acceptedFiles: ".jpeg,.jpg,.png,.gif",
+        success: function (file, response) {},
+        successmultiple: function (files, response) {
+            for (keyVar in response.ids) {  
+                files[keyVar].id = response.ids[keyVar];
+                $( "#form_orders_add #orders_images" ).append( "<input id='image_"+response.ids[keyVar]+"' type='hidden' name='images[]' value='"+response.ids[keyVar]+"'>" );
+            }
+        }, 
+        
+        removedfile: function(file) {
+              $.ajax({
+                   headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                   url: 'user/delete/file',
+                   type: "POST",
+                   data: { 'id': file.id,'_token': $('meta[name="csrf-token"]').attr('content')},
+                   success: function(response){
+                        $( "input#image_"+response.id ).remove();
+                        file.previewElement.remove();
+                   }                   
+              });
+         },       
     };
-
     // Initialize Dropzone
-    mediaDropzoneExist = new Dropzone(formClass, dropzoneConfig);
+    mediaDropzoneExist = new Dropzone('#media_dropzone', dropzoneConfig);
 }
 
 let fileDropzoneExist = 0;
@@ -213,7 +237,7 @@ function fileDropzone() {
         chunkSize: 1000000,
         parallelChunkUploads: true,
         autoProcessQueue: true,
-        parallelUploads: 1,
+        parallelUploads: 10,
         addRemoveLinks: true,
         previewsContainer: filesBlock,
         acceptedFiles: 'application/pdf'
@@ -226,6 +250,12 @@ function fileDropzone() {
 // media modal
 $(document).on('shown.bs.modal', '#photo-video-modal', function () {
     if (!mediaDropzoneExist) mediaDropzone();
+});
+
+document.getElementById('form_media_dropzone').addEventListener('submit', function(e){
+    e.preventDefault();
+    //mediaDropzoneExist.options.headers={'X-CSRF-TOKEN': this.elements._token.value };
+    mediaDropzoneExist.processQueue();
 });
 
 // file modal

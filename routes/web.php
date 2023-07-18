@@ -9,10 +9,13 @@ use App\Http\Controllers\Admin\ChannelsController as AdminChannelsController;
 
 ////////
 use App\Http\Controllers\User\ChannelsController as UserChannelsController;
+use App\Http\Controllers\User\OrdersController as UserOrdersController;
 
 
 ////////
 use App\Http\Controllers\TelegramController;
+use App\Http\Controllers\DropzoneController;
+use App\Http\Controllers\ChannelsController;
 
 
 
@@ -24,6 +27,8 @@ Route::get('/', function () {
 })->name('index');
 
 
+Route::get('/channels', [ChannelsController::class, 'channels'])->name('channels');
+Route::get('/channel/{id}', [ChannelsController::class, 'channel'])->name('channels.channel');
 
 /////////////// USER
     
@@ -41,6 +46,14 @@ Route::group(['prefix'=>'user','middleware' => 'user'], function () {
     Route::get('/channels/check_tg_status', [UserChannelsController::class, 'check_tg_status'])->name('user.channels.check_tg_status');
 
 
+    Route::get('/orders', [UserOrdersController::class, 'orders'])->name('user.orders');
+    Route::post('/orders/add', [UserOrdersController::class, 'submit'])->name('user.orders.add.submit');
+
+
+    // Добавление файлов через плагин Dropzon    
+    Route::post('/add/file',[DropzoneController::class, 'add'])->name('user.file.add');
+    Route::post('/delete/file',[DropzoneController::class, 'delete'])->name('user.file.delete'); 
+    
 
 
 });
@@ -67,6 +80,18 @@ Route::group(['prefix'=>'admin','middleware' => 'admin'], function () {
 Route::get('/login_tg', [TelegramController::class, 'login_tg'])->name('auth.login_tg');
 Route::post('/check_auth', [TelegramController::class, 'check_auth'])->name('auth.check_auth');
 
+
+Route::get('/test_post', [TelegramController::class, 'test_post']);
+Route::get('/del_post', [TelegramController::class, 'del_post']);
+
+
+
+
+
+Route::post('/send_message', [TelegramController::class, 'sendMessage'])->name('chat.send_message');
+//Route::post('/send_message', [TelegramController::class, 'sendMessage'])->name('chat.send_message');
+
+//Route::get('/get_chat_messages/{order_id}', [TelegramController::class, 'getChatMessages'])->name('chat.get_chat_messages');
 
 
 

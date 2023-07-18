@@ -12,7 +12,7 @@
                 <a class="active" href="#">Відкладена публікація</a>
             </div>
             <div class="link">
-                <a href="#">Каталог каналів</a>
+                <a href="{{route('channels')}}">Каталог каналів</a>
             </div>
             <div class="link">
                 <a href="#">Участь у добірках</a>
