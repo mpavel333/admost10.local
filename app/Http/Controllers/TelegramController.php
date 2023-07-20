@@ -147,7 +147,7 @@ class TelegramController extends Controller
     $params = array(
         //'chat_id' => '@1001823070497', // id получателя
         'chat_id' => '@proitteh',
-        'message_id' => 11, // текст сообщения
+        'message_id' => 7, // текст сообщения
         //'parse_mode' => 'HTML', // режим отображения сообщения HTML (не все HTML теги работают)
     );
     
