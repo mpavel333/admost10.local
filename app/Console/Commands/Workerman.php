@@ -35,7 +35,7 @@ class Workerman extends Command
         //$argv[2] = $this->option('daemonize') ? '-d' : '';//?????daemon(????)????
  
         
-$ws_worker = new Worker("websocket://127.0.0.1:8080");
+$ws_worker = new Worker("websocket://".env('WEBSOCKET'));
 $ws_worker->count = 1;
 
 //$connections = [];

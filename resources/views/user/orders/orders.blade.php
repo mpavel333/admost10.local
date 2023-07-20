@@ -391,7 +391,7 @@
 
 <script type="text/javascript">
 
-const ws = new WebSocket('ws://127.0.0.1:8080');
+const ws = new WebSocket('ws://<?php echo env('WEBSOCKET'); ?>');
 
 var connection_id;
 var order_id;
