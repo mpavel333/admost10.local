@@ -488,3 +488,4 @@ Stack trace:
 #19 D:\OSPanel_Last\domains\admost10.local\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(200): Symfony\Component\Console\Application->run()
 #20 D:\OSPanel_Last\domains\admost10.local\artisan(37): Illuminate\Foundation\Console\Kernel->handle()
 #21 {main}
+2023-07-22 12:04:08 pid:1 Worker process terminated

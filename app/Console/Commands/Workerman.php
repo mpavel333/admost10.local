@@ -29,14 +29,24 @@ class Workerman extends Command
         //$user = Auth::user();
         
         
-        //global $argv;//?????? 
-        //$arg = $this->argument('action');
-        //$argv[1] = $arg;
-        //$argv[2] = $this->option('daemonize') ? '-d' : '';//?????daemon(????)????
- 
+        global $argv;//定义全局变量 
         
-$ws_worker = new Worker("websocket://".env('WEBSOCKET'));
-$ws_worker->count = 1;
+        
+        
+        $arg = $this->argument('action');
+
+        $argv[1] = $arg;
+
+        $argv[2] = $this->option('daemonize') ? '-d' : '';
+        
+        //print_r($argv);
+
+        //echo $arg; echo $this->option('daemonize');
+
+global $text_worker; 
+        
+$text_worker = new Worker("websocket://".env('WEBSOCKET'));
+$text_worker->count = 1;
 
 //$connections = [];
 //global $user;
@@ -44,7 +54,7 @@ $ws_worker->count = 1;
 //$user_id = optional(Auth::user())->id;
 
 
-$ws_worker->onConnect = function($connection) use($ws_worker)
+$text_worker->onConnect = function($connection) use($text_worker)
 {
     //global $user;
     
@@ -58,7 +68,7 @@ $ws_worker->onConnect = function($connection) use($ws_worker)
 /////////////////// Собираем список всех уже подключенных пользователей
 /*
         $users = [];
-        foreach ($ws_worker->connections as $c) {
+        foreach ($text_worker->connections as $c) {
             $users[] = [
                 'userId' => $c->id,
                 //'userName' => $c->userName,
@@ -107,7 +117,7 @@ $ws_worker->onConnect = function($connection) use($ws_worker)
         ];
         $message = json_encode($messageData);
         
-        foreach ($ws_worker->connections as $c) {
+        foreach ($text_worker->connections as $c) {
             $c->send($message);
         }   
    
@@ -122,16 +132,16 @@ $ws_worker->onConnect = function($connection) use($ws_worker)
 
 /////////// Когда клиент отправляет сообщение
 
-$ws_worker->onMessage = function($connection, $sendData) use ($ws_worker) {
+$text_worker->onMessage = function($connection, $sendData) use ($text_worker) {
  
 /*
     $users = [];
-    foreach ($ws_worker->connections as $id => $clientConnection) {
+    foreach ($text_worker->connections as $id => $clientConnection) {
         
         //if ($connection->id == $id) {
-            $ws_worker->connections[$connection->id]->sendData=json_decode($sendData);
+            $text_worker->connections[$connection->id]->sendData=json_decode($sendData);
             
-            $users[$id] = $ws_worker->connections[$connection->id]->sendData;
+            $users[$id] = $text_worker->connections[$connection->id]->sendData;
         //}
         
         
@@ -156,7 +166,7 @@ $ws_worker->onMessage = function($connection, $sendData) use ($ws_worker) {
     ];
     $sendMessage = json_encode($messageData);
 
-    foreach ($ws_worker->connections as $id => $clientConnection) {
+    foreach ($text_worker->connections as $id => $clientConnection) {
         
         $clientConnection->send($sendMessage);
     }    
@@ -170,7 +180,7 @@ $ws_worker->onMessage = function($connection, $sendData) use ($ws_worker) {
 /////////////////
 
 
-$ws_worker->onClose = function($connection)
+$text_worker->onClose = function($connection)
 {
     echo 'Connection closed \n';
 };       
