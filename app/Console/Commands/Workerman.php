@@ -14,7 +14,8 @@ use DB;
 
 class Workerman extends Command
 {
-    protected $signature = 'workerman {action} {--daemonize}';
+    //protected $signature = 'workerman {action} {--daemonize}';
+    protected $signature = 'workerman {action} {param}';
     protected $description = 'Command description';
     //private $user;
     
@@ -34,10 +35,12 @@ class Workerman extends Command
         
         
         $arg = $this->argument('action');
+        $param = $this->argument('param');
 
         $argv[1] = $arg;
 
-        $argv[2] = $this->option('daemonize') ? '-d' : '';
+        //$argv[2] = $this->option('daemonize') ? '-d' : '';
+        $argv[2] = ($param) ? '-'.$param : '';
         
         //print_r($argv);
 
