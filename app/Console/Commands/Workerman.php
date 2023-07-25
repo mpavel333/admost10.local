@@ -8,7 +8,7 @@ use Workerman\Worker;
 
 use App\Http\Controllers\TelegramController;
 
-use \Auth;
+//use \Auth;
 
 use DB;
 
@@ -17,9 +17,6 @@ class Workerman extends Command
     //protected $signature = 'workerman {action} {--daemonize}';
     protected $signature = 'workerman {action} {param}';
     protected $description = 'Command description';
-    //private $user;
-    
-    //public $user;
     
     public function __construct()
     {
@@ -27,12 +24,8 @@ class Workerman extends Command
     }
     public function handle()
     {
-        //$user = Auth::user();
         
-        
-        global $argv;//定义全局变量 
-        
-        
+        global $argv;
         
         $arg = $this->argument('action');
         $param = $this->argument('param');
@@ -42,152 +35,65 @@ class Workerman extends Command
         //$argv[2] = $this->option('daemonize') ? '-d' : '';
         $argv[2] = ($param) ? '-'.$param : '';
         
-        //print_r($argv);
-
-        //echo $arg; echo $this->option('daemonize');
-
-global $text_worker; 
+        global $text_worker; 
+                
+        $text_worker = new Worker("websocket://".env('WEBSOCKET'));
+        $text_worker->count = 1;
         
-$text_worker = new Worker("websocket://".env('WEBSOCKET'));
-$text_worker->count = 1;
-
-//$connections = [];
-//global $user;
-
-//$user_id = optional(Auth::user())->id;
-
-
-$text_worker->onConnect = function($connection) use($text_worker)
-{
-    //global $user;
-    
-    echo 'New connect '.$connection->id; //.$user->id;
-        
-        //$connection->userColor='#000000';
-   
-        //$connections[$connection->id] = $connection;
+        $text_worker->onConnect = function($connection) use($text_worker)
+        {
+            echo 'New connect '.$connection->id;
+        };
         
         
-/////////////////// Собираем список всех уже подключенных пользователей
-/*
-        $users = [];
-        foreach ($text_worker->connections as $c) {
-            $users[] = [
-                'userId' => $c->id,
-                //'userName' => $c->userName,
-                //'gender' => $c->gender,
-                //'userColor' => $c->userColor,
-            ];
-        }   
-*/
-/////////////////////////////    
-   
-   
-   
-//////////////// Отправляем новому пользователю данные авторизации
-/*
-
-        $messageData = [
-            'action' => 'Authorized',
-            'userId' => $connection->id,
-            //'userName' => $connection->userName,
-            //'gender' => $connection->gender,
-            //'userColor' => $connection->userColor,
-            'userColor' => $connection->userColor,
+        /////////// Когда клиент отправляет сообщение
+        
+        $text_worker->onMessage = function($connection, $sendData) use ($text_worker) {
+        
+             $data = json_decode($sendData);
+             
+             ////////////
+             $check_connect = DB::table('orders_chat_connections')->where(['order_id'=>$data->order_id,'user_id'=>$data->user_id,'connection_id'=>$connection->id])->first(); 
+             if(!$check_connect){
+                DB::table('orders_chat_connections')->insert(['order_id'=>$data->order_id,'user_id'=>$data->user_id,'connection_id'=>$connection->id,'connected'=>now()]); 
+             }
+             ///////////
+             
+             $order_chat_connections = DB::table('orders_chat_connections')->where(['order_id'=>$data->order_id])->get(); 
+             
+             $ids=[];
+             foreach($order_chat_connections as $item){
+                $ids[]=$item->connection_id;
+             }
+             
+             foreach ($text_worker->connections as $id => $clientConnection) {
+                
+                if (in_array($id,$ids)) {
+                     $messages = TelegramController::getChatMessages($data->order_id,$data->user_id,$data->hash,$data->view);  
+                     $messageData = [
+                        'action' => 'Message',
+                        'order_id' => $data->order_id,
+                        'connection_id' => $connection->id,
+                        'messages'=>$messages
+                    ];
+                    $sendMessage = json_encode($messageData);              
+                    $clientConnection->send($sendMessage);
+                }
+                
+            }    
             
-            'users' => $users
-        ];
-        $connection->send(json_encode($messageData));
-
-*/
-////////////////////
+        };
+        
+        /////////////////
         
         
-
-/////////////////// Оповещаем всех подключенным пользователей о новом участнике в чате
-/*
-        //$messages = TelegramController::getChatMessages(8);  
-        $messages = '';
-        
-        $messageData = [
-            'action' => 'Connected',
-            'userId' => $connection->id,
-            //'userName' => $connection->userName,
-            //'gender' => $connection->gender,
-            //'userColor' => $connection->userColor
-            //'users' => $users,
-            'messages'=>$messages
-        ];
-        $message = json_encode($messageData);
-        
-        foreach ($text_worker->connections as $c) {
-            $c->send($message);
-        }   
-   
-*///////////////////////   
-   
-   
-    
-    
-    
-};
-
-
-/////////// Когда клиент отправляет сообщение
-
-$text_worker->onMessage = function($connection, $sendData) use ($text_worker) {
- 
-/*
-    $users = [];
-    foreach ($text_worker->connections as $id => $clientConnection) {
-        
-        //if ($connection->id == $id) {
-            $text_worker->connections[$connection->id]->sendData=json_decode($sendData);
+        $text_worker->onClose = function($connection)
+        {
+            echo 'Connection closed \n';
+            DB::table('orders_chat_connections')->where(['connection_id'=>$connection->id])->delete(); 
             
-            $users[$id] = $text_worker->connections[$connection->id]->sendData;
-        //}
-        
-        
-    }
-
-*/
-
-     $data = json_decode($sendData);
-     //print_r($data);
-     
-     $messages = TelegramController::getChatMessages($data->order_id,$data->user_id,$data->view);  
-
-     $messageData = [
-        'action' => 'Message',
-        'connection_id' => $connection->id,
-        //'user_id' => $user->id,
-        //'userName' => $connection->userName,
-        //'gender' => $connection->gender,
-        //'userColor' => $connection->userColor,
-        //'users' => $users,
-        'messages'=>$messages
-    ];
-    $sendMessage = json_encode($messageData);
-
-    foreach ($text_worker->connections as $id => $clientConnection) {
-        
-        $clientConnection->send($sendMessage);
-    }    
-    
-
-    //return redirect()->route('chat.get_chat_messages',['order_id'=>$data->order_id]);
-
-
-};
-
-/////////////////
-
-
-$text_worker->onClose = function($connection)
-{
-    echo 'Connection closed \n';
-};       
-        
+        };       
+                
 
         Worker::runAll();
     }

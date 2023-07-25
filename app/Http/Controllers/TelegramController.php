@@ -88,7 +88,47 @@ class TelegramController extends Controller
     }  
     
     
-    public function test_post()
+    
+    public function autoposting()
+    {
+         //2023-07-25 19:23:00
+         $published= date('Y-m-d H:i').':00';
+         echo $published;
+         
+         $orders = DB::table('orders')
+             ->join('channels', 'orders.channel_id', '=', 'channels.id')
+             ->where(['orders.status' => 1,'orders.published'=>$published])
+             ->select('orders.*','channels.link as channel_link')
+         ->get();       
+         
+         //print_r($orders);
+         
+         //die;
+        
+        if($orders){
+            
+            foreach($orders as $key=>$order){
+                
+               $text = $order->message.'<a href="'.$order->link.'">'.$order->link.'</a>'; 
+                
+
+               $params = array(
+                    //'chat_id' => '@1001823070497', // id получателя
+                    'chat_id' => '@'.$order->channel_link,
+                    'text' => $text, // текст сообщения
+                    'parse_mode' => 'HTML', // режим отображения сообщения HTML (не все HTML теги работают)
+               );
+                    
+               self::post($params);
+                
+            }
+            
+            
+        }
+    
+    }
+    
+    public function post($params)
     {
 
     
@@ -96,7 +136,8 @@ class TelegramController extends Controller
     //$bot_token = '5265136546:AOG0bRakk4gApuJDRLdHL9J6tg_FUCSnlVA'; // токен бота
       
     //$text = "Первая строка сообщения со ссылкой \n Вторая строка с жирным текстом";
-      
+    
+    /*  
     // параметры, которые отправятся в api телеграм
     $params = array(
         //'chat_id' => '@1001823070497', // id получателя
@@ -104,6 +145,7 @@ class TelegramController extends Controller
         'text' => 'test', // текст сообщения
         //'parse_mode' => 'HTML', // режим отображения сообщения HTML (не все HTML теги работают)
     );
+    */
     
     $post = json_encode($params);  
       
@@ -184,6 +226,22 @@ class TelegramController extends Controller
     {
         
         $user = Auth::user();
+        
+        
+        //echo $request->input('order_id');
+        //echo $request->input('user_id');
+        //echo env('CHAT_HASH_SOLT');
+        //echo '<br>';
+        //echo '<br>';
+        //echo hash('sha256', $request->input('order_id').$request->input('user_id').env('CHAT_HASH_SOLT'));
+        //echo '-'.$request->input('hash');
+        
+        if(hash('sha256', $request->input('order_id').$request->input('user_id').env('CHAT_HASH_SOLT')) !== $request->input('hash')){
+            echo 'hello hack:)'; 
+            die;
+        }
+        
+        
 
         DB::table('orders_chat')->insert(['order_id'=>$request->input('order_id'),
                                           'user_id'=>$user->id,
@@ -203,10 +261,26 @@ class TelegramController extends Controller
     
     
  
-    public static function getChatMessages($order_id,$user_id,$view=0)
+    public static function getChatMessages($order_id,$user_id,$hash,$view=0,)
     {
-        
-        //$user = Auth::user();
+/*
+        echo $order_id;
+        echo $user_id;
+        echo env('CHAT_HASH_SOLT');
+        echo '<br>';
+        echo '<br>';
+        echo hash('sha256', $order_id.$user_id.env('CHAT_HASH_SOLT'));
+        echo '-'.$hash;
+
+*/       
+
+        if(hash('sha256', $order_id.$user_id.env('CHAT_HASH_SOLT')) !== $hash){
+            echo 'hello hack:)'; 
+            return;
+            //die;
+        }
+
+
 
         $messages = DB::table('orders_chat')->where('order_id', $order_id)->get();
 

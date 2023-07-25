@@ -11,7 +11,7 @@
             </a>
         </div>
         <div class="link">
-            <a class="{{ (request()->is('user/orders')) ? 'active' : '' }} count-link" data-count="50" href="<?php echo route('user.orders') ?>">
+            <a class="<?php (request()->is('user/in-orders')) ? 'active' : '' ?> count-link" data-count="<?php echo $in_orders ?>" href="<?php echo route('user.in-orders') ?>">
                 <div class="icon fill-inherit">
                     <img src="lc-styles/images/m2.svg"/>
                     <?php //include 'images/m2.svg'; ?>
@@ -20,7 +20,7 @@
             </a>
         </div>
         <div class="link">
-            <a class="count-link" data-count="1" href="">
+            <a class="count-link" data-count="<?php echo $out_orders ?>" href="<?php echo route('user.out-orders') ?>">
                 <div class="icon fill-inherit">
                     <img src="lc-styles/images/m3.svg"/>
                     <?php //include 'images/m3.svg'; ?>

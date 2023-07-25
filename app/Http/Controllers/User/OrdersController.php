@@ -12,15 +12,17 @@ use DB;
 
 class OrdersController extends Controller
 {
-    public function orders()
+    public function in_orders()
     {
         //$user = Auth::user();
-        $orders = Orders::getUserOrders();        
+        $orders = Orders::getUserInOrders();  
         
-        return view('user.orders.orders',['orders'=>$orders]);      
+        //echo Orders::getUserInOrdersCount(); die;      
+        
+        return view('user.orders.in-orders',['orders'=>$orders]);      
     } 
 
-    public function submit(Request $request)
+    public function in_submit(Request $request)
     {
         $user = Auth::user();
 
@@ -47,10 +49,57 @@ class OrdersController extends Controller
         
         $with=['success'=>'Заказ создан'];
         
-        return redirect()->route('user.orders')->with($with);        
+        return redirect()->route('user.in-orders')->with($with);        
                
     } 
+
+
+    public function out_orders()
+    {
+        //$user = Auth::user();
+        $orders = Orders::getUserOutOrders();        
+        
+        return view('user.orders.out-orders',['orders'=>$orders]);      
+    }    
     
+    
+    
+    
+    public function confirm($id,$hash)
+    {
+        
+
+        if(hash('sha256', $id.env('ORDERS_SOLT')) !== $hash){
+            echo 'hello hack:)'; die;
+        }
+
+        DB::table('orders')->where('id', $id)->update(['status' => 1]); 
+       
+        $with=['success'=>'Заявка №'.$id.' подтверждена'];
+        
+        return redirect()->route('user.in-orders')->with($with);        
+               
+    }     
+    
+    
+    
+    public function cancel($id,$hash)
+    {
+        
+        if(hash('sha256', $id.env('ORDERS_SOLT')) !== $hash){
+            echo 'hello hack:)'; die;
+        }
+
+        DB::table('orders')->where('id', $id)->update(['status' => 2]); 
+       
+        $with=['success'=>'Заявка №'.$id.' отменена'];
+        
+        return redirect()->route('user.in-orders')->with($with);        
+               
+    
+    
+    }    
+     
     
     
 }

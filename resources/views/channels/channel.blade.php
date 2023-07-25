@@ -106,7 +106,7 @@
                             </div>
                         </div>
                         <div class="steps">
-                        <form id="form_orders_add" action="{{ route('user.orders.add.submit') }}" method="post">
+                        <form id="form_orders_add" action="{{ route('user.in-orders.add.submit') }}" method="post">
                             @csrf
                                 <div class="s-row">
                                     <div class="step-block">

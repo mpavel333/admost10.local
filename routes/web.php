@@ -46,9 +46,12 @@ Route::group(['prefix'=>'user','middleware' => 'user'], function () {
     Route::get('/channels/check_tg_status', [UserChannelsController::class, 'check_tg_status'])->name('user.channels.check_tg_status');
 
 
-    Route::get('/orders', [UserOrdersController::class, 'orders'])->name('user.orders');
-    Route::post('/orders/add', [UserOrdersController::class, 'submit'])->name('user.orders.add.submit');
+    Route::get('/in-orders', [UserOrdersController::class, 'in_orders'])->name('user.in-orders');
+    Route::post('/orders/add', [UserOrdersController::class, 'in_submit'])->name('user.orders.add.submit');
+    Route::get('/out-orders', [UserOrdersController::class, 'out_orders'])->name('user.out-orders');
 
+    Route::get('/orders/{id}/{hash}/confirm', [UserOrdersController::class, 'confirm'])->name('user.orders.confirm');
+    Route::get('/orders/{id}/{hash}/cancel', [UserOrdersController::class, 'cancel'])->name('user.orders.cancel');
 
     // Добавление файлов через плагин Dropzon    
     Route::post('/add/file',[DropzoneController::class, 'add'])->name('user.file.add');
@@ -81,10 +84,10 @@ Route::get('/login_tg', [TelegramController::class, 'login_tg'])->name('auth.log
 Route::post('/check_auth', [TelegramController::class, 'check_auth'])->name('auth.check_auth');
 
 
-Route::get('/test_post', [TelegramController::class, 'test_post']);
-Route::get('/del_post', [TelegramController::class, 'del_post']);
+//Route::get('/test_post', [TelegramController::class, 'test_post']);
+//Route::get('/del_post', [TelegramController::class, 'del_post']);
 
-
+Route::get('/autoposting', [TelegramController::class, 'autoposting']);
 
 
 

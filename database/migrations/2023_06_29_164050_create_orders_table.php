@@ -16,6 +16,8 @@ return new class extends Migration
                 $table->integer('user_id')->nullable()->unsigned();
                 $table->integer('channel_id')->nullable()->unsigned();
                 
+                //$table->string('chat_connect')->nullable();
+                
                 $table->string('name')->nullable();
                 $table->text('description')->nullable();
                 $table->string('link')->nullable();
