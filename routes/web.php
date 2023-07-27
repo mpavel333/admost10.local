@@ -87,7 +87,7 @@ Route::post('/check_auth', [TelegramController::class, 'check_auth'])->name('aut
 //Route::get('/test_post', [TelegramController::class, 'test_post']);
 //Route::get('/del_post', [TelegramController::class, 'del_post']);
 
-Route::get('/autoposting', [TelegramController::class, 'autoposting']);
+//Route::get('/autoposting', [TelegramController::class, 'autoposting']);
 
 
 

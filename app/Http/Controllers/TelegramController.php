@@ -89,7 +89,7 @@ class TelegramController extends Controller
     
     
     
-    public function autoposting()
+    public static function autoposting()
     {
          //2023-07-25 19:23:00
          $published= date('Y-m-d H:i').':00';
@@ -128,7 +128,7 @@ class TelegramController extends Controller
     
     }
     
-    public function post($params)
+    public static function post($params)
     {
 
     
