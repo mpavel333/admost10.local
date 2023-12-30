@@ -55,6 +55,19 @@ $meta->image = $meta->url . 'images/social.jpg';
 <link rel="stylesheet" href="main-page/plugins/ion-rangeslider/ion.rangeSlider.min.css">
 <link rel="stylesheet" href="main-page/css/style.css?t=<?php echo date('U'); ?>">
 
+<style type="text/css">
+    
+.dz-preview.dz-image-preview.dz-processing.dz-complete {
+  border: 5px solid green;
+}
+
+.swiper-wrapper {
+    height: auto;
+}
+
+</style>
+
+
 <script src="main-page/plugins/jquery/jquery-3.2.0.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="main-page/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -70,7 +83,9 @@ $meta->image = $meta->url . 'images/social.jpg';
                 <div class="row gx-1 align-items-center">
                     <div class="col col-xl-2">
                         <a href="" class="logo">
-                            <img src="main-page/images/logo.svg" alt="logo">
+                            <?php include 'main-page/images/logo.svg'; 
+                            //<img src="main-page/images/logo.svg" alt="logo">
+                            ?>
                         </a>
                     </div>
                     <div class="col">
@@ -97,9 +112,11 @@ $meta->image = $meta->url . 'images/social.jpg';
                             <div class="control-buttons d-flex column-gap-2 d-md-none">
                                 <div class="for-btn w-100">
                                     <a href="/login" class="login cl-btn dark-l-btn w-100">
-                                        <div class="icon">
-                                            <?php //include 'images/login.svg'; ?>
-                                            <img src="main-page/images/login.svg">
+                                        <div class="icon"> 1111
+                                            <?php include 'main-page/images/login.svg'; 
+                                                    //<img src="main-page/images/login.svg">
+                                            ?>
+                                            
                                         </div>
                                         <p>Увійти</p>
                                     </a>
@@ -107,8 +124,9 @@ $meta->image = $meta->url . 'images/social.jpg';
                                 <div class="for-btn w-100">
                                     <a href="/registration" class="login cl-btn white-btn w-100">
                                         <div class="icon">
-                                            <?php //include 'images/plus.svg'; ?>
-                                            <img src="main-page/images/plus.svg">
+                                            <?php include 'main-page/images/plus.svg'; 
+                                            //<img src="main-page/images/plus.svg">
+                                            ?>
                                         </div>
                                         <p>Приєднатися</p>
                                     </a>
@@ -126,8 +144,10 @@ $meta->image = $meta->url . 'images/social.jpg';
                 <div class="for-btn">
                     <a href="{{ route('login') }}" class="login cl-btn blue-l-btn">
                         <div class="icon">
-                            <?php //include 'images/login.svg'; ?>
-                            <img src="main-page/images/login.svg">
+                            <?php include 'main-page/images/login.svg'; 
+                            //<img src="main-page/images/login.svg">
+                            ?>
+                            
                         </div>
                         <p>Увійти</p>
                     </a>
@@ -135,8 +155,9 @@ $meta->image = $meta->url . 'images/social.jpg';
                 <div class="for-btn">
                     <a href="{{ route('register') }}" class="login cl-btn">
                         <div class="icon">
-                            <?php //include 'images/plus.svg'; ?>
-                            <img src="main-page/images/plus.svg">
+                            <?php include 'main-page/images/plus.svg'; 
+                            //<img src="main-page/images/plus.svg">
+                            ?>
                         </div>
                         <p>Приєднатися</p>
                     </a>
@@ -149,8 +170,9 @@ $meta->image = $meta->url . 'images/social.jpg';
                 <div class="for-btn">
                     <a href="{{ route('admin.index') }}" class="login cl-btn blue-l-btn">
                         <div class="icon">
-                            <?php //include 'images/login.svg'; ?>
-                            <img src="main-page/images/login.svg">
+                            <?php include 'main-page/images/login.svg'; 
+                            //<img src="main-page/images/login.svg">
+                            ?>
                         </div>
                         <p>Adminpanel</p>
                     </a>
@@ -161,8 +183,9 @@ $meta->image = $meta->url . 'images/social.jpg';
                 <div class="for-btn">
                     <a href="{{ route('user.index') }}" class="login cl-btn blue-l-btn">
                         <div class="icon">
-                            <?php //include 'images/login.svg'; ?>
-                            <img src="main-page/images/login.svg">
+                            <?php include 'main-page/images/login.svg';
+                            //<img src="main-page/images/login.svg">
+                             ?>
                         </div>
                         <p>Личный кабинет</p>
                     </a>
@@ -173,7 +196,9 @@ $meta->image = $meta->url . 'images/social.jpg';
                 <div class="for-btn">
                     <a href="{{ route('logout') }}" class="login cl-btn blue-l-btn">
                         <div class="icon">
-                            <img src="main-page/images/login.svg">
+                        <?php include 'main-page/images/login.svg'; 
+                            //<img src="main-page/images/login.svg">
+                        ?>
                         </div>
                         <p>Выход</p>
                     </a>
@@ -206,6 +231,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                                 <h1 class="title">
                                     <span>
                                         <div class="icon">
+                                        
                                             <img src="main-page/images/flag.svg" alt="flag">
                                         </div>
                                         AdMost
@@ -228,8 +254,9 @@ $meta->image = $meta->url . 'images/social.jpg';
                                             <div class="for-btn">
                                                 <a href="" class="cl-btn big">
                                                     <div class="icon">
-                                                        <?php //include 'images/plus.svg'; ?>
-                                                        <img src="main-page/images/plus.svg">
+                                                        <?php include 'main-page/images/plus.svg'; 
+                                                        //<img src="main-page/images/plus.svg">
+                                                        ?>
                                                     </div>
                                                     <p>Почати Зараз</p>
                                                 </a>
@@ -249,8 +276,9 @@ $meta->image = $meta->url . 'images/social.jpg';
                     <div class="for-btn d-xl-none">
                         <a href="" class="cl-btn big">
                             <div class="icon">
-                                <?php //include 'images/plus.svg'; ?>
-                                <img src="main-page/images/plus.svg">
+                                <?php include 'main-page/images/plus.svg'; 
+                                //<img src="main-page/images/plus.svg">
+                                ?>
                             </div>
                             <p>Почати Зараз</p>
                         </a>
@@ -459,8 +487,9 @@ $meta->image = $meta->url . 'images/social.jpg';
                                         <div class="for-btn">
                                             <a href="" class="cl-btn big px-md-4">
                                                 <div class="icon">
-                                                    <?php //include 'images/plus.svg'; ?>
-                                                    <img src="main-page/images/plus.svg">
+                                                    <?php include 'main-page/images/plus.svg'; 
+                                                    //<img src="main-page/images/plus.svg">
+                                                    ?>
                                                 </div>
                                                 <p>Додати у каталог</p>
                                             </a>
@@ -505,8 +534,9 @@ $meta->image = $meta->url . 'images/social.jpg';
                                         <div class="for-btn">
                                             <a class="cl-btn" href="#">
                                                 <div class="icon">
-                                                    <?php //include 'images/plus.svg'; ?>
-                                                    <img src="main-page/images/plus.svg">
+                                                    <?php include 'main-page/images/plus.svg'; 
+                                                    //<img src="main-page/images/plus.svg">
+                                                    ?>
                                                 </div>
                                                 <p>Додати канал</p>
                                             </a>
@@ -545,8 +575,9 @@ $meta->image = $meta->url . 'images/social.jpg';
                                         <div class="for-btn">
                                             <a class="cl-btn" href="#">
                                                 <div class="icon">
-                                                    <?php //include 'images/plus.svg'; ?>
-                                                    <img src="main-page/images/plus.svg">
+                                                    <?php include 'main-page/images/plus.svg'; 
+                                                    //<img src="main-page/images/plus.svg">
+                                                    ?>
                                                 </div>
                                                 <p>Додати канал</p>
                                             </a>
@@ -585,8 +616,9 @@ $meta->image = $meta->url . 'images/social.jpg';
                                         <div class="for-btn">
                                             <a class="cl-btn" href="#">
                                                 <div class="icon">
-                                                    <?php //include 'images/plus.svg'; ?>
-                                                    <img src="main-page/images/plus.svg">
+                                                    <?php include 'main-page/images/plus.svg'; 
+                                                    //<img src="main-page/images/plus.svg">
+                                                    ?>
                                                 </div>
                                                 <p>Додати канал</p>
                                             </a>
@@ -719,9 +751,9 @@ $meta->image = $meta->url . 'images/social.jpg';
                                 <div class="for-btn mt-4">
                                     <a class="cl-btn big" href="#">
                                         <div class="icon">
-                                            <?php //include 'images/plus.svg'; ?>
-                                            <img src="main-page/images/plus.svg">
-                                            
+                                            <?php include 'main-page/images/plus.svg'; 
+                                            //<img src="main-page/images/plus.svg">
+                                            ?>
                                         </div>
                                         <p>Додати канал</p>
                                     </a>
@@ -807,8 +839,9 @@ $meta->image = $meta->url . 'images/social.jpg';
                                             <p>Виведення коштів <span class="color-secondary fw-semi">3</span> рази на тиждень</p>
                                         </div>
                                         <div class="plus">
-                                            <?php //include 'images/packet-plus.svg'; ?>
-                                            <img src="main-page/images/packet-plus.svg">
+                                            <?php include 'main-page/images/packet-plus.svg'; 
+                                            //<img src="main-page/images/packet-plus.svg">
+                                            ?>
                                         </div>
                                         <div class="arrow-list light">
                                             <p>Аналітика каналів біржи</p>
@@ -847,8 +880,9 @@ $meta->image = $meta->url . 'images/social.jpg';
                                             Виведення коштів за запитом
                                         </div>
                                         <div class="plus">
-                                            <?php //include 'images/packet-plus.svg'; ?>
-                                            <img src="main-page/images/packet-plus.svg">
+                                            <?php include 'main-page/images/packet-plus.svg'; 
+                                            //<img src="main-page/images/packet-plus.svg">
+                                            ?>
                                         </div>
                                         <div class="arrow-list">
                                             <p>Аналітика каналів біржи</p>
@@ -984,8 +1018,9 @@ $meta->image = $meta->url . 'images/social.jpg';
                     <div class="for-btn">
                         <a class="cl-btn big" href="#">
                             <div class="icon">
-                                <?php //include 'images/plus.svg'; ?>
-                                <img src="main-page/images/plus.svg">
+                                <?php include 'main-page/images/plus.svg'; 
+                                //<img src="main-page/images/plus.svg">
+                                ?>
                             </div>
                             <p>Додати канал</p>
                         </a>
@@ -1073,8 +1108,9 @@ $meta->image = $meta->url . 'images/social.jpg';
                                 <div class="for-btn">
                                     <a class="cl-btn big" href="#">
                                         <div class="icon">
-                                            <?php //include 'images/plus.svg'; ?>
-                                            <img src="main-page/images/plus.svg">
+                                            <?php include 'main-page/images/plus.svg'; 
+                                            //<img src="main-page/images/plus.svg">
+                                            ?>
                                         </div>
                                         <p>Замовити рекламу</p>
                                     </a>
@@ -1159,8 +1195,9 @@ $meta->image = $meta->url . 'images/social.jpg';
                                 <div class="for-btn">
                                     <a class="cl-btn big" href="#">
                                         <div class="icon">
-                                            <?php //include 'images/plus.svg'; ?>
-                                            <img src="main-page/images/plus.svg">
+                                            <?php include 'main-page/images/plus.svg'; 
+                                            //<img src="main-page/images/plus.svg">
+                                            ?>
                                         </div>
                                         <p>Додати канал</p>
                                     </a>
@@ -1224,8 +1261,9 @@ $meta->image = $meta->url . 'images/social.jpg';
                                 <div class="for-btn">
                                     <a href="/login" class="login cl-btn blue-l-btn">
                                         <div class="icon">
-                                            <?php //include 'images/login.svg'; ?>
-                                            <img src="main-page/images/login.svg">
+                                            <?php include 'main-page/images/login.svg'; 
+                                            //<img src="main-page/images/login.svg">
+                                            ?>
                                         </div>
                                         <p class="text-end flex-grow-1">Увійти</p>
                                     </a>
@@ -1233,8 +1271,9 @@ $meta->image = $meta->url . 'images/social.jpg';
                                 <div class="for-btn">
                                     <a href="/registration" class="login cl-btn">
                                         <div class="icon">
-                                            <?php //include 'images/plus.svg'; ?>
-                                            <img src="main-page/images/plus.svg">
+                                            <?php include 'main-page/images/plus.svg'; 
+                                            //<img src="main-page/images/plus.svg">
+                                            ?>
                                         </div>
                                         <p>Приєднатися</p>
                                     </a>

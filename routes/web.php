@@ -80,8 +80,8 @@ Route::group(['prefix'=>'admin','middleware' => 'admin'], function () {
 
 /////////////////
 
-Route::get('/login_tg', [TelegramController::class, 'login_tg'])->name('auth.login_tg');
-Route::post('/check_auth', [TelegramController::class, 'check_auth'])->name('auth.check_auth');
+//Route::get('/login_tg', [TelegramController::class, 'login_tg'])->name('auth.login_tg');
+Route::get('/check_auth', [TelegramController::class, 'check_auth'])->name('auth.check_auth');
 
 
 //Route::get('/test_post', [TelegramController::class, 'test_post']);

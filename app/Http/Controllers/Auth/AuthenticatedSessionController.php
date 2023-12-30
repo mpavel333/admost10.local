@@ -40,8 +40,10 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
+        setcookie('tg_user', '');
+        
         Auth::guard('web')->logout();
-
+        
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();

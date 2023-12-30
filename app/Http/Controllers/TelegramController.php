@@ -11,6 +11,8 @@ use Illuminate\View\View;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 
+use Illuminate\Support\Facades\App;
+
 use Illuminate\Console\Command;
 use Workerman\Worker;
 
@@ -21,8 +23,6 @@ use Crypter;
 
 class TelegramController extends Controller
 {
-    private const TELEGRAM_TOKEN = '6106644969:AAEDR6n9gVN-tXa2-pqTJeuQ8E4a7Q_b-ZY';
-     
      
     public function login_tg(Request $request)
     {
@@ -32,6 +32,77 @@ class TelegramController extends Controller
       
     }   
 
+    private function checkTelegramAuthorization($request) {
+        
+      $auth_data = $request->all();
+        
+      $check_hash = $auth_data['hash'];
+      unset($auth_data['hash']);
+      $data_check_arr = [];
+      
+      
+      foreach ($auth_data as $key => $value) {
+        $data_check_arr[] = $key . '=' . $value;
+      }
+      sort($data_check_arr);
+      $data_check_string = implode("\n", $data_check_arr);
+      $secret_key = hash('sha256', env('TELEGRAM_TOKEN'), true);
+      $hash = hash_hmac('sha256', $data_check_string, $secret_key);
+      if (strcmp($hash, $check_hash) !== 0) {
+        throw new Exception('Data is NOT from Telegram');
+      }
+      if ((time() - $auth_data['auth_date']) > 86400) {
+        throw new Exception('Data is outdated');
+      }
+      return $auth_data;
+    }
+    
+    private function saveTelegramUserData($auth_data) {
+        
+      //print_r($auth_data);  
+      //die;
+      
+        $checkUser = DB::table('users')
+        ->where('telegram_id', $auth_data['id'])
+        //->where('catalog_id', $column[0])
+        ->first(); 
+        
+        if($checkUser){
+            Auth::loginUsingId($checkUser->id);
+        }else{
+            $id = DB::table('users')->insertGetId([
+                'telegram_id'=>$auth_data['id'],
+                'name'=>$auth_data['first_name'],
+                'password'=>Hash::make(10),
+                'email'=>Str::random(10).'@t.me'
+            ]);
+            Auth::loginUsingId($id);
+        }         
+      
+      
+        
+      $auth_data_json = json_encode($auth_data);
+      setcookie('tg_user', $auth_data_json);
+    }
+
+    
+    public function check_auth(Request $request)
+    {        
+        
+        try {
+          $auth_data = $this->checkTelegramAuthorization($request);
+          $this->saveTelegramUserData($auth_data);
+        } catch (Exception $e) {
+          die ($e->getMessage());
+        }
+        
+        //header('Location: login_example.php');
+        
+        return redirect()->route('login');
+
+    }
+
+/*
     public function check_auth(Request $request)
     {
 
@@ -87,7 +158,7 @@ class TelegramController extends Controller
     
     }  
     
-    
+*/    
     
     public static function autoposting()
     {
