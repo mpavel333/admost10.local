@@ -14,8 +14,25 @@ use DB;
 
 class Workerman extends Command
 {
+    //запуск
+    //php artisan workerman server start --daemonize
+    
+    //https://github.com/walkor/workerman
+    /*
+    php start.php start  
+    php start.php start -d  
+    php start.php status  
+    php start.php status -d  
+    php start.php connections
+    php start.php stop  
+    php start.php stop -g  
+    php start.php restart  
+    php start.php reload  
+    php start.php reload -g     
+       
+    */    
     //protected $signature = 'workerman {action} {--daemonize}';
-    protected $signature = 'workerman {action} {param}';
+    protected $signature = 'workerman {action} {param} {--daemonize}';
     protected $description = 'Command description';
     
     public function __construct()
@@ -27,15 +44,34 @@ class Workerman extends Command
         
         global $argv;
         
-        $arg = $this->argument('action');
-        $param = $this->argument('param');
+        //$argv = [];
+        //echo 11111111;
+        
+        //$arg = $this->argument('action');
+        //$param2 = $this->argument('param');
+        
+        //echo $param2;
+        //$daemonize = $this->option('daemonize');
 
-        $argv[1] = $arg;
+        //$argv[] = $arg;
 
-        //$argv[2] = $this->option('daemonize') ? '-d' : '';
-        $argv[2] = ($param) ? '-'.$param : '';
+        $argv[] = $this->option('daemonize') ? '-d' : '';
+        //$argv[] = ($param) ? ' -'.$param : '';
+        //$argv[] = '-d';
+        
+        //echo $param3;
+        
+        //$argv[] = ($param2) ? '-'.$param2 : '';
+        
+        
+        //print_r($argv);
+        
+        
         
         global $text_worker; 
+        
+        
+        //Worker::$daemonize=true;
                 
         $text_worker = new Worker("websocket://".env('WEBSOCKET'));
         $text_worker->count = 1;
