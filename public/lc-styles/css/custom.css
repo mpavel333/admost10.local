@@ -1,0 +1,32 @@
+.dz-preview.dz-image-preview.dz-processing.dz-complete {
+  border: 5px solid green;
+}
+
+.channel-btn{
+    position: relative;
+}
+
+.green{
+    color:green;
+}
+
+.confirmed{
+    position: relative;
+    
+}
+
+.confirmed{
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    background: url('../images/verified.svg') no-repeat;
+    display: block;
+    z-index: 1;
+    background-size: 100%;
+}
+
+.links .link a:hover{
+    cursor: pointer;
+}

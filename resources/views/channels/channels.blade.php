@@ -52,9 +52,9 @@
                         <div class="ch-col">
                             <a href="{{ route('channels.channel',$channel->id) }}" class="channel-btn">
                                 <div class="icon">
-                                    <img src="lc-styles/images/ch1.jpg" alt="plus">
+                                    <img src="@if($channel->image)images\channels\{{$channel->image}}@else images\channels\no-image.png @endif" alt="plus">
                                 </div>
-                                <p @if($channel->tg_status) style="color:green;" @endif><?php echo $channel->link ?></p>
+                                <p><?php echo $channel->link ?></p>
                             </a>
                         </div>                        
                         @endforeach

@@ -27,18 +27,18 @@
                         <div class="icon lh-0 me-3">
                             <img src="images/arr.svg" alt="icon">
                         </div>
-                        <p>Додати канал</p>
+                        <p>Редактировать канал</p>
                     </h1>
                     <div class="channel-fields">
-                        <form action="{{ route('user.channels.add.submit') }}" method="post">
+                        <form action="{{ route('user.channels.edit.submit',$channel->id) }}" method="post">
                             @csrf
                             <div class="f-row">
                                 <div class="info-column basic-info p-0">
                                     <div class="text-block">
                                         <div class="tit">Посилання на канал</div>
                                         <div class="inputblock">
-                                            <input name="link" type="text" placeholder="https://t.me/yourchanell" class="form-control" required>
-                                            <p class="info">Вкажіть посилання на Ваш канал, бажане публічне посилання на канал</p>
+                                            <input name="link" value="{{$channel->link}}" disabled="" type="text" placeholder="https://t.me/yourchanell" class="form-control" required>
+                                            <p class="info"></p>
                                         </div>
                                     </div>
                                     <div class="text-block">
@@ -82,8 +82,10 @@
                                         <div class="for-btn">
                                             <a class="cl-btn w-100 new-clone-btn" href="#" data-wrapper=".all-formats" data-template=".format-template">
                                                 <div class="icon">
-                                                    <img src="images/plus.svg" alt="icon">
-                                                    <?php //include 'images/plus.svg'; ?>
+                                                    
+                                                    <?php include 'images/plus.svg'; 
+                                                    //<img src="images/plus.svg" alt="icon">?>
+                                                    
                                                 </div>
                                                 <p class="text-start">Додати свій формат</p>
                                             </a>
@@ -94,7 +96,7 @@
                                 <div class="info-column description">
                                     <div class="tit">Джерело підписників</div>
                                     <div class="inputblock">
-                                        <textarea class="form-control" name="description" placeholder="Опис"></textarea>
+                                        <textarea class="form-control" name="description" placeholder="Опис">{{$channel->description}}</textarea>
                                     </div>
                                     <p class="info" id="description">Детально вкажіть методи просування каналу і тд</p>
                                 </div>
@@ -103,8 +105,10 @@
                                 <button type="submit" class="cl-btn big">
                                     <p>Відправити на модерацію</p>
                                     <div class="icon ms-2">
-                                        <img src="images/arr-top-right.svg" alt="icon">
-                                        <?php //include 'images/arr-top-right.svg'; ?>
+                                        
+                                        <?php include 'images/arr-top-right.svg'; 
+                                        //<img src="images/arr-top-right.svg" alt="icon">
+                                        ?>
                                     </div>
                                 </button>
                             </div>

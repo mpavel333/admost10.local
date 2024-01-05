@@ -7,9 +7,19 @@ use Illuminate\Http\Request;
 use DB;
 use Auth;
 
+use Image;
+use File;
+
+use App\Http\Controllers\TelegramController;
+
+
+
+use Illuminate\Support\Facades\Storage;
+
+
 class ChannelsController extends Controller
 {
-    private const TELEGRAM_TOKEN = '6106644969:AAEDR6n9gVN-tXa2-pqTJeuQ8E4a7Q_b-ZY';
+    //private const TELEGRAM_TOKEN = '6106644969:AAEDR6n9gVN-tXa2-pqTJeuQ8E4a7Q_b-ZY';
     
     public function channels()
     {
@@ -20,13 +30,52 @@ class ChannelsController extends Controller
     }       
     
 
-    public function channel($id)
+    public function edit($id)
     {
         $user = Auth::user();
         $channel = DB::table('channels')->where('id', $id)->where('user_id', $user->id)->first();        
         
-        return view('user.channels.channel',['channel'=>$channel]);      
-    }       
+        return view('user.channels.edit',['channel'=>$channel]);      
+    }     
+    
+    
+    public function edit_submit($id,Request $request)
+    {
+        $user = Auth::user();
+        //$channel = DB::table('channels')->where('id', $id)->where('user_id', $user->id)->first();        
+        
+        
+        
+        $check = DB::table('channels')
+            ->where('user_id', $user->id)
+            ->where('link', $request->input('link'))
+            ->first();
+
+        if($check){
+        
+            DB::table('channels')->where('id', $check->id)->update([
+                //'link'=>$request->input('link'),
+                'description'=>$request->input('description'),
+                'status'=>0
+            ]);
+            
+            $with=['success'=>'Канал обновлен и ожидает подтверждения администратором'];
+        
+        }else{
+            
+            $with=['error'=>'Такой канал ненайден'];
+            
+        }        
+        
+        
+        
+     return redirect()->route('user.channels')->with($with)->withInput();   
+        
+        
+        //return view('user.channels.edit',['channel'=>$channel]);      
+    }     
+    
+      
         
     
     public function add()
@@ -62,7 +111,7 @@ class ChannelsController extends Controller
         }
                   
       
-        return redirect()->route('user.index')->with($with)->withInput();
+        return redirect()->route('user.channels')->with($with)->withInput();
     }       
 
     public function check_tg_status()
@@ -83,12 +132,13 @@ class ChannelsController extends Controller
                 
                 $messages = [];
                 
-                $getData = file_get_contents('https://api.telegram.org/bot'.self::TELEGRAM_TOKEN.'/getUpdates');
+                $getData = file_get_contents('https://api.telegram.org/bot'.env('TELEGRAM_TOKEN').'/getUpdates');
                 
                 if(isset($getData)){
                     
                     $Data = json_decode($getData);
                     if($Data->ok){
+                        
                         //print_r($Data); die;
                         
                        foreach($channels as $channel){
@@ -98,18 +148,46 @@ class ChannelsController extends Controller
                                 if(isset($value->my_chat_member) && 
                                    $value->my_chat_member->chat->type == 'channel' &&
                                    (isset($value->my_chat_member->chat->username) && $value->my_chat_member->chat->username == $channel->link) &&
-                                   $value->my_chat_member->new_chat_member->user->username == 'admost333_bot' &&
+                                   $value->my_chat_member->new_chat_member->user->username == env('BOT_USERNAME') &&
                                    $value->my_chat_member->new_chat_member->status == 'administrator'
                                    
                                    ){
                                     
+                                    //echo $key;
+                                    
+                                    $imageName = $channel->image; 
+                                    
+////////////////////////////
+                                    $ChannelInfo = TelegramController::getChannelInfo($value->my_chat_member->chat->id);
+                                    $photo = TelegramController::post(['file_id'=>$ChannelInfo->result->photo->small_file_id],'getFile');
+                                    
+                                    if($photo->result->file_path){
+                                        $file = file_get_contents('https://api.telegram.org/file/bot'.env('TELEGRAM_TOKEN').'/'.$photo->result->file_path);
+                                            
+                                        $imageName = substr(md5(microtime() . rand(0, 9999)), 0, 20).'_'.date('d_m_Y').'.jpg';
+                                        file_put_contents(public_path().'/images/channels/'.$imageName, $file);
+                                    }
+
+                                    
+                                    if($file && $channel->image && File::exists(public_path().'/images/channels/'.$channel->image)){
+                                            File::delete(public_path().'/images/channels/'.$channel->image);
+                                    }
+
+///////////////////////////                                    
+                                    //die;
+                                    
                                     DB::table('channels')
                                     ->where('id', $channel->id)
                                     ->update([
-                                        'tg_status' => 1
+                                        'tg_status' => 1,
+                                        'chat_id' => $value->my_chat_member->chat->id,
+                                        'image' => $imageName,
+                                        'full_info'=>$ChannelInfo->result->description
                                     ]);   
                                     
-                                    $messages[] = $channel->link; //.'('.$channel->link.')';                                  
+                                    $messages[] = $key.$channel->link; //.'('.$channel->link.')';     
+                                    
+                                    break;                             
                                     
                                 }
                             }

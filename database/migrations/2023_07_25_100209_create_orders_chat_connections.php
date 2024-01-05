@@ -17,6 +17,7 @@ return new class extends Migration
             
             $table->bigIncrements('id');
             $table->integer('order_id')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->integer('connection_id')->unsigned();            
             
             $table->dateTime('connected', $precision = 0);

@@ -56,7 +56,7 @@ class Orders extends Model
        // })                                     
                                      
                                      
-                                     ->select('orders.*','channels.name as channel_name')
+                                     ->select('orders.*','channels.name as channel_name','channels.image as channel_image')
                                      ->orderBy('id', 'DESC')
                                      ->get();        
         
@@ -93,7 +93,7 @@ class Orders extends Model
         $orders = DB::table('orders')->where('orders.user_id', $user->id)
                                      ->leftjoin('channels', 'channels.id', '=', 'orders.channel_id')
                                      //->join('channels', 'channels.id', '=', 'orders.channel_id')
-                                     ->select('orders.*','channels.name as channel_name')
+                                     ->select('orders.*','channels.name as channel_name','channels.image as channel_image')
                                      ->orderBy('id', 'DESC')
                                      ->get();        
         

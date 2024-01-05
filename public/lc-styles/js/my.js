@@ -1,8 +1,26 @@
 $(document).ready(function () {
     
-   // $( "#date-1" ).datepicker({
-  //      "dateFormat":"dd.mm.yy"
-  //  });
+ 
+    $('.channel-pages .links .link a').click(function () {
+        
+        var channel_id = $(this).attr('channel_id');
+        
+        if($(this).hasClass('active')){
+            
+            $(this).removeClass('active');
+            $( "#form_publication #channel_id_"+channel_id ).remove();
+            
+        }else{
+            
+            $(this).addClass('active');
+            
+            
+            $( "#form_publication" ).append( "<input id='channel_id_"+channel_id+"' type='hidden' name='channels_id[]' value='"+channel_id+"'>" );
+        }
+        
+    });  
+  
+  
 
     var emailBodyConfig = {
         selector: 'textarea#description',
@@ -197,7 +215,7 @@ function mediaDropzone() {
         successmultiple: function (files, response) {
             for (keyVar in response.ids) {  
                 files[keyVar].id = response.ids[keyVar];
-                $( "#form_orders_add #orders_images" ).append( "<input id='image_"+response.ids[keyVar]+"' type='hidden' name='images[]' value='"+response.ids[keyVar]+"'>" );
+                $( "#form_orders #files,#form_publication #files" ).append( "<input id='file_"+response.ids[keyVar]+"' type='hidden' name='files[]' value='"+response.ids[keyVar]+"'>" );
             }
         }, 
         
@@ -208,7 +226,7 @@ function mediaDropzone() {
                    type: "POST",
                    data: { 'id': file.id,'_token': $('meta[name="csrf-token"]').attr('content')},
                    success: function(response){
-                        $( "input#image_"+response.id ).remove();
+                        $( "input#file_"+response.id ).remove();
                         file.previewElement.remove();
                    }                   
               });

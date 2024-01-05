@@ -106,7 +106,7 @@
                                     <a href="">Відгуки</a>
                                 </div>
                             </div>
-                        </div>
+                        </div> 
                         <div class="steps">
                         <form id="form_orders_add" action="{{ route('user.orders.add.submit') }}" method="post">
                             @csrf

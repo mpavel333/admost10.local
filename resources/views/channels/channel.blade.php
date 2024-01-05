@@ -26,19 +26,19 @@
                 <div class="panel-main channel-inner">
                     <div class="channel-info white-block">
                         <div class="photo">
-                            <img src="images/ch-photo-1.jpg" alt="photo">
+                            <img src="@if($channel->image)images\channels\{{$channel->image}}@else images\channels\no-image.png @endif" alt="photo">
                         </div>
                         <div class="info-summary">
                             <div class="is-top">
                                 <div class="name">
-                                    <p>Arestovich / Official 11</p>
+                                    <p>{{ $channel->name}}</p>
                                     <div class="icon">
                                         <img src="images/verified.svg" alt="verified">
                                     </div>
                                 </div>
                                 <div class="link">
-                                    <a class="cl-btn dark-bd-btn w-auto" href="#">
-                                        @O_Arestovich_official
+                                    <a class="cl-btn dark-bd-btn w-auto" href="https://t.me/{{ $channel->link }}" target="_blank">
+                                        {{ $channel->link }}
                                     </a>
                                 </div>
                             </div>
@@ -48,10 +48,7 @@
                                 <div class="row g-0">
                                     <div class="col-12 col-md-8">
                                         <div class="text">
-                                            <p>Офіційний канал Олексiя Арестовича</p>
-                                            <p>Засновника і викладача школи мислення @apeiron_school</p>
-                                            <p>Громадського діяча, політичного та воєнного оглядача.</p>
-                                            <p>Офіційні ресурси: https://lnk.bio/alexey.arestovich</p>
+                                            {{ $channel->description}}
                                         </div>
                                     </div>
                                     <div class="col-12 col-md-4">
@@ -95,18 +92,18 @@
                         <div class="links-wrapper">
                             <div class="links">
                                 <div class="link">
-                                    <a class="active" href="">Покупка реклами</a>
+                                    <a class="active" href="#">Покупка реклами</a>
                                 </div>
                                 <div class="link">
-                                    <a href="">Аналітика каналу</a>
+                                    <a href="#">Аналітика каналу</a>
                                 </div>
                                 <div class="link">
-                                    <a href="">Відгуки</a>
+                                    <a href="#">Відгуки</a>
                                 </div>
                             </div>
                         </div>
                         <div class="steps">
-                        <form id="form_orders_add" action="{{ route('user.in-orders.add.submit') }}" method="post">
+                        <form id="form_orders_add" action="{{ route('user.orders.add.submit') }}" method="post">
                             @csrf
                                 <div class="s-row">
                                     <div class="step-block">

@@ -9,7 +9,7 @@
     <div class="h-col for-tech-menu flex-grow-1">
         <div class="tech-menu tech-menu-move">
             <div class="link">
-                <a class="active" href="#">Відкладена публікація</a>
+                <a class="active" href="{{route('user.publications.add')}}">Відкладена публікація</a>
             </div>
             <div class="link">
                 <a href="{{route('channels')}}">Каталог каналів</a>

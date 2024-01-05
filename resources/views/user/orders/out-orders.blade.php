@@ -44,7 +44,7 @@
                 <div class="c-block cbl-1">
                     <div class="channel-order-info">
                         <div class="pic">
-                            <img src="images/ch1.jpg" alt="pic">
+                            <img src="@if($order->channel_image)images\channels\{{$order->channel_image}}@else images\channels\no-image.png @endif" alt="pic">
                             <div class="notification-count gray">3</div>
                         </div>
                         <div class="main-info">
@@ -119,7 +119,7 @@
                         </div>
                         <div class="c-block cbl-4">
                             <div class="preview-pic-btn" data-bs-toggle="modal" data-bs-target="#preview-modal-{{$order->id}}">
-                                <img src="{{$order->images[0]->path}}/{{$order->images[0]->filename}}" alt="preview">
+                                <img src="@if($order->images[0]->filename){{$order->images[0]->path}}/{{$order->images[0]->filename}}@else images\channels\no-image.png @endif" alt="preview">
                                 <div class="icon preview-icon fill-inherit">
                                     <?php include 'images/eye.svg'; ?>
                                 </div>
@@ -169,7 +169,7 @@
                 <div class="modal-blocks min-offset">
                     <div class="modal-block">
                         <div class="pic">
-                            <img src="{{$order->images[0]->path}}/{{$order->images[0]->filename}}" alt="preview">
+                            <img src="@if($order->images[0]->filename){{$order->images[0]->path}}/{{$order->images[0]->filename}}@else images\channels\no-image.png @endif" alt="preview">
                         </div>
                     </div>
                     <div class="modal-block">
@@ -202,18 +202,18 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 <div class="chat-inner">
                     <div class="chat-head">
-                        <div class="title">Попередій перегляд посту</div>
+                        <div class="title">Онлайн чат с владельцем канала</div>
                     </div>
                     <div class="chat-order-info">
                         <div class="c-block cbl-1">
                             <div class="channel-order-info">
                                 <div class="pic">
-                                    <img src="images/ch1.jpg" alt="pic">
+                                    <img src="@if($order->channel_image)images\channels\{{$order->channel_image}}@else images\channels\no-image.png @endif" alt="pic">
                                 </div>
                                 <div class="main-info">
                                     <div class="name-row">
                                         <div class="name">
-                                            Arestovich / Official
+                                            {{ $order->channel_name }}
                                         </div>
                                         <div class="icon">
                                             <img src="images/verified.svg" alt="verified">

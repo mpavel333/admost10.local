@@ -102,63 +102,44 @@ class TelegramController extends Controller
 
     }
 
-/*
-    public function check_auth(Request $request)
-    {
 
-            $result = '';
-    
-            $getData = file_get_contents('https://api.telegram.org/bot'.self::TELEGRAM_TOKEN.'/getUpdates');
-            
-            if(isset($getData)){
-                
-                $Data = json_decode($getData);
-                
-                if($Data->ok){
+    public static function getUpdates()
+    {     
 
-                    foreach($Data->result as $key=>$value){
-                        if(isset($value->message)){
-                            foreach($value->message as $key2=>$value2){
-                                if($key2=='text' && $value2=='/start '.$_POST['key']){
-                                    //echo 'ok';
+                   
+        $result = self::post([],'getUpdates');
+        
+        print_r($result);
+ 
+        //return $result;    
+            
+    
+    }
 
-                                    $checkUser = DB::table('users')
-                                    ->where('telegram_id', $Data->result[$key]->message->from->id)
-                                    //->where('catalog_id', $column[0])
-                                    ->first(); 
-                                    
-                                    if($checkUser){
-                                        Auth::loginUsingId($checkUser->id);
-                                    }else{
-                                        $id = DB::table('users')->insertGetId([
-                                            'telegram_id'=>$Data->result[$key]->message->from->id,
-                                            'name'=>$Data->result[$key]->message->from->first_name,
-                                            'password'=>Hash::make(10),
-                                            'email'=>Str::random(10).'@t.me'
-                                        ]);
-                                        Auth::loginUsingId($id);
-                                    }        
-                                    
-                                     $result = 'ok';
-                                 
-                                }
-                            }
-                        }
-                    }
-                    
-                }
-                
-            }
+    public static function getChannelInfo($chat_id)
+    {     
+
+        $params = [
+            'chat_id' => $chat_id
+        ];                   
+                   
+                   
+
+        $result = self::post($params,'getChat');
+        
+        //print_r($result);
+ 
+        return $result;    
             
-            
-            echo json_encode([
-                'result'=>$result, 
-                //'data'=>'test'
-            ]);
     
-    }  
-    
-*/    
+    }
+
+
+
+//getFile?file_id=the_file_id
+
+
+
     
     public static function autoposting()
     {
@@ -199,7 +180,175 @@ class TelegramController extends Controller
     
     }
     
-    public static function post($params)
+ 
+    public static function test_post()
+    {
+         //2023-07-25 19:23:00
+         $published= date('Y-m-d H:i').':00';
+         //echo $published;
+         
+         $orders = DB::table('orders')
+             ->join('channels', 'orders.channel_id', '=', 'channels.id')
+             ->where(['orders.status' => 1])
+             ->select('orders.*','channels.link as channel_link')
+         ->get();       
+         
+         //print_r($orders);
+         
+         //die;
+        
+        if($orders){
+            
+            foreach($orders as $key=>$order){
+                
+               $text = $order->message.'<a href="'.$order->link.'">'.$order->link.'</a>'; 
+                
+
+    $inline_button1 = array("text"=>"Google url","url"=>"http://google.com");
+    $inline_button2 = array("text"=>"work plz","callback_data"=>'/plz');
+    $inline_button3 = array("text"=>"1","callback_data"=>'/plz');
+    $inline_button4 = array("text"=>"2","callback_data"=>'/plz');
+    $inline_button5 = array("text"=>"3","callback_data"=>'/plz');
+    $inline_button6 = array("text"=>"4","callback_data"=>'/plz');
+    $inline_keyboard = [[$inline_button1,$inline_button2,$inline_button3,$inline_button4,$inline_button5,$inline_button6]];
+    $keyboard=array("inline_keyboard"=>$inline_keyboard);
+    $replyMarkup = json_encode($keyboard);
+
+
+/*
+               $params = array(
+                    //'chat_id' => '@1001823070497', // id получателя
+                    'chat_id' => '@'.$order->channel_link,
+                    'text' => $text, // текст сообщения
+                    //'parse_mode' => 'HTML', // режим отображения сообщения HTML (не все HTML теги работают)
+                    "reply_markup"=>$replyMarkup,
+               );
+                    
+               
+                $result = self::post($params,'sendMessage');
+               
+              print_r($result); 
+               
+*/               //if($result->ok==1){
+                   //echo $result->result->message_id; 
+                   
+                   //http://admost10.local/uploads/2023/07/25/8ce370a7a741e653db89_25_07_2023.jpg
+
+
+//////// фото
+
+                   $params = array(
+                        //'chat_id' => '@1001823070497', // id получателя
+                        'chat_id' => '@'.$order->channel_link,
+                        //'message_thread_id' => $result->result->message_thread_id, // текст сообщения
+                        'photo' => 'https://www.ixbt.com/img/n1/news/2022/3/1/62342d1404eb2_large.jpg', // режим отображения сообщения HTML (не все HTML теги работают)
+                        'caption'=> $text,
+                        'parse_mode' => 'HTML',
+                        
+                        "reply_markup"=>$replyMarkup,
+                   );
+                   
+                   //print_r($params);
+                        
+                   //$result = self::post($params,'sendPhoto');
+                   
+                   //print_r($result);
+                   
+                   
+                   
+                   
+
+//////// группа файлов
+                   
+//https://habr.com/ru/articles/697010/               
+                   
+$params = [
+    'chat_id' => '@'.$order->channel_link,
+    'media' => json_encode([
+	    ['type' => 'photo', 'media' => 'attach://cat.jpg', 'caption'=>$text, 'parse_mode' => 'HTML'],
+	    ['type' => 'photo', 'media' => 'attach://cat_2.jpg'],
+	    ['type' => 'photo', 'media' => 'attach://cat_3.jpg'],
+    ]),
+    'cat.jpg' => curl_file_create('https://www.ixbt.com/img/n1/news/2022/3/1/62342d1404eb2_large.jpg'),
+    'cat_2.jpg' => curl_file_create('https://img.freepik.com/free-photo/mountains-lake_1398-1150.jpg'),
+    'cat_3.jpg' => curl_file_create('https://img.freepik.com/free-photo/field-at-sunset_1204-65.jpg'),
+];                   
+                   
+                   
+                   //print_r($params);
+                        
+                   //$result = self::post($params,'sendMediaGroup');
+                   
+                   
+
+
+//$result = self::post($params,'sendMediaGroup');
+
+//print_r($result);
+                   
+                  
+$ch = curl_init('https://api.telegram.org/bot'. env('TELEGRAM_TOKEN') .'/sendMediaGroup');
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HEADER, false);
+$res = curl_exec($ch);
+curl_close($ch);
+
+echo $res;                   
+                  
+/////////////////                 
+                   
+                   
+                   
+                    
+               //} 
+                
+                
+            }
+            
+            
+        }
+    
+    }   
+    
+    
+/*   
+
+    public static function test_post()
+    {
+        
+
+       $params = array(
+            //'chat_id' => '@1001823070497', // id получателя
+            'chat_id' => '@proitteh',
+            'text' => 1111111, // текст сообщения
+            'parse_mode' => 'HTML', // режим отображения сообщения HTML (не все HTML теги работают)
+       );
+                       
+        $sendMessage = self::post($params,'sendMessage');
+        
+
+       //print_r($sendMessage); die;
+       
+       $params = array(
+            //'chat_id' => '@1001823070497', // id получателя
+            'chat_id' => '@proitteh',
+            'message_thread_id' => $sendMessage->result->message_id, // текст сообщения
+            'photo' => '/uploads/2023/07/07/04ea858c54cfc661475a_07_07_2023.jpg'
+            //'parse_mode' => 'HTML', // режим отображения сообщения HTML (не все HTML теги работают)
+       );
+        
+        
+        $sendPhoto = self::post($params,'sendPhoto');
+        
+        print_r($sendPhoto);
+        
+    }
+*/
+
+    
+    public static function post($params,$method)
     {
 
     
@@ -223,7 +372,7 @@ class TelegramController extends Controller
     //$post = 'chat_id=@proitteh&message=ddddddddd&parse_mode=markdown';
       
     $curl = curl_init();
-    curl_setopt($curl, CURLOPT_URL, 'https://api.telegram.org/bot'.self::TELEGRAM_TOKEN.'/sendMessage'); // адрес вызова api функции телеграм
+    curl_setopt($curl, CURLOPT_URL, 'https://api.telegram.org/bot'.env('TELEGRAM_TOKEN').'/'.$method); // адрес вызова api функции телеграм
 
     curl_setopt($curl, CURLOPT_HTTPHEADER, [
         'Content-Type: application/json'
@@ -237,10 +386,10 @@ class TelegramController extends Controller
     $result = curl_exec($curl); // запрос к api
     curl_close($curl);
       
-    var_dump(json_decode($result));
+    //var_dump(json_decode($result));
 
 
-
+        return json_decode($result);
 
 
     }
@@ -332,7 +481,7 @@ class TelegramController extends Controller
     
     
  
-    public static function getChatMessages($order_id,$user_id,$hash,$view=0,)
+    public static function getChatMessages($order_id,$user_id,$hash,$view=0)
     {
 /*
         echo $order_id;
