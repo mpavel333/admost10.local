@@ -28,8 +28,9 @@
         </div>
     </div>
     <div class="h-col h-settings">
-        <a class="balance balance-move cl-btn blue-l-btn cl-dark">
-            <p class="flex-grow-1">Баланс: <span class="fw-bold">10 233 грн</span></p>
+   
+        <a href="{{route('user.balance.index')}}" class="balance balance-move cl-btn blue-l-btn cl-dark">
+            <p class="flex-grow-1">Баланс: <span class="fw-bold">{{Auth::user()->balance}} грн</span></p>
             <div class="icon ms-2">
                 
                 <?php include 'lc-styles/images/plus.svg'; 

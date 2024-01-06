@@ -25,7 +25,9 @@
                 <div class="panel-main channel-new white-block">
                     <h1 class="title gap-title d-flex align-items-center">
                         <div class="icon lh-0 me-3">
-                            <img src="images/arr.svg" alt="icon">
+                            <a href="{{ route('user.channels') }}">
+                                <img src="images/arr.svg" alt="icon">
+                            </a>
                         </div>
                         <p>Редактировать канал</p>
                     </h1>
@@ -44,11 +46,16 @@
                                     <div class="text-block">
                                         <div class="tit">Тематика каналу</div>
                                         <div class="inputblock">
-                                            <select name="category" class="form-select">
-                                                <option value="">Категорія 1</option>
-                                                <option value="">Категорія 2</option>
-                                                <option value="">Категорія 3</option>
+                                            <select id="category_id" name="category_id" class="form-select">
+                                                
+                                                @foreach ($categories as $category)
+                                                
+                                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                                    
+                                                @endforeach
+
                                             </select>
+                                            <script type="text/javascript">document.getElementById("category_id").value = '{{$channel->category_id}}';</script>
                                             <p class="info">Можна обрати до 3х категорій</p>
                                         </div>
                                     </div>
@@ -57,27 +64,23 @@
                                     <div class="tit">Формати розміщення</div>
                                     <div class="fields-block">
                                         <div class="all-formats">
-                                            <div class="inputblock format-block clone-block filled removable" data-currency="грн">
-                                                <div class="check"></div>
-                                                <div class="delete-icon-main"></div>
-                                                <input class="format-input clone-input" name="format" value="1/24" placeholder="Свій формат" type="text">
-                                                <div class="divider"></div>
-                                                <input class="price-input clone-input" name="price" value="3000 грн" placeholder="Вкажіть ціну" type="text">
-                                            </div>
-                                            <div class="inputblock format-block clone-block removable" data-currency="грн">
-                                                <div class="check"></div>
-                                                <div class="delete-icon-main"></div>
-                                                <input class="format-input clone-input" name="format" placeholder="Свій формат" type="text">
-                                                <div class="divider"></div>
-                                                <input class="price-input clone-input" name="price" placeholder="Вкажіть ціну" type="text">
-                                            </div>
-                                            <div class="inputblock format-block clone-block removable" data-currency="грн">
-                                                <div class="check"></div>
-                                                <div class="delete-icon-main"></div>
-                                                <input class="format-input clone-input" name="format" placeholder="Свій формат" type="text">
-                                                <div class="divider"></div>
-                                                <input class="price-input clone-input" name="price" placeholder="Вкажіть ціну" type="text">
-                                            </div>
+                                            
+                                                @foreach ($tariffs as $tariff)
+                                                
+                                                <div class="inputblock format-block clone-block filled removable" data-currency="грн">
+                                                    <div class="check"></div>
+                                                    <div class="delete-icon-main" data-id="{{$tariff->id}}"></div>
+                                                    <input class="format-input clone-input" name="format[{{$tariff->id}}]" value="{{$tariff->format}}" placeholder="Свій формат" type="text">
+                                                    <div class="divider"></div>
+                                                    <input class="price-input clone-input" name="price[{{$tariff->id}}]" value="{{$tariff->price}}" placeholder="Вкажіть ціну" type="text" onkeypress='validate(event)'>
+                                                </div>
+                                                    
+                                                @endforeach                                            
+                                            
+
+                                        </div>
+                                        <div class="del-formats">
+                                            
                                         </div>
                                         <div class="for-btn">
                                             <a class="cl-btn w-100 new-clone-btn" href="#" data-wrapper=".all-formats" data-template=".format-template">
@@ -123,6 +126,19 @@
             </div>
         </div>
     </div>
+
+
+    <!-- Format template -->
+    <template class="format-template">
+        <div class="inputblock clone-block format-block removable" data-currency="грн">
+            <div class="check"></div>
+            <div class="delete-icon-main"></div>
+            <input class="clone-input format-input" name="format_new[]" placeholder="Свій формат" type="text">
+            <div class="divider"></div>
+            <input class="clone-input price-input" name="price_new[]" placeholder="Вкажіть ціну" type="text" onkeypress='validate(event)'>
+        </div>
+    </template>
+
 
     <!-- all plugins -->
     @include('user.inc.scripts')

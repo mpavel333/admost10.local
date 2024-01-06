@@ -110,6 +110,24 @@
                                         <div class="s-tit">Крок 1</div>
                                         <div class="tit">Оберіть тариф</div>
                                         <div class="radioboxes">
+                                            
+                                            @foreach ($tariffs as $tariff)
+                                            
+                                            <div class="radiobox">
+                                                <input class="nulled" type="radio" name="tariff_id" id="tr-{{$tariff->id}}" value="{{$tariff->id}}">
+                                                <label for="tr-{{$tariff->id}}">
+                                                    <p>{{$tariff->format}}</p>
+                                                    <div class="price">
+                                                        <span>{{$tariff->price}}</span> грн
+                                                    </div>
+                                                </label>
+                                            </div>                                            
+                                            
+                                            
+                                            @endforeach 
+                                            
+                                            
+                                            {{--
                                             <div class="radiobox">
                                                 <input class="nulled" type="radio" name="tariff" id="tr-1" checked>
                                                 <label for="tr-1">
@@ -137,6 +155,9 @@
                                                     </div>
                                                 </label>
                                             </div>
+                                            
+                                            --}}
+                                            
                                         </div>
                                         <div class="info">Вище відображаються тарифи, які пропонує адміністратор цього каналу. Оберіть підходящий та переходьте до наступного кроку</div>
                                     </div>

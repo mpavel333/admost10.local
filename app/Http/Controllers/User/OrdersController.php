@@ -22,13 +22,15 @@ class OrdersController extends Controller
         return view('user.orders.in-orders',['orders'=>$orders]);      
     } 
 
-    public function in_submit(Request $request)
+    public function submit(Request $request)
     {
         $user = Auth::user();
 
         $Order = new Orders;
         $Order->user_id = $user->id;
         $Order->channel_id = $request->input('channel_id');
+
+        $Order->tariff_id = $request->input('tariff_id');
         
         $Order->name = $request->input('name');
         $Order->link = $request->input('link');

@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('tariffs', function (Blueprint $table) {
                 $table->bigIncrements('id');
-                $table->string('name')->nullable();
-                $table->text('description')->nullable();
+                $table->integer('channel_id')->unsigned();
+                $table->string('format')->nullable();
                 $table->integer('price')->nullable()->unsigned();
+                $table->text('description')->nullable();
         });
     }
 

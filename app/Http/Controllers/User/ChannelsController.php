@@ -34,8 +34,10 @@ class ChannelsController extends Controller
     {
         $user = Auth::user();
         $channel = DB::table('channels')->where('id', $id)->where('user_id', $user->id)->first();        
+        $categories = DB::table('categories')->where('published', 1)->get(); 
+        $tariffs = DB::table('tariffs')->where('channel_id', $id)->get(); 
         
-        return view('user.channels.edit',['channel'=>$channel]);      
+        return view('user.channels.edit',['channel'=>$channel,'categories'=>$categories,'tariffs'=>$tariffs]);      
     }     
     
     
@@ -47,17 +49,76 @@ class ChannelsController extends Controller
         
         
         $check = DB::table('channels')
+            ->where('id', $id)
             ->where('user_id', $user->id)
-            ->where('link', $request->input('link'))
+            //->where('link', $request->input('link'))
             ->first();
 
         if($check){
-        
+
+
+///////////// DELETE
+
+            $formats_del = $request->input('format_del');
+            if($formats_del){
+                //print_r($formats_del); 
+                //echo implode(',',$formats_del);
+                //die;
+                DB::table('tariffs')->where('channel_id', $check->id)->whereIn('id', $formats_del)->delete(); 
+            }
+                        
+//////////////// UPDATE            
+
             DB::table('channels')->where('id', $check->id)->update([
-                //'link'=>$request->input('link'),
+                'category_id'=>$request->input('category_id'),
                 'description'=>$request->input('description'),
                 'status'=>0
             ]);
+
+            $formats = $request->input('format');
+            $prices = $request->input('price');
+
+            if($formats){
+                foreach($formats as $key=>$format){            
+                
+                    $price = $prices[$key];
+                    
+                    if($format && is_numeric($price)){
+                        
+                        DB::table('tariffs')->where('id', $key)->where('channel_id', $check->id)->update([
+                            'format'=>$format,
+                            'price'=>$price
+                        ]); 
+                        
+                    }
+                
+                }            
+            }               
+            
+///////////// ADD NEW
+
+            $formats_new = $request->input('format_new');
+            $prices_new = $request->input('price_new');
+        
+            if($formats_new){
+                foreach($formats_new as $key=>$format){            
+                
+                    $price = $prices_new[$key];
+                    
+                    if($format && is_numeric($price)){
+                        DB::table('tariffs')->insertGetId([
+                            'channel_id'=>$id,
+                            'format'=>$format,
+                            'price'=>$price
+                        ]); 
+                    }
+                
+                }            
+            }
+                        
+////////////////
+
+            
             
             $with=['success'=>'Канал обновлен и ожидает подтверждения администратором'];
         
@@ -80,7 +141,9 @@ class ChannelsController extends Controller
     
     public function add()
     {
-        return view('user.channels.add');      
+        
+        $categories = DB::table('categories')->where('published', 1)->get();  
+        return view('user.channels.add',['categories'=>$categories]);      
     }       
 
 
@@ -96,13 +159,49 @@ class ChannelsController extends Controller
 
         if(!$check){
         
-            DB::table('channels')->insert([
+            
+            //print_r($format);
+            //print_r($price);
+            
+            
+            //die;
+        
+            $id =  DB::table('channels')->insertGetId([
                 'user_id'=>$user->id,
+                'category_id'=>$request->input('category_id'),
                 'link'=>$request->input('link'),
                 'description'=>$request->input('description')
             ]); 
             
+
+            $formats = $request->input('format');
+            $prices = $request->input('price');
+        
+            if($formats){
+                foreach($formats as $key=>$format){            
+                
+                    $price = $prices[$key];
+                    
+                    if($format && is_numeric($price)){
+                        DB::table('tariffs')->insertGetId([
+                            'channel_id'=>$id,
+                            'format'=>$format,
+                            'price'=>$price
+                        ]); 
+                    }
+                
+                }            
+            }
+            
+            
+            
+            
             $with=['success'=>'Канал добавлен'];
+            
+            
+            
+            
+            
         
         }else{
             

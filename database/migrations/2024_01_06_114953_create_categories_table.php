@@ -11,17 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tg_channels', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
                 $table->bigIncrements('id');
-                $table->integer('user_id')->nullable()->unsigned();
-                $table->integer('category_id')->nullable()->unsigned();
-                $table->string('link')->nullable();
+                //$table->integer('user_id')->nullable()->unsigned();
+                //$table->string('link')->nullable();
                 $table->string('name')->nullable();
                 $table->text('description')->nullable();
-                $table->integer('tg_status')->default(0)->unsigned();
-                $table->integer('status')->default(0)->unsigned();
-                $table->longText('full_info')->nullable();
+                $table->string('image')->nullable();
+                //$table->integer('tg_status')->default(0)->unsigned();
+                $table->integer('published')->default(0)->unsigned();
                 $table->timestamps();
+            
         });
     }
 
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('channels');
+        Schema::dropIfExists('categories');
     }
 };

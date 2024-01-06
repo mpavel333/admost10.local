@@ -18,8 +18,9 @@ class ChannelsController extends Controller
     {
 
         $channel = DB::table('channels')->where('id', $id)->where('tg_status', 1)->where('status', 1)->first();        
+        $tariffs = DB::table('tariffs')->where('channel_id', $id)->get();         
         
-        return view('channels.channel',['channel'=>$channel]);      
+        return view('channels.channel',['channel'=>$channel,'tariffs'=>$tariffs]);      
     }  
     
     

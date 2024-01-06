@@ -65,11 +65,11 @@
                 <div class="c-block cbl-2">
                     <div class="number-block">
                         <p>Формат</p>
-                        <div class="number">1/24</div>
+                        <div class="number">{{ $order->tariff_format }}</div>
                     </div>
                     <div class="number-block">
                         <p>Ціна</p>
-                        <div class="number price">3 000<span class="currency">грн</span></div>
+                        <div class="number price">{{ $order->tariff_price }}<span class="currency">грн</span></div>
                     </div>
                 </div>
                 <div class="c-block cbl-3">

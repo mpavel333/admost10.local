@@ -24,7 +24,7 @@ return new class extends Migration
                 $table->string('image')->nullable();
                 $table->text('message')->nullable();
                 
-                $table->integer('tariff')->nullable(); //->comment('Формат 1/24');
+                $table->integer('tariff_id')->nullable(); //->comment('Формат 1/24');
                 //$table->integer('price')->nullable()->unsigned();
                 $table->integer('status')->default(0)->unsigned();
                 $table->dateTime('published', $precision = 0);

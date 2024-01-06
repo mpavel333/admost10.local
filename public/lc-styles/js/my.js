@@ -270,11 +270,14 @@ $(document).on('shown.bs.modal', '#photo-video-modal', function () {
     if (!mediaDropzoneExist) mediaDropzone();
 });
 
-document.getElementById('form_media_dropzone').addEventListener('submit', function(e){
-    e.preventDefault();
-    //mediaDropzoneExist.options.headers={'X-CSRF-TOKEN': this.elements._token.value };
-    mediaDropzoneExist.processQueue();
-});
+
+if(document.getElementById('form_media_dropzone')){
+    document.getElementById('form_media_dropzone').addEventListener('submit', function(e){
+        e.preventDefault();
+        //mediaDropzoneExist.options.headers={'X-CSRF-TOKEN': this.elements._token.value };
+        mediaDropzoneExist.processQueue();
+    });
+}
 
 // file modal
 $(document).on('shown.bs.modal', '#file-modal', function () {
@@ -445,4 +448,22 @@ function onYouTubeIframeAPIReady() {
 
         $(this).html('<div class="ratio ratio-16x9"><div class="embed-responsive-item" id="' + videoBlockId + '"></div><div class="cl9-toggle-play" style="background-image: url(' + bgImageUrl + ')"><div class="play-icn"><svg width="148" height="149" viewBox="0 0 148 149" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="73.9999" cy="74.6429" r="73.7143" fill="#3162E8"/><path d="M90.8929 71.9829C92.9405 73.1651 92.9405 76.1206 90.8929 77.3028L67.8571 90.6025C65.8095 91.7846 63.25 90.3069 63.25 87.9425L63.25 61.3432C63.25 58.9788 65.8095 57.501 67.8571 58.6832L90.8929 71.9829Z" fill="white"/></svg></div></div></div>');
     });
+}
+
+function validate(evt) {
+  var theEvent = evt || window.event;
+
+  // Handle paste
+  if (theEvent.type === 'paste') {
+      key = event.clipboardData.getData('text/plain');
+  } else {
+  // Handle key press
+      var key = theEvent.keyCode || theEvent.which;
+      key = String.fromCharCode(key);
+  }
+  var regex = /[0-9]|\./;
+  if( !regex.test(key) ) {
+    theEvent.returnValue = false;
+    if(theEvent.preventDefault) theEvent.preventDefault();
+  }
 }

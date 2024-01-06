@@ -12,6 +12,9 @@ use App\Http\Controllers\Admin\TariffsController as AdminTariffsController;
 use App\Http\Controllers\User\ChannelsController as UserChannelsController;
 use App\Http\Controllers\User\OrdersController as UserOrdersController;
 use App\Http\Controllers\User\PublicationsController as UserPublicationsController;
+use App\Http\Controllers\User\BalanceController as UserBalanceController;
+
+
 
 ////////
 use App\Http\Controllers\TelegramController;
@@ -40,6 +43,14 @@ Route::group(['prefix'=>'user','middleware' => 'user'], function () {
   //  })->name('user.index');    
     
     Route::get('/', [UserChannelsController::class, 'channels'])->name('user.index');
+
+
+
+    Route::get('/balance', [UserBalanceController::class, 'index'])->name('user.balance.index');  
+    Route::post('/balance/add', [UserBalanceController::class, 'submit'])->name('user.balance.add.submit');  
+    //Route::post('/publication', [UserPublicationsController::class, 'submit'])->name('user.publications.submit');  
+
+
     
     
     Route::get('/publication', [UserPublicationsController::class, 'add'])->name('user.publications.add');  
@@ -66,7 +77,7 @@ Route::group(['prefix'=>'user','middleware' => 'user'], function () {
 
 
     Route::get('/in-orders', [UserOrdersController::class, 'in_orders'])->name('user.in-orders');
-    Route::post('/orders/add', [UserOrdersController::class, 'in_submit'])->name('user.orders.add.submit');
+    Route::post('/orders/add', [UserOrdersController::class, 'submit'])->name('user.orders.add.submit');
     Route::get('/out-orders', [UserOrdersController::class, 'out_orders'])->name('user.out-orders');
 
     Route::get('/orders/{id}/{hash}/confirm', [UserOrdersController::class, 'confirm'])->name('user.orders.confirm');

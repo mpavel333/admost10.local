@@ -25,6 +25,7 @@ btn.forEach(function (el) {
             const removeBtn = templateClone.querySelector('.delete-icon-main');
             const cloneInputs = cloneBlock.querySelectorAll('.clone-input');
 
+/*
             // getting input name and add number
             cloneInputs.forEach(function (input) {
                 const currentName = input.getAttribute('name');
@@ -56,7 +57,7 @@ btn.forEach(function (el) {
 
                 input.setAttribute('name', inputNameNew);
             });
-
+*/
 
             // remove created buttons
             deleteBlock(removeBtn);
@@ -100,6 +101,15 @@ function deleteBlock(btn) {
     if (btn) {
         btn.addEventListener('click', (e) => {
             e.target.parentElement.remove();
+            
+            let input = document.createElement("input");
+            input.name="format_del[]";
+            input.type="hidden";
+            input.value=btn.dataset.id;
+            
+            
+            document.querySelector('.del-formats').append(input);
+            
         });
     }
 }
