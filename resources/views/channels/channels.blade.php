@@ -28,23 +28,9 @@
                 <div class="panel-main channels-content white-block">
                     <h1 class="title gap-title">Каталог каналов</h1>
 
-
+                    @include('inc.alerts')
                     
-            @if (\Session::has('success'))
-                <div class="alert alert-success">
-                    <ul>
-                        <li>{!! \Session::get('success') !!}</li>
-                    </ul>
-                </div>
-            @endif                    
-                    
-            @if (\Session::has('error'))
-                <div class="alert alert-error">
-                    <ul>
-                        <li>{!! \Session::get('error') !!}</li>
-                    </ul>
-                </div>
-            @endif                    
+                                      
                     <div class="channels">
                         
 

@@ -2,19 +2,19 @@
 
 <head>
 
-    @include('user.inc.head')
+    @include('inc.head')
 
 </head>
 
 <body class="control-panel transition-off">
     <div class="wrapper">
         
-        @include('user.inc.mobile-menu')
+        @include('inc.mobile-menu')
         <?php /*MOBILE MENU*/ //include 'mobile-menu.php'; ?>
 
         <div class="panel-inner">
             
-            @include('user.inc.panel-header')
+            @include('inc.panel-header')
             <?php /*PANEL HEADER*/ //include 'panel-header.php'; ?>
 
 
@@ -22,7 +22,7 @@
 
             <div class="panel-body d-block d-xl-flex">
                 
-                @include('user.inc.main-menu')
+                @include('inc.main-menu')
                 <?php /*MAIN MENU*/ //include 'main-menu.php'; ?>
 
                 <div class="panel-main channels-content white-block">
@@ -67,14 +67,14 @@
                                     <img src="@if($channel->image)images\channels\{{$channel->image}}@else images\channels\no-image.png @endif" alt="plus">
                                 </div>
                                 
-                                @if($channel->tg_status)
+                                @if($channel->tg_status==1)
                                     <p class="green" title="Подтвержден телеграмом"><?php echo $channel->link ?></p>
                                 @else
                                     <p title="Не подтвержден телеграмом"><?php echo $channel->link ?></p>
                                 @endif
                                 
                                 
-                                @if($channel->status)
+                                @if($channel->status==1)
                                     <p class="confirmed" title="Подтвержден администратором"></p>
                                 @endif
                                 
@@ -117,8 +117,10 @@
     </div>
 
     <!-- all plugins -->
-    @include('user.inc.scripts')
-    <?php //include 'scripts.php'; ?>
+        @include('inc.scripts')
+    <?php 
+    //@include('user.inc.scripts')
+    //include 'scripts.php'; ?>
 
 </body>
 

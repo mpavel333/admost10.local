@@ -2,24 +2,26 @@
 
 <head>
 
-    @include('user.inc.head')
+    @include('inc.head')
+    
+    
 
 </head>
 
 <body class="control-panel transition-off">
     <div class="wrapper">
         
-        @include('user.inc.mobile-menu')
+        @include('inc.mobile-menu')
         <?php /*MOBILE MENU*/ //include 'mobile-menu.php'; ?>
 
         <div class="panel-inner">
             
-            @include('user.inc.panel-header')
+            @include('inc.panel-header')
             <?php /*PANEL HEADER*/ //include 'panel-header.php'; ?>
 
             <div class="panel-body d-block d-xl-flex">
                 
-                @include('user.inc.main-menu')
+                @include('inc.main-menu')
                 <?php /*MAIN MENU*/ //include 'main-menu.php'; ?>
 
                 <div class="panel-main channel-new white-block">
@@ -31,6 +33,10 @@
                         </div>
                         <p>Додати канал</p>
                     </h1>
+                    
+                    @include('inc.alerts')
+                    
+                    
                     <div class="channel-fields">
                         <form action="{{ route('user.channels.add.submit') }}" method="post">
                             @csrf
@@ -39,14 +45,14 @@
                                     <div class="text-block">
                                         <div class="tit">Посилання на канал</div>
                                         <div class="inputblock">
-                                            <input name="link" type="text" placeholder="https://t.me/yourchanell" class="form-control" required>
+                                            <input name="link" type="text" placeholder="https://t.me/yourchanell" value="{{ old('link') }}" class="form-control" required>
                                             <p class="info">Вкажіть посилання на Ваш канал, бажане публічне посилання на канал</p>
                                         </div>
                                     </div>
                                     <div class="text-block">
                                         <div class="tit">Тематика каналу</div>
                                         <div class="inputblock">
-                                            <select name="category_id" class="form-select">
+                                            <select id="category_id" name="category_id" class="form-select">
                                                 
                                                 @foreach ($categories as $category)
                                                 
@@ -55,6 +61,9 @@
                                                 @endforeach
 
                                             </select>
+                                            @if(old('category_id'))
+                                            <script type="text/javascript">document.getElementById("category_id").value = '{{old("category_id")}}';</script>
+                                            @endif
                                             <p class="info">Можна обрати до 3х категорій</p>
                                         </div>
                                     </div>
@@ -63,6 +72,30 @@
                                     <div class="tit">Формати розміщення</div>
                                     <div class="fields-block">
                                         <div class="all-formats">
+                                            
+                                            
+                                            <?php
+                                            
+                                            $format_old = old('format');
+                                            $price_old = old('price');
+                                            //print_r($formats);
+                                            
+                                            if($format_old && $price_old){
+                                            foreach($format_old as $key=>$value){ ?>
+                                            
+                                            <div class="inputblock format-block clone-block filled removable" data-currency="грн">
+                                                <div class="check"></div>
+                                                <div class="delete-icon-main"></div>
+                                                <input class="format-input clone-input" name="format[]" value="{{ $value }}" placeholder="Свій формат" type="text">
+                                                <div class="divider"></div>
+                                                <input class="price-input clone-input" name="price[]" value="{{ $price_old[$key] }}" placeholder="Вкажіть ціну" type="text" onkeypress='validate(event)'>
+                                            </div>
+                                            
+                                            <?php 
+                                                } 
+                                            }else{
+                                            ?>
+                                            
                                             <div class="inputblock format-block clone-block filled removable" data-currency="грн">
                                                 <div class="check"></div>
                                                 <div class="delete-icon-main"></div>
@@ -84,6 +117,9 @@
                                                 <div class="divider"></div>
                                                 <input class="price-input clone-input" name="price[]" placeholder="Вкажіть ціну" type="text" onkeypress='validate(event)'>
                                             </div>
+                                            
+                                            <?php } ?>
+                                            
                                         </div>
                                         <div class="for-btn">
                                             <a class="cl-btn w-100 new-clone-btn" href="#" data-wrapper=".all-formats" data-template=".format-template">
@@ -100,7 +136,7 @@
                                 <div class="info-column description">
                                     <div class="tit">Джерело підписників</div>
                                     <div class="inputblock">
-                                        <textarea class="form-control" name="description" placeholder="Опис"></textarea>
+                                        <textarea class="form-control" name="description" placeholder="Опис">{{ old('description') }}</textarea>
                                     </div>
                                     <p class="info" id="description">Детально вкажіть методи просування каналу і тд</p>
                                 </div>
@@ -138,7 +174,7 @@
     </template>
 
     <!-- all plugins -->
-    @include('user.inc.scripts')
+    @include('inc.scripts')
     <?php //include 'scripts.php'; ?>
 
 </body>

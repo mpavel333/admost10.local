@@ -37,7 +37,7 @@
                                     </div>
                                 </div>
                                 <div class="link">
-                                    <a class="cl-btn dark-bd-btn w-auto" href="https://t.me/{{ $channel->link }}" target="_blank">
+                                    <a class="cl-btn dark-bd-btn w-auto" href="{{ $channel->link }}" target="_blank">
                                         {{ $channel->link }}
                                     </a>
                                 </div>
@@ -103,7 +103,17 @@
                             </div>
                         </div>
                         <div class="steps">
-                        <form id="form_orders_add" action="{{ route('user.orders.add.submit') }}" method="post">
+                        
+                        @if(Auth::guest())
+                            <br />
+                            <p>Для покупки рекламы необходима <a href="{{route('login')}}">авторизация</a></p>
+                        
+                        @endif
+                        
+                        
+                        @if(Auth::user())
+                        
+                        <form id="form_orders" action="{{ route('user.orders.add.submit') }}" method="post">
                             @csrf
                                 <div class="s-row">
                                     <div class="step-block">
@@ -277,9 +287,14 @@
                             
                                 <input type="hidden" name="channel_id" value="{{ $channel->id }}"/>
                                 
-                                <div id="orders_images"></div>                                
+                                <div id="files"></div>                               
                                 
                             </form>
+                            
+                            
+                            @endif
+                            
+                            
                         </div>
                     </div>
                 </div>               

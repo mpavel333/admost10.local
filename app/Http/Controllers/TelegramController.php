@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Console\Command;
 use Workerman\Worker;
 
+use Illuminate\Support\Facades\Cookie;
+
 use DB;
 
 
@@ -31,6 +33,20 @@ class TelegramController extends Controller
         return view('auth.login_tg',['random'=>$random]);      
       
     }   
+
+
+
+    public static function getTelegramUserData() {
+      if (isset($_COOKIE['tg_user'])) {
+        $auth_data_json = urldecode($_COOKIE['tg_user']);
+        $auth_data = json_decode($auth_data_json, true);
+        return $auth_data;
+      }
+      return false;
+    }
+
+
+
 
     private function checkTelegramAuthorization($request) {
         
@@ -82,7 +98,11 @@ class TelegramController extends Controller
       
         
       $auth_data_json = json_encode($auth_data);
-      setcookie('tg_user', $auth_data_json);
+      //setcookie('tg_user', $auth_data_json,);
+      
+      Cookie::queue('tg_user', $auth_data_json, env('SESSION_LIFETIME', 120));
+      
+      
     }
 
     
@@ -135,6 +155,39 @@ class TelegramController extends Controller
     }
 
 
+    public static function getChatAdministrators($chat_id)
+    {     
+        
+        $user = Auth::user();
+        
+        $params = [
+            'chat_id' => '@'.str_replace('https://t.me/','', $chat_id)
+        ];                   
+                   
+        $Administrators = self::post($params,'getChatAdministrators');
+        
+        $result = false;
+        
+        if($Administrators->ok && $Administrators->result){
+            foreach($Administrators->result as $key=>$item){
+                
+                if($item->user->id == $user->telegram_id && $item->status=='creator'){
+                    $result = true;
+                    break;
+                }
+                
+            }
+        }
+        
+        //print_r($result);
+ 
+        return $result;    
+            
+    
+    }
+
+
+    
 
 //getFile?file_id=the_file_id
 
@@ -145,7 +198,7 @@ class TelegramController extends Controller
     {
          //2023-07-25 19:23:00
          $published= date('Y-m-d H:i').':00';
-         echo $published;
+         echo 'time on server :'.$published;
          
          $orders = DB::table('orders')
              ->join('channels', 'orders.channel_id', '=', 'channels.id')
@@ -161,17 +214,17 @@ class TelegramController extends Controller
             
             foreach($orders as $key=>$order){
                 
-               $text = $order->message.'<a href="'.$order->link.'">'.$order->link.'</a>'; 
+               //$text = $order->message.'<a href="'.$order->link.'">'.$order->link.'</a>'; 
                 
 
                $params = array(
                     //'chat_id' => '@1001823070497', // id получателя
                     'chat_id' => '@'.$order->channel_link,
-                    'text' => $text, // текст сообщения
+                    'text' => $order->message, // текст сообщения
                     'parse_mode' => 'HTML', // режим отображения сообщения HTML (не все HTML теги работают)
                );
                     
-               self::post($params);
+               self::post($params,'sendMessage');
                 
             }
             

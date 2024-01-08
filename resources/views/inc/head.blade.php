@@ -57,6 +57,8 @@ $meta->image = $meta->url . 'images/social.jpg';
 <link rel="stylesheet" href="lc-styles/plugins/ion-rangeslider/ion.rangeSlider.min.css">
 <link rel="stylesheet" href="lc-styles/css/style.css?t=<?php echo date('U'); ?>">
 
+<link rel="stylesheet" href="lc-styles/css/custom.css?t=<?php echo date('U'); ?>">
+
 <style type="text/css">
     
 .dz-preview.dz-image-preview.dz-processing.dz-complete {

@@ -39,7 +39,7 @@ class OrdersController extends Controller
         $Order->answer = date('Y-m-d H:i:s',strtotime($request->input('date-2').' '.$request->input('time-2')));
         $Order->save();
         
-        $files = $request->input('images');
+        $files = $request->input('files');
         
         if($files){
             foreach($files as $file){
@@ -51,7 +51,7 @@ class OrdersController extends Controller
         
         $with=['success'=>'Заказ создан'];
         
-        return redirect()->route('user.in-orders')->with($with);        
+        return redirect()->route('user.orders.out')->with($with);        
                
     } 
 
@@ -79,7 +79,7 @@ class OrdersController extends Controller
        
         $with=['success'=>'Заявка №'.$id.' подтверждена'];
         
-        return redirect()->route('user.in-orders')->with($with);        
+        return redirect()->route('user.orders.in')->with($with);        
                
     }     
     
@@ -96,7 +96,7 @@ class OrdersController extends Controller
        
         $with=['success'=>'Заявка №'.$id.' отменена'];
         
-        return redirect()->route('user.in-orders')->with($with);        
+        return redirect()->route('user.orders.in')->with($with);        
                
     
     

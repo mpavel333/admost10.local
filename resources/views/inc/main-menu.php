@@ -4,7 +4,7 @@
         
         <?php if(Auth::user()){ ?>
         <div class="link">
-            <a class="{{ (request()->is('/user')) ? 'active' : '' }}" href="<?php echo route('user.index') ?>">
+            <a class="{{ (request()->is('/user') OR request()->is('/user/channels')) ? 'active' : '' }}" href="<?php echo route('user.channels') ?>">
                 <div class="icon fill-inherit">
                     <img src="lc-styles/images/m1.svg"/>
                     <?php //include 'images/m1.svg'; ?>
@@ -12,8 +12,19 @@
                 <p>Мої канали</p>
             </a>
         </div>
+
         <div class="link">
-            <a class="{{ (request()->is('user/in-orders')) ? 'active' : '' }} count-link" data-count="50" href="<?php echo route('user.in-orders') ?>">
+            <a class="{{ (request()->is('/user/publications')) ? 'active' : '' }}" href="<?php echo route('user.publications') ?>">
+                <div class="icon fill-inherit">
+                    <img src="lc-styles/images/m1.svg"/>
+                    <?php //include 'images/m1.svg'; ?>
+                </div>
+                <p>Мої публикации</p>
+            </a>
+        </div>
+       
+        <div class="link">
+            <a class="{{ (request()->is('user/orders/in')) ? 'active' : '' }} count-link" data-count="<?php echo $in_orders ?>" href="<?php echo route('user.orders.in') ?>">
                 <div class="icon fill-inherit">
                     <img src="lc-styles/images/m2.svg"/>
                     <?php //include 'images/m2.svg'; ?>
@@ -22,7 +33,7 @@
             </a>
         </div>
         <div class="link">
-            <a class="count-link" data-count="1" href="<?php echo route('user.out-orders') ?>">
+            <a class="{{ (request()->is('user/orders/out')) ? 'active' : '' }} count-link" data-count="<?php echo $out_orders ?>" href="<?php echo route('user.orders.out') ?>">
                 <div class="icon fill-inherit">
                     <img src="lc-styles/images/m3.svg"/>
                     <?php //include 'images/m3.svg'; ?>

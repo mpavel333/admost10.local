@@ -150,11 +150,18 @@ class ChannelsController extends Controller
     public function submit(Request $request)
     {
       
+        //$check_link = file_get_contents($request->input('link'));
+        
+        ///echo $check_link;
+        
+        //die;
+      
         $user = Auth::user();
 
         $check = DB::table('channels')
             ->where('user_id', $user->id)
             ->where('link', $request->input('link'))
+            ->where('tg_status', 1)
             ->first();
 
         if(!$check){
@@ -199,18 +206,20 @@ class ChannelsController extends Controller
             $with=['success'=>'Канал добавлен'];
             
             
-            
+            return redirect()->route('user.channels')->with($with)->withInput();
             
             
         
         }else{
             
-            $with=['error'=>'Такой канал уже существует'];
+            $with=['error'=>'Такой канал уже добавлен в систему'];
             
+            
+            return redirect()->route('user.channels.add')->with($with)->withInput();
         }
                   
       
-        return redirect()->route('user.channels')->with($with)->withInput();
+        
     }       
 
     public function check_tg_status()
@@ -231,26 +240,47 @@ class ChannelsController extends Controller
                 
                 $messages = [];
                 
-                $getData = file_get_contents('https://api.telegram.org/bot'.env('TELEGRAM_TOKEN').'/getUpdates');
+                //$getData = file_get_contents('https://api.telegram.org/bot'.env('TELEGRAM_TOKEN').'/getUpdates');
+
+
+                //$getMe = TelegramController::post([],'getMe');
                 
-                if(isset($getData)){
+                //print_r($getMe);
+
+                
+                
+                //print_r($getChat);
+                
+                //$getMe = TelegramController::post([],'getMe');
+
+                
+                $Data = TelegramController::post([],'getUpdates');
+                
+                 //print_r($Data); die;
+                 
+                 
+                
+                if($Data && $Data->ok){
                     
-                    $Data = json_decode($getData);
-                    if($Data->ok){
+                    //$Data = json_decode($getData);
+                    //if($Data->ok){
                         
-                        //print_r($Data); die;
+                   
                         
                        foreach($channels as $channel){
+                        
+                        
+                            $creator = TelegramController::getChatAdministrators($channel->link);
+                        
     
                             foreach($Data->result as $key=>$value){
                                 
-                                if(isset($value->my_chat_member) && 
+                                if($creator && isset($value->my_chat_member) && 
                                    $value->my_chat_member->chat->type == 'channel' &&
-                                   (isset($value->my_chat_member->chat->username) && $value->my_chat_member->chat->username == $channel->link) &&
+                                   (isset($value->my_chat_member->chat->username) && 
+                                   $value->my_chat_member->chat->username == str_replace('https://t.me/','', $channel->link)) &&
                                    $value->my_chat_member->new_chat_member->user->username == env('BOT_USERNAME') &&
-                                   $value->my_chat_member->new_chat_member->status == 'administrator'
-                                   
-                                   ){
+                                   $value->my_chat_member->new_chat_member->status == 'administrator'){
                                     
                                     //echo $key;
                                     
@@ -284,7 +314,7 @@ class ChannelsController extends Controller
                                         'full_info'=>$ChannelInfo->result->description
                                     ]);   
                                     
-                                    $messages[] = $key.$channel->link; //.'('.$channel->link.')';     
+                                    $messages[] = $channel->link; //.'('.$channel->link.')';     
                                     
                                     break;                             
                                     
@@ -296,7 +326,7 @@ class ChannelsController extends Controller
                         if($messages)
                             $with=['success' =>'Канал(ы) '.implode(',',$messages).' подтверждены. Ожидайте подтверждения канал(а/ов) администратором.'];  
                         
-                    }
+                    //}
                     
                 }
             

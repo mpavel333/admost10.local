@@ -2,24 +2,24 @@
 
 <head>
 
-    @include('user.inc.head')
+    @include('inc.head')
 
 </head>
 
 <body class="control-panel transition-off">
     <div class="wrapper">
         
-        @include('user.inc.mobile-menu')
+        @include('inc.mobile-menu')
         <?php /*MOBILE MENU*/ //include 'mobile-menu.php'; ?>
 
         <div class="panel-inner">
             
-            @include('user.inc.panel-header')
+            @include('inc.panel-header')
             <?php /*PANEL HEADER*/ //include 'panel-header.php'; ?>
 
             <div class="panel-body d-block d-xl-flex">
                 
-                @include('user.inc.main-menu')
+                @include('inc.main-menu')
                 <?php /*MAIN MENU*/ //include 'main-menu.php'; ?>
 
 
@@ -373,7 +373,7 @@
     @include('inc.modals')
 
     <!-- all plugins -->
-    @include('user.inc.scripts')
+    @include('inc.scripts')
     <?php //include 'scripts.php'; ?>
 
 </body>
