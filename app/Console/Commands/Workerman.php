@@ -88,35 +88,70 @@ class Workerman extends Command
         
              $data = json_decode($sendData);
              
-             ////////////
-             $check_connect = DB::table('orders_chat_connections')->where(['order_id'=>$data->order_id,'user_id'=>$data->user_id,'connection_id'=>$connection->id])->first(); 
-             if(!$check_connect){
-                DB::table('orders_chat_connections')->insert(['order_id'=>$data->order_id,'user_id'=>$data->user_id,'connection_id'=>$connection->id,'connected'=>now()]); 
-             }
-             ///////////
-             
-             $order_chat_connections = DB::table('orders_chat_connections')->where(['order_id'=>$data->order_id])->get(); 
-             
-             $ids=[];
-             foreach($order_chat_connections as $item){
-                $ids[]=$item->connection_id;
-             }
-             
-             foreach ($text_worker->connections as $id => $clientConnection) {
+             //print_r($data);
+
+
+             //   if(hash('sha256', $data->order_id.$data->user_id.env('CHAT_HASH_SOLT')) !== $data->hash){
+             ///       echo 'hello hack:)'; 
+             //       return;
+                    //die;
+             //   }
+
+
+
+/*             
+             if($data->action=='User'){
                 
-                if (in_array($id,$ids)) {
-                     $messages = TelegramController::getChatMessages($data->order_id,$data->user_id,$data->hash,$data->view);  
-                     $messageData = [
-                        'action' => 'Message',
-                        'order_id' => $data->order_id,
-                        'connection_id' => $connection->id,
-                        'messages'=>$messages
-                    ];
-                    $sendMessage = json_encode($messageData);              
-                    $clientConnection->send($sendMessage);
-                }
+                //echo $data->user_id;
+                 
+                if(hash('sha256', $data->user_id.env('CHAT_HASH_SOLT')) !== $data->user_hash){
+                    echo 'hello hack:)'; 
+                    return;
+                    //die;
+                }else{
+
+                    DB::table('orders_chat_connections')->insert(['order_id'=>333,'user_id'=>$data->user_id,'connection_id'=>$connection->id,'connected'=>now()]); 
+                    
+                } 
                 
-            }    
+                
+             }else{
+             
+*/                 ////////////
+                 $check_connect = DB::table('orders_chat_connections')->where(['order_id'=>$data->order_id,'user_id'=>$data->user_id,'connection_id'=>$connection->id])->first(); 
+                 if(!$check_connect){
+                    DB::table('orders_chat_connections')->insert(['order_id'=>$data->order_id,'user_id'=>$data->user_id,'connection_id'=>$connection->id,'connected'=>now()]); 
+                 }
+                 ///////////
+                 
+                 $order_chat_connections = DB::table('orders_chat_connections')->where(['order_id'=>$data->order_id])->orderBy('id', 'ASC')->get(); 
+                 
+                 $ids=[];
+                 foreach($order_chat_connections as $item){
+                    $ids[]=$item->connection_id;
+                 }
+                 
+                 foreach ($text_worker->connections as $id => $clientConnection) {
+                    
+                    if (in_array($id,$ids)) {
+                        
+                        $user = DB::table('orders_chat_connections')->where(['order_id'=>$data->order_id])->where(['connection_id'=>$id])->orderBy('id', 'ASC')->first(); 
+                      
+                        $messages = TelegramController::getChatMessages($data->order_id,$user->user_id,$data->hash,$data->view,$connection->id);  
+                         
+                         $messageData = [
+                            'action' => 'Message',
+                            'order_id' => $data->order_id,
+                            'connection_id' => $connection->id,
+                            'messages'=>$messages
+                        ];
+                        $sendMessage = json_encode($messageData);              
+                        $clientConnection->send($sendMessage);
+                    }
+                    
+                } 
+            
+            //}   
             
         };
         

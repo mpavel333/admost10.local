@@ -33,7 +33,7 @@
                         <p>Ваши исходящие заявки на рекламу </p>
                     </h1>
                     
-                    <div class="orders-inner">
+                    <div class="orders-outer">
                         <div class="collapses">
                         
 @foreach ($orders as $order)
@@ -141,7 +141,7 @@
                         @endif                    
                     
                         <div class="for-btn">
-                            <a class="cl-btn cl-btn blue-l-btn open-chat" data-bs-toggle="modal" data-bs-target="#chat-modal-{{$order->id}}" order_id="{{$order->id}}" user_id="{{$order->user_id}}" hash="<?php echo hash('sha256', $order->id.$order->user_id.env('CHAT_HASH_SOLT')) ?>" href="#">
+                            <a class="cl-btn cl-btn blue-l-btn open-chat" data-bs-toggle="modal" data-bs-target="#chat-modal-{{$order->id}}" order_id="{{$order->id}}" user_id="<?php echo Auth::user()->id ?>" hash="<?php echo hash('sha256', $order->id.Auth::user()->id.env('CHAT_HASH_SOLT')) ?>" href="#">
                                 <p>Відкрити чат</p>
                                 <div class="notification-count blue ms-2">{{$order->chat_messages_count}}</div>
                             </a>
@@ -246,10 +246,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="chat-messages">
+                    <div id="chat-messages-{{$order->id}}" class="chat-messages">
+                        <div class="loading"></div>
                         <div class="messages-content content-scroll">
                             <div class="date-block">
-                                <div class="date">24 лютого</div>
+                                <div class="date"></div>
                             </div>
                             <div id="messages-{{$order->id}}">
                             
@@ -261,7 +262,7 @@
                         <form class="form_send" action="{{ route('chat.send_message') }}" method="POST">
                             @csrf
                             <input type="hidden" name="order_id" value="{{$order->id}}"/>
-                            <input type="hidden" name="user_id" value="{{$order->user_id}}"/>
+                            <input type="hidden" name="user_id" value="<?php echo Auth::user()->id ?>"/>
                             <textarea placeholder="Повідомленя" name="message" class="form-control"></textarea>
                             <button type="submit" class="cl-btn no-stroke">
                                 <div class="icon fill-inherit">
@@ -282,17 +283,17 @@
                     <div class="modal-blocks min-offset">
                         <div class="modal-block">
                             <div class="pic">
-                                <img src="images/preview.jpg" alt="preview">
+                                <img src="@if($order->images[0]->filename){{$order->images[0]->path}}/{{$order->images[0]->filename}}@else images\channels\no-image.png @endif" alt="preview">
                             </div>
                         </div>
                         <div class="modal-block">
                             <div class="text content-scroll">
-                                <p>Тут буде рекламний текст про офігезний продукт або послугу, яку хочуть прорекламувати у телеграм-каналі. Тут буде рекламний текст про офігезний продукт або послугу, яку хочуть прорекламувати у телеграм-каналіТут буде рекламний текст про офігезний продукт або послугу, яку хочуть прорекламувати у телеграм-каналі</p>
+                                <p>{{ $order->message }}</p>
                             </div>
                         </div>
                         <div class="modal-block">
                             <div class="copy-block" data-success="Скопійовано!">
-                                <input value="https://admost.com.ua/link" type="text" readonly>
+                                <input value="{{ $order->link }}" type="text" readonly>
                                 <div class="icon">
                                     <img src="images/copy-icon.svg" alt="copy">
                                 </div>
@@ -316,7 +317,8 @@
 
 <script type="text/javascript">
     const ws = new WebSocket('ws://<?php echo env('WEBSOCKET'); ?>');
-    var user_id = <?php echo Auth::user()->id ?>;
+    //var user_id = <?php echo Auth::user()->id ?>;
+    //var user_hash = '<?php echo hash('sha256', Auth::user()->id.env('CHAT_HASH_SOLT')) ?>';
 </script>
 
 <script src="lc-styles/js/chats.js"></script>

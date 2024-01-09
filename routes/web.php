@@ -20,6 +20,7 @@ use App\Http\Controllers\User\BalanceController as UserBalanceController;
 use App\Http\Controllers\TelegramController;
 use App\Http\Controllers\DropzoneController;
 use App\Http\Controllers\ChannelsController;
+use App\Http\Controllers\ChatController;
 
 
 
@@ -129,17 +130,13 @@ Route::get('/test_post', [TelegramController::class, 'test_post']);
 Route::get('/del_post', [TelegramController::class, 'del_post']);
 Route::get('/autoposting', [TelegramController::class, 'autoposting']);
 
-
-
-Route::post('/send_message', [TelegramController::class, 'sendMessage'])->name('chat.send_message');
-//Route::post('/send_message', [TelegramController::class, 'sendMessage'])->name('chat.send_message');
-
-//Route::get('/get_chat_messages/{order_id}', [TelegramController::class, 'getChatMessages'])->name('chat.get_chat_messages');
-
-
-
 Route::get('/get_channel_info', [TelegramController::class, 'getChannelInfo']);
 Route::get('/get_updates', [TelegramController::class, 'getUpdates']);
+
+
+Route::post('/send_message', [ChatController::class, 'sendMessage'])->name('chat.send_message');
+//Route::post('/send_message', [TelegramController::class, 'sendMessage'])->name('chat.send_message');
+//Route::get('/get_chat_messages/{order_id}', [TelegramController::class, 'getChatMessages'])->name('chat.get_chat_messages');
 
 
 

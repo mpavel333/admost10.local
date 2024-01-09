@@ -25,7 +25,7 @@ use Crypter;
 
 class TelegramController extends Controller
 {
-     
+/*     
     public function login_tg(Request $request)
     {
       
@@ -34,7 +34,7 @@ class TelegramController extends Controller
       
     }   
 
-
+*/
 
     public static function getTelegramUserData() {
       if (isset($_COOKIE['tg_user'])) {
@@ -534,7 +534,7 @@ echo $res;
     
     
  
-    public static function getChatMessages($order_id,$user_id,$hash,$view=0)
+    public static function getChatMessages($order_id,$user_id,$hash,$view=0,$connection_id)
     {
 /*
         echo $order_id;
@@ -547,13 +547,15 @@ echo $res;
 
 */       
 
-        if(hash('sha256', $order_id.$user_id.env('CHAT_HASH_SOLT')) !== $hash){
-            echo 'hello hack:)'; 
-            return;
+     //   if(hash('sha256', $order_id.$user_id.env('CHAT_HASH_SOLT')) !== $hash){
+     //       echo 'hello hack:)'; 
+     //       return;
             //die;
-        }
+     //   }
 
-
+        
+        
+        
 
         $messages = DB::table('orders_chat')->where('order_id', $order_id)->get();
 
@@ -565,23 +567,26 @@ echo $res;
            }
             
            if($message->user_id == $user_id){
-                $message_type = 'message-to';
+                $message_type = 'my-message';
            }else{
-                $message_type = 'message-from';
+                $message_type = 'user-message';
            }
             
-           $out.='<div class="message-row '.$message_type.'">
+           
+            $out.='<div class="message-row '.$message_type.'">
                     <div class="message-block">
                         <div class="message">
                             '.$message->message.'
                         </div>
                         <div class="message-info">
                             <div class="time">'.$message->created_at.'</div>
-                            <div class="status">'.(($message->status!=1 and $message->user_id != $user_id) ? 'Ще не переглянуто' : '').'</div>
+                            
                         </div>
                     </div>
                 </div>';
-        }
+        }   
+        
+        //<div class="status">'.(($message->status!=1 and $message->user_id != $user_id) ? 'Ще не переглянуто' : '').'</div>
 
         return $out;
         
