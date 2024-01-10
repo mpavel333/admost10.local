@@ -142,9 +142,11 @@
                                                         <?php include 'images/plus.svg'; ?>
                                                     </div>
                                                 </a>
+                                                
+                                                {{--
                                                 <div class="media-block">
                                                     <div class="m-icon pic"></div>
-                                                    <div class="icon delete-icon-main"></div>
+                                                    <a class="icon delete-icon-main"></a>
                                                     <img src="images/md-1.jpg" alt="pic">
                                                 </div>
                                                 <div class="media-block">
@@ -182,6 +184,8 @@
                                                     <div class="icon delete-icon-main"></div>
                                                     <img src="images/md-1.jpg" alt="pic">
                                                 </div>
+                                                
+                                                --}}
                                             </div>
                                             <div class="file-quiz file-row">
                                                 <div class="quiz-line field-line">
@@ -236,6 +240,7 @@
                                                 </div>
                                             </div>
                                             <div class="file-blocks file-row">
+                                               {{-- 
                                                 <div class="f-block">
                                                     <div class="icon">
                                                         <?php include 'images/file-ic.svg'; ?>
@@ -257,6 +262,7 @@
                                                     </div>
                                                     <p>AdMost-Guidr.png</p>
                                                 </div>
+                                                --}}
                                             </div>
                                         </div>
                                     </div>

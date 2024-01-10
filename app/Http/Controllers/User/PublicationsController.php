@@ -125,12 +125,8 @@ class PublicationsController extends Controller
     public function publications()
     {
         $user = Auth::user();
-        //$publications = DB::table('publications')->where('user_id', $user->id)->get();    
-        
-        
-        //$user = Auth::user();
-        
-        $publications = DB::table('publications')->where('user_id', $user->id)
+
+        $publications = DB::table('publications')
                                      //->join('orders', 'channels.id', '=', 'orders.channel_id')
                                      //->leftjoin('channels', 'channels.id', '=', 'publications.channel_id')
                                      
@@ -139,13 +135,25 @@ class PublicationsController extends Controller
         //         ->where('contacts.user_id', '>', 5);
        // })                                     
                                      
-                                     
-                                    // ->select('publications.*','channels.name as channel_name')
-                                     ->orderBy('id', 'DESC')
-                                     ->get();        
+         ->where('publications.user_id', $user->id)
+         
+         //->select('publications.*','channels.name as channel_name','channels.image as channel_image')
+         ->orderBy('id', 'DESC')
+         ->get();        
+        
+        
         
         foreach($publications as $key=>$order){
-           
+            
+            
+            if($order->channels_id){
+                $channels = DB::table('channels')->whereIn('id',json_decode($order->channels_id))->get();
+                if(!empty($channels)) $publications[$key]->channels = $channels;
+            }
+            
+            
+            
+            
             $files = DB::table('publications_files')->where('publications_files.publication_id', $order->id)
                                               ->join('files', function (JoinClause $join) {
                                                     $join->on('files.id', '=', 'publications_files.file_id')
@@ -160,13 +168,6 @@ class PublicationsController extends Controller
             
             //$orders[$key]->chat_messages_count = DB::table('orders_chat')->where('order_id', $order->id)->count();
         }
-        
-        
-        
-                
-        //return $orders;        
-        
-            
         
         return view('user.publications.publications',['publications'=>$publications]);      
     }   
@@ -183,7 +184,7 @@ class PublicationsController extends Controller
         if(!$publication) return redirect()->route('user.publications')->with(['warning'=>'Такой пост не найден']); 
         
         
-        $channels = DB::table('channels')->where('user_id', $user->id)->get();
+        $channels = DB::table('channels')->where('user_id', $user->id)->where('tg_status', 1)->where('status', 1)->get();
         
         return view('user.publications.edit',['publication'=>$publication, 'channels'=>$channels]);      
     } 

@@ -19,24 +19,26 @@ class DropzoneController extends Controller
             $path = 'uploads/'.date('Y').'/'.date('m').'/'.date('d');
             if(!is_dir($path)) mkdir($path,true,755);
             
-            $images = $request->file('file');
+            $files = $request->file('file');
             $ids = [];
-            foreach($images as $image){
+            $files_out = [];
+            foreach($files as $file){
             
-                $imageName = substr(md5(microtime() . rand(0, 9999)), 0, 20).'_'.date('d_m_Y').'.'.$image->getClientOriginalExtension();
-                $image->move(public_path($path),$imageName);
+                $fileName = substr(md5(microtime() . rand(0, 9999)), 0, 20).'_'.date('d_m_Y').'.'.$file->getClientOriginalExtension();
+                $file->move(public_path($path),$fileName);
                  
-                $imageUpload = new Files();
-                $imageUpload->filename = $imageName;
-                $imageUpload->extension = $image->getClientOriginalExtension();
-                $imageUpload->path = $path;
-                $imageUpload->save();
+                $fileUpload = new Files();
+                $fileUpload->filename = $fileName;
+                $fileUpload->extension = $file->getClientOriginalExtension();
+                $fileUpload->path = $path;
+                $fileUpload->save();
                 
-                $ids[]=$imageUpload->id;
+                $ids[]=$fileUpload->id;
+                $files_out[]=$path.'/'.$fileName;
             }
             
             
-            return response()->json(['result'=>'success','ids'=>$ids]);
+            return response()->json(['result'=>'success','ids'=>$ids,'files'=>$files_out]);
             
         }
 

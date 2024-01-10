@@ -9,7 +9,7 @@
                 <div class="open-upload-prompt" id="media_dropzone">
                     Перетягніть файли у цю область
                 </div>
-                <input class="d-none" type="file" name="media-file" />
+
                 <hr class="mb-0">
                 <div class="file-media file-row mb-0"></div>
                 <div class="for-btn">
@@ -28,11 +28,11 @@
         <div class="modal-content">
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             <div class="title">Файл</div>
-            <form action="" method="post" action="handler.php" class="file-dropzone dropzone-form">
+            <form id="form_files_dropzone" method="post" action="{{ route('user.file.add') }}" class="file-dropzone dropzone-form">
                 <div class="open-upload-prompt">
                     Перетягніть файли у цю область
                 </div>
-                <input class="d-none" type="file" name="file" />
+
                 <hr class="mb-0">
                 <div class="file-blocks file-row mb-0"></div>
                 <div class="for-btn">

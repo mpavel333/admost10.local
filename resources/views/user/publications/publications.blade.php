@@ -43,10 +43,27 @@
             <button class="btn collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#order-{{$publication->id}}">
                 <div class="c-block cbl-1">
                     <div class="channel-order-info">
-                        <div class="pic">
-                            <img src="images/ch1.jpg" alt="pic">
-                            <div class="notification-count gray">3</div>
-                        </div>
+                   
+                   
+                   <?php //print_r($publications) ?>
+                   
+                  
+                    
+                    
+                    <?php //print_r($publications->channels) ?>
+                    
+                    
+                       @foreach ($publication->channels as $channel)
+                        
+                            <div class="pic">
+                                <img src="@if($channel->image)images\channels\{{$channel->image}}@else images\channels\no-image.png @endif" alt="pic">
+                                <div class="notification-count gray">3</div>
+                            </div>
+                            
+                       @endforeach    
+                   
+                  
+                        
                         <div class="main-info">
                             <div class="name-row">
                                 <div class="name">

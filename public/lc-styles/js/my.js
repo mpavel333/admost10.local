@@ -183,16 +183,42 @@ $(document).ready(function () {
 
         });
     }
-
+    
 });
 
+
+
+function DropzoneDeleteFile(id){
+    
+  $.ajax({
+       headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+       url: 'user/delete/file',
+       type: "POST",
+       data: { 'id': id,'_token': $('meta[name="csrf-token"]').attr('content')},
+       success: function(response){
+            
+            
+            $( "#media-block-"+response.id).remove();
+            $( "#media-"+response.id).remove();
+            
+            $( "#f-block-"+response.id).remove();
+            $( "#file-"+response.id).remove();
+            
+            
+            $( "input#file_"+response.id ).remove();
+       }                   
+  });
+
+}
+
+
 let mediaDropzoneExist = 0;
+
 // media dropbox
 function mediaDropzone() {
     const formClass = document.querySelector('.media-dropzone');
     const filesBlock = formClass.querySelector('.file-media');
     const uploadArea = formClass.querySelector('.open-upload-prompt');
-    
 
     // Dropzone configuration
     let dropzoneConfig = {
@@ -213,9 +239,12 @@ function mediaDropzone() {
         acceptedFiles: ".jpeg,.jpg,.png,.gif",
         success: function (file, response) {},
         successmultiple: function (files, response) {
+            
             for (keyVar in response.ids) {  
                 files[keyVar].id = response.ids[keyVar];
+                $("#form_media_dropzone .dz-preview:last-child").attr('id', "media-" + response.ids[keyVar]);
                 $( "#form_orders #files,#form_publication #files" ).append( "<input id='file_"+response.ids[keyVar]+"' type='hidden' name='files[]' value='"+response.ids[keyVar]+"'>" );
+                $( "#form_publication .file-media.file-row" ).append( '<div class="media-block" id="media-block-'+response.ids[keyVar]+'"><div class="m-icon pic"></div><a class="icon delete-icon-main" onclick="DropzoneDeleteFile('+response.ids[keyVar]+')"></a><img src="'+response.files[keyVar]+'" alt="pic"></div>' );
             }
         }, 
         
@@ -226,6 +255,7 @@ function mediaDropzone() {
                    type: "POST",
                    data: { 'id': file.id,'_token': $('meta[name="csrf-token"]').attr('content')},
                    success: function(response){
+                        $( "#media-block-"+response.id).remove();
                         $( "input#file_"+response.id ).remove();
                         file.previewElement.remove();
                    }                   
@@ -245,7 +275,8 @@ function fileDropzone() {
 
     // Dropzone configuration
     let dropzoneConfig = {
-        url: 'handler.php',
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        url: 'user/add/file',
         dictDefaultMessage: "Drop documents here (or click) to capture/upload.",
         clickable: uploadArea,
         timeout: "360000",
@@ -254,11 +285,37 @@ function fileDropzone() {
         maxFilesize: 400000000,
         chunkSize: 1000000,
         parallelChunkUploads: true,
-        autoProcessQueue: true,
+        autoProcessQueue: false,
         parallelUploads: 10,
         addRemoveLinks: true,
         previewsContainer: filesBlock,
-        acceptedFiles: 'application/pdf'
+        acceptedFiles: ".doc,.docx,.pdf,.txt,.xls,.xlsx",
+        success: function (file, response) {
+        },
+        successmultiple: function (files, response) {
+            for (keyVar in response.ids) {  
+                files[keyVar].id = response.ids[keyVar];
+                $("#form_files_dropzone .dz-preview:last-child").attr('id', "file-" + response.ids[keyVar]);
+                $( "#form_publication .file-blocks.file-row" ).append( '<div class="f-block" id="f-block-'+response.ids[keyVar]+'"><div class="icon"><img src="images/file-ic.svg"><a class="delete-icon-main" onclick="DropzoneDeleteFile('+response.ids[keyVar]+')"></a></div><p>'+files[keyVar].name+'</p></div>' );
+                $( "#form_orders #files,#form_publication #files" ).append( "<input id='file_"+response.ids[keyVar]+"' type='hidden' name='files[]' value='"+response.ids[keyVar]+"'>" );
+            }
+        }, 
+        
+        removedfile: function(file) {
+              $.ajax({
+                   headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                   url: 'user/delete/file',
+                   type: "POST",
+                   data: { 'id': file.id,'_token': $('meta[name="csrf-token"]').attr('content')},
+                   success: function(response){
+                        
+                        $( "#f-block-"+response.id).remove();
+                        $( "input#file_"+response.id ).remove();
+                        file.previewElement.remove();
+                   }                   
+              });
+         },     
+    
     };
 
     // Initialize Dropzone
@@ -274,7 +331,6 @@ $(document).on('shown.bs.modal', '#photo-video-modal', function () {
 if(document.getElementById('form_media_dropzone')){
     document.getElementById('form_media_dropzone').addEventListener('submit', function(e){
         e.preventDefault();
-        //mediaDropzoneExist.options.headers={'X-CSRF-TOKEN': this.elements._token.value };
         mediaDropzoneExist.processQueue();
     });
 }
@@ -283,6 +339,17 @@ if(document.getElementById('form_media_dropzone')){
 $(document).on('shown.bs.modal', '#file-modal', function () {
     if (!fileDropzoneExist) fileDropzone();
 });
+
+if(document.getElementById('form_files_dropzone')){
+    document.getElementById('form_files_dropzone').addEventListener('submit', function(e){
+        e.preventDefault();
+        fileDropzoneExist.processQueue();
+    });
+}
+
+
+
+
 
 $(window).on('load resize', function () {
     /** Move blocks on resize **/

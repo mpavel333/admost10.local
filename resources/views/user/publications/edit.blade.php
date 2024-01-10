@@ -38,7 +38,7 @@
                                     <div class="link">
                                         <a class="alert <?php echo $class ?>" channel_id="{{$channel->id}}">
                                             <div class="pic">
-                                                <img src="images/ch1.jpg" alt="pic">
+                                                <img src="@if($channel->image)images\channels\{{$channel->image}}@else images\channels\no-image.png @endif" alt="pic">
                                             </div>
                                             <p>{{$channel->link}}</p>
                                         </a>
