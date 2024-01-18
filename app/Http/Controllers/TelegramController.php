@@ -16,9 +16,14 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Console\Command;
 use Workerman\Worker;
 
+use Illuminate\Database\Query\JoinClause;
+
 use Illuminate\Support\Facades\Cookie;
 
 use DB;
+
+use App\Models\User;
+
 
 
 use Crypter;
@@ -129,7 +134,7 @@ class TelegramController extends Controller
                    
         $result = self::post([],'getUpdates');
         
-        print_r($result);
+        //print_r($result);
  
         //return $result;    
             
@@ -197,16 +202,24 @@ class TelegramController extends Controller
     public static function autoposting()
     {
          //2023-07-25 19:23:00
+         date_default_timezone_set('Europe/Kiev');
+         
          $published= date('Y-m-d H:i').':00';
          echo 'time on server :'.$published;
          
+         echo '<br><br>';
+         
+         
+         
+         /*
          $orders = DB::table('orders')
              ->join('channels', 'orders.channel_id', '=', 'channels.id')
-             ->where(['orders.status' => 1,'orders.published'=>$published])
+             //->where(['orders.status' => 1,'orders.published'=>$published])
+             ->where(['orders.status' => 1])
              ->select('orders.*','channels.link as channel_link')
          ->get();       
          
-         //print_r($orders);
+         print_r($orders);
          
          //die;
         
@@ -230,8 +243,327 @@ class TelegramController extends Controller
             
             
         }
+        */
+        
+        
+        
+         $publications = DB::table('publications')
+            ->where(['status' => 1])
+            
+            ->where(function ($query) use ($published) {
+                $query->where('date_published', $published)
+                      ->orWhere('date_repeat', $published);
+            })            
+          
+         ->get();       
+         
+         //print_r($publications);        
+
+
+        
+         foreach($publications as $key=>$publication){
+            
+
+/*
+
+    <option value="1">Изображение и описание</option>
+    <option value="2">Группа изображений и описание</option>
+    <option value="3">Изображение и кнопки(ссылки)</option>
+    <option value="4">Опрос и описание</option>
+    <option value="5">Простое сообщение</option>
+    <option value="6">Документ</option>
+*/
+        
+        
+         
+        
+        $images = DB::table('publications_files')->where('publications_files.publication_id', $publication->id)
+                                              ->join('files', function (JoinClause $join) {
+                                                    $join->on('files.id', '=', 'publications_files.file_id')
+                                                         ->where('files.status', '=', 1)
+                                                         ->whereIn('files.extension', ['jpeg','jpg','png','gif']);
+                                                    })                                   
+                                              ->select('publications_files.*','files.filename','files.path')
+                                              ->get();  
+
+        
+        $files = DB::table('publications_files')->where('publications_files.publication_id', $publication->id)
+                                              ->join('files', function (JoinClause $join) {
+                                                    $join->on('files.id', '=', 'publications_files.file_id')
+                                                         ->where('files.status', '=', 1)
+                                                         ->whereIn('files.extension', ['doc','docx','pdf','txt','xls','xlsx']);
+                                                    })                                   
+                                              ->select('publications_files.*','files.filename','files.path')
+                                              ->get();  
+                                              
+
+                                              
+        $channels = DB::table('channels')->whereIn('id',json_decode($publication->channels_id))->get();
+        
+            if($channels):  
+                
+                foreach($channels as $key=>$channel){
+                    
+                    $chat_id = str_replace('https://t.me/','',$channel->link);
+                    
+                    switch ($publication->type) {
+                        case 1:
+                           
+                           //Изображение и описание
+                            
+                           $params = array(
+                                'chat_id' => '@'.$chat_id,
+                                
+                                'photo' => (isset($images[0]))? env('APP_URL_DEV').'/'.$images[0]->path.'/'. $images[0]->filename : '', // режим отображения сообщения HTML (не все HTML теги работают)
+                                //'photo'=>'https://w.wallhaven.cc/full/zy/wallhaven-zyvwyy.jpg',
+                                
+                                'caption'=> $publication->message,
+                                'parse_mode' => 'HTML',
+                           ); 
+                           
+                           //print_r($params);  
+                                                      
+                           $sendTelegram = self::post($params,'sendPhoto');     
+                                              
+
+                           break;
+                        case 2:
+                            
+                          //Группа изображений и описание  
+                            
+                            $media = [];
+                            $media_img = [];
+                            foreach($images as $key=>$image){
+                                if($key==0):
+                                    array_push($media,['type' => 'photo', 'media' => 'attach://image_'.$key, 'caption'=>$publication->message, 'parse_mode' => 'HTML']);
+                                else:
+                                    array_push($media,['type' => 'photo', 'media' => 'attach://image_'.$key]);
+                                endif;
+                                $media_img['image_'.$key] = curl_file_create(env('APP_URL_DEV').'/'.$image->path.'/'. $image->filename);
+                            }
+                            
+                            $params = [
+                                'chat_id' => '@'.$chat_id,
+                                'media' => json_encode($media),
+                            ];                             
+                            
+                            $params = array_merge($params, $media_img);
+                            
+
+                            $sendTelegram = self::post_media($params,'sendMediaGroup');     
+                            
+                            //print_r($sendTelegram);                     
+                           
+
+                            break;
+                        case 3:
+                            
+                        //Изображение и кнопки(ссылки)    
+                        
+                        $replyMarkup = [];
+                        
+                            if($publication->links){
+                                $links = json_decode($publication->links);
+                                $buttons=[];
+                                foreach($links->links as $key=>$value){
+                                    $buttons[]=['text'=>$links->links_text[$key],"url"=>$value];
+                                }           
+                                $replyMarkup = json_encode(["inline_keyboard"=>[$buttons]]);                            
+                            
+                            
+                            //print_r($replyMarkup); //die;
+                             
+                            $params = array(
+                                //'chat_id' => '@1001823070497', // id получателя
+                                'chat_id' => '@'.$chat_id,
+                                //'message_thread_id' => $result->result->message_thread_id, // текст сообщения
+                                'photo' => (isset($images[0]))? env('APP_URL_DEV').'/'.$images[0]->path.'/'. $images[0]->filename : '', // режим отображения сообщения HTML (не все HTML теги работают)
+                                'caption'=> $publication->message,
+                                'parse_mode' => 'HTML',
+                                
+                                "reply_markup"=>$replyMarkup,
+                            );                            
+                            
+                            $sendTelegram = self::post($params,'sendPhoto');   
+                            
+                            }
+                            
+                            break;
+                        case 4:
+                            
+                            // Опрос и описание
+                            if($publication->question){
+                                $question = json_decode($publication->question);          
+                                
+                                //print_r($question);
+                                
+                                $params = array(
+                                    'chat_id' => '@'.$chat_id,
+                                    'question'=> $question->question,
+                                    'options' => $question->variant,
+                                );    
+                                
+                                //if($question->anonim==0) $params = array_merge($params, ['is_anonymous'=>'False']);
+                                if($question->several==1) $params = array_merge($params, ['allows_multiple_answers'=>1]);
+                                if($question->quiz==1):
+                                    $params = array_merge($params, ['type'=>'quiz']);
+                                    $params = array_merge($params, ['correct_option_id'=>0]);
+                                endif;
+    
+                                $sendTelegram = self::post($params,'sendPoll');   
+                                
+                            }
+                            
+                            
+                            break;
+                            
+    
+                        case 5:
+                        
+                        //Простое сообщение
+                        
+                           $params = array(
+                                //'chat_id' => '@1001823070497', // id получателя
+                                'chat_id' => '@'.$chat_id,
+                                'text' => $publication->message.' <a href="'.$publication->link.'">'.$publication->link.'</a>', // текст сообщения
+                                'parse_mode' => 'HTML', // режим отображения сообщения HTML (не все HTML теги работают)
+                           );
+                                           
+                            $sendTelegram = self::post($params,'sendMessage');                        
+                        
+                        
+                        break;
+                        
+                        case 6:
+                        
+                        //Документ
+                            
+                            foreach($files as $key=>$file){
+                            
+                                $params = [
+                                    'chat_id' => '@'.$chat_id,
+                                    //'caption' => $publication->message,
+                                    'document' => curl_file_create(env('APP_URL_DEV').'/'.$file->path.'/'. $file->filename)                                
+                                ];                             
+                                
+                                $sendTelegram = self::post_media($params,'sendDocument'); 
+                            
+                            }                       
+                            
+                            //print_r($sendTelegram);
+                        
+                        break;
+                        
+                        
+                        
+                        
+                    }
+                    
+                    
+                    
+                    
+////////////////////////                 
+
+                    if(isset($sendTelegram) && $sendTelegram->ok==1):
+                        
+                        if(is_array($sendTelegram->result)){
+                            $message_ids = [];
+                            foreach($sendTelegram->result as $message) $message_ids[]=$message->message_id;
+                            $message_id = implode(',',$message_ids);
+                        }else{
+                            $message_id = $sendTelegram->result->message_id;
+                        }
+                        
+                        DB::table('publications_telegram')->insert(['publication_id'=>$publication->id,
+                                                                    //'channel_id'=>$channel->id,
+                                                                    'message_id'=>$message_id,
+                                                                    "created_at"=>now(),
+                                                                    "updated_at"=>now()
+                                                                 ]);    
+                                                                 
+                    
+                        $User = User::find($publication->user_id);
+                        DB::table('users')
+                        ->where('id', $publication->user_id)
+                        ->update(['balance'=>($User->balance - 300)]);                                                                 
+                                                                                        
+                    
+                    else:
+                        print_r($params);
+                        print_r($sendTelegram);
+                    endif;
+                    
+//////////////////////////                    
+                      
+                   
+                 } 
+                  
+             endif;  
+            
+         
+         }
+        
+        
+        
+        
     
     }
+
+ 
+    public static function autopostingdelete()
+    {   
+
+         date_default_timezone_set('Europe/Kiev');
+         
+         $date= date('Y-m-d H:i').':00';
+         echo 'time on server :'.$date;
+          
+         echo '<br><br>';
+         
+                 
+        
+         $publications = DB::table('publications')
+         
+         ->rightJoin('publications_telegram', 'publications.id', '=', 'publications_telegram.publication_id')
+         ->where(['publications.status' => 1,'publications.date_delete'=>$date])
+         //->where(['publications.status' => 1])
+         ->select('publications_telegram.*','publications.channels_id')
+         ->get();       
+         
+         //print_r($publications);    
+         
+         //die;    
+
+             foreach($publications as $key=>$publication){
+                
+                if($publication->channels_id):
+                    $channels = DB::table('channels')->whereIn('id',json_decode($publication->channels_id))->get();
+    
+                    if($channels):  
+                        
+                        foreach($channels as $key=>$channel){
+                            
+                            $chat_id = str_replace('https://t.me/','',$channel->link);
+                            
+                            $params = array(
+                                'chat_id' => '@'.$chat_id,
+                                'message_ids' => explode(',',$publication->message_id), // текст сообщения
+                            );    
+                        
+                            $sendTelegram = self::post($params,'deleteMessages');  
+                        
+                        }
+                    
+                    endif;
+               endif; 
+               
+               DB::delete('delete from publications_telegram where id = ?',[$publication->id]);
+        
+            }
+    
+    }
+    
+    
     
  
     public static function test_post()
@@ -400,6 +732,20 @@ echo $res;
     }
 */
 
+    public static function post_media($params,$method)
+    {
+    
+        $curl = curl_init('https://api.telegram.org/bot'. env('TELEGRAM_TOKEN') .'/'.$method);
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_HEADER, false);
+        $result = curl_exec($curl);
+        curl_close($curl);    
+        
+        return json_decode($result);
+    }
+
     
     public static function post($params,$method)
     {
@@ -462,7 +808,8 @@ echo $res;
     $params = array(
         //'chat_id' => '@1001823070497', // id получателя
         'chat_id' => '@proitteh',
-        'message_id' => 7, // текст сообщения
+        'message_id' => 152, // текст сообщения
+        //'message_ids' => [134,135,136],
         //'parse_mode' => 'HTML', // режим отображения сообщения HTML (не все HTML теги работают)
     );
     
@@ -471,7 +818,8 @@ echo $res;
     //$post = 'chat_id=@proitteh&message=ddddddddd&parse_mode=markdown';
       
     $curl = curl_init();
-    curl_setopt($curl, CURLOPT_URL, 'https://api.telegram.org/bot'.self::TELEGRAM_TOKEN.'/deleteMessage'); // адрес вызова api функции телеграм
+    curl_setopt($curl, CURLOPT_URL, 'https://api.telegram.org/bot'.env('TELEGRAM_TOKEN').'/deleteMessage'); // адрес вызова api функции телеграм
+    //curl_setopt($curl, CURLOPT_URL, 'https://api.telegram.org/bot'.env('TELEGRAM_TOKEN').'/deleteMessages'); // адрес вызова api функции телеграм
 
     curl_setopt($curl, CURLOPT_HTTPHEADER, [
         'Content-Type: application/json'

@@ -51,6 +51,7 @@ class DropzoneController extends Controller
             
             if($File){
                 DB::delete('delete from files where id = ?',[$File->id]);
+                DB::delete('delete from publications_files where file_id = ?',[$File->id]);
                 if(File::exists($File->path.'/'.$File->filename)) {
                     File::delete($File->path.'/'.$File->filename);
                     $result_message = 'file delete';

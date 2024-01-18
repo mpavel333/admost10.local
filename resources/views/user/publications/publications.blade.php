@@ -39,7 +39,7 @@
 @foreach ($publications as $publication)
 
 
-        <div class="collapse-block">
+        <div class="collapse-block @if($publication->status) in_work @endif">
             <button class="btn collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#order-{{$publication->id}}">
                 <div class="c-block cbl-1">
                     <div class="channel-order-info">
@@ -57,46 +57,46 @@
                         
                             <div class="pic">
                                 <img src="@if($channel->image)images\channels\{{$channel->image}}@else images\channels\no-image.png @endif" alt="pic">
-                                <div class="notification-count gray">3</div>
+                                <div class="notification-count gray"></div>
                             </div>
+
+                        <div class="main-info">
+                            <div class="name-row">
+                                <div class="name">
+                                    {{ $channel->name }}
+                                </div>
+                                <div class="icon">
+                                   
+                                </div>
+                            </div>
+                        </div>
                             
                        @endforeach    
                    
                   
                         
-                        <div class="main-info">
-                            <div class="name-row">
-                                <div class="name">
-                                    {{ $publication->channel_name }}
-                                </div>
-                                <div class="icon">
-                                    <img src="images/verified.svg" alt="verified">
-                                </div>
-                            </div>
-                            <div class="lead-time">
-                                Час на виконання <span>18:38:25</span>
-                            </div>
-                        </div>
+
+                        
                     </div>
                 </div>
                 <div class="c-block cbl-2">
                     <div class="number-block">
-                        <p>Формат</p>
-                        <div class="number">1/24</div>
+                        <p>Дата публікації</p>
+                        <div class="number"><?php echo date('d.m.Y',strtotime($publication->date_published)) ?></div>
                     </div>
                     <div class="number-block">
-                        <p>Ціна</p>
-                        <div class="number price">3 000<span class="currency">грн</span></div>
+                        <p>Час публікації</p>
+                        <div class="number"><?php echo date('H:i',strtotime($publication->date_published)) ?></div>
                     </div>
                 </div>
                 <div class="c-block cbl-3">
                     <div class="number-block">
-                        <p>Дата публікації</p>
-                        <div class="number">{{$publication->published}}</div>
+                        <p>Дата повтора публікації</p>
+                        <div class="number"><?php echo date('d.m.Y',strtotime($publication->date_repeat)) ?></div>
                     </div>
                     <div class="number-block">
-                        <p>Час публікації</p>
-                        <div class="number">10:00 - 19:00</div>
+                        <p>Час повтора публікації</p>
+                        <div class="number"><?php echo date('H:i',strtotime($publication->date_repeat)) ?></div>
                     </div>
                 </div>
                 <div class="c-block cbl-4">
@@ -136,7 +136,8 @@
                         </div>
                         <div class="c-block cbl-4">
                             <div class="preview-pic-btn" data-bs-toggle="modal" data-bs-target="#preview-modal-{{$publication->id}}">
-                                <img src="{{$publication->images[0]->path}}/{{$publication->images[0]->filename}}" alt="preview">
+                            <?php //print_r($publication); ?>
+                                <img src="@if($publication->images[0]){{$publication->images[0]->path}}/{{$publication->images[0]->filename}}@else images\channels\no-image.png @endif" alt="preview">
                                 <div class="icon preview-icon fill-inherit">
                                     <?php include 'images/eye.svg'; ?>
                                 </div>

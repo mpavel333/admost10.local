@@ -1,6 +1,8 @@
+//var channels_id = [];
+
 $(document).ready(function () {
     
- 
+
     $('.channel-pages .links .link a').click(function () {
         
         var channel_id = $(this).attr('channel_id');
@@ -10,43 +12,218 @@ $(document).ready(function () {
             $(this).removeClass('active');
             $( "#form_publication #channel_id_"+channel_id ).remove();
             
+            
+           // let index = channels_id.indexOf(channel_id);
+           // if (index !== -1) {
+           //   channels_id.splice(index, 1);
+           // }
+            
         }else{
             
             $(this).addClass('active');
+            $( "#form_publication" ).append( "<input class='channels_id' id='channel_id_"+channel_id+"' type='hidden' name='channels_id[]' value='"+channel_id+"'>" );
             
+            //channels_id.push(channel_id);
             
-            $( "#form_publication" ).append( "<input id='channel_id_"+channel_id+"' type='hidden' name='channels_id[]' value='"+channel_id+"'>" );
+        }
+
+    });  
+    
+    
+    $("#form_publication").on('submit', function(e){
+        
+        if(!$( "#form_publication .channels_id" ).length){
+            e.preventDefault();
+            alert('Выберите канал для постинга')
         }
         
-    });  
+        
+/*        
+        if(!this.elements['type']){
+            e.preventDefault();
+            alert('Укажите тип поста')
+        }
+        
+*/        
+        
+    });
+
+
+//var count = 1;
+ 
+if(document.getElementById('form_hide_text')){
+    document.getElementById('form_hide_text').addEventListener('submit', function(e){    
+        e.preventDefault();
+    
+            if(document.getElementById( "text-line")) document.getElementById( "text-line").remove();
+        
+            let file_text = '<div id="text-line" class="text-line field-line">'+
+                                '<div class="f-block">'+
+                                    '<div class="icon">'+
+                                        '<img src="images/txt-ic.svg">'+
+                                    '</div>'+
+                                    '<p>'+this.elements["hide_text"].value+'</p>'+
+                                '</div>'+
+                                '<div class="field-controls">'+
+                                    '<div class="icon edit-icon" data-bs-toggle="modal" data-bs-target="#text-modal"></div>'+
+                                    '<div class="icon delete-icon-main" onclick="DeleteHideText();"></div>'+
+                                '</div>'+
+                            '</div>';
+            
+            $( "#form_publication .file-text.file-row" ).append( file_text );
+    
+            document.querySelector('#form_publication #hide_text').value = this.elements["hide_text"].value;
+        
+        $('#text-modal').modal('hide');
+        
+        
+    });
+ 
+}
+
+
+
+if(document.getElementById('form_question')){
+    document.getElementById('form_question').addEventListener('submit', function(e){    
+        e.preventDefault();
+    
+        document.querySelector( "#form_publication #question" ).innerHTML = "";
+        
+        for(let field of this.elements) {
+            
+            if(field.name=='question'){
+            
+                let question = field.value;
+                
+                  if(document.querySelector('#form_publication .file-quiz .quiz-line')){
+                        document.querySelector('#form_publication .file-quiz .quiz-line p').innerHTML = question;
+                        //document.querySelector('#form_publication #question #q').value = question;
+                  }else{
+                    let quiz_line = '<div class="quiz-line field-line">'+
+                                        '<div class="f-block">'+
+                                            '<div class="icon">'+
+                                                '<img src="images/rate-ic.svg">'+
+                                            '</div>'+
+                                            '<p>'+question+'</p>'+
+                                        '</div>'+
+                                        '<div class="field-controls">'+
+                                            '<div class="icon edit-icon" data-bs-toggle="modal" data-bs-target="#quiz-modal"></div>'+
+                                            '<div class="icon delete-icon-main" onclick="DeleteQuestion();"></div>'+
+                                        '</div>'+
+                                    '</div>';
+                    
+                    $( "#form_publication .file-quiz.file-row" ).append( quiz_line );
+                    
+                }
+            
+            }
+            
+            if(field.name){
+                
+                let new_name = field.name;
+                let value = field.value;
+    
+                if(field.name == 'variant[]'){
+                    new_name = "question[variant][]";
+                }else{
+                    new_name = "question["+field.name+"]";
+                }
+                
+                if(field.type=='checkbox'){
+                    if(field.checked){ value = 1; }else{ value = 0; }
+                }
+                
+                $( "#form_publication #question" ).append( "<input type='hidden' name='"+new_name+"' value='"+value+"'>" );
+            }
+            
+        }
+    
+});
+
+}
+
+
+if(document.getElementById('form_links')){
+    document.getElementById('form_links').addEventListener('submit', function(e){    
+        e.preventDefault();
+
+                
+        for(let field of this.elements) {
+          
+          let id = field.getAttribute('btn_link_id');
+          let name = field.name.replace("[]", "");
+          let link_id = name+'-'+id;
+          
+          if(document.querySelector('#form_publication #links #'+link_id)){
+            
+                document.querySelector('#form_publication #links #'+link_id).value = field.value;
+                
+                document.querySelector('#links-line-'+id+' .f-block p').innerHTML = field.value;
+                
+                
+            
+          }else{
+          
+              if (field.type=='text') {
+                    
+                    if(name=='links_text'){
+                        
+                        
+                        let link_line = '<div id="links-line-'+id+'" class="link-line field-line">'+
+                                                '<div class="f-block">'+
+                                                    '<div class="icon">'+
+                                                        '<img src="images/link-ic.svg">'+
+                                                    '</div>'+
+                                                    '<p>'+field.value+'</p>'+
+                                                '</div>'+
+                                                '<div class="field-controls">'+
+                                                    '<div class="icon edit-icon" data-bs-toggle="modal" data-bs-target="#links-modal"></div>'+
+                                                    '<div class="icon delete-icon-main" onclick="DeleteLink(\''+id+'\');"></div>'+
+                                                '</div>'+
+                                            '</div>';
+                        $( "#form_publication .file-links.file-row" ).append( link_line );
+                    
+                    }
+                
+                $( "#form_publication #links" ).append( "<input id='"+link_id+"' type='hidden' name='"+field.name+"' value='"+field.value+"'>" );
+              }
+           }    
+          
+          
+          
+        }
+    
+ });
+ 
+}
+
   
-  
-
-    var emailBodyConfig = {
-        selector: 'textarea#description',
-        menubar: false,
-        inline: true,
-        plugins: [
-            'link',
-            'lists',
-            'powerpaste',
-            'autolink',
-            'tinymcespellchecker'
-        ],
-        toolbar: [
-            'undo redo | bold italic underline | fontselect fontsizeselect',
-            'forecolor backcolor | alignleft aligncenter alignright alignfull | numlist bullist outdent indent'
-        ],
-        valid_elements: 'p[style],strong,em,span[style],a[href],ul,ol,li',
-        valid_styles: {
-            '*': 'font-size,font-family,color,text-decoration,text-align'
-        },
-        powerpaste_word_import: 'clean',
-        powerpaste_html_import: 'clean',
-    };
-
-    tinymce.init(emailBodyConfig);
-
+    if($('textarea#description')){
+        var emailBodyConfig = {
+            selector: 'textarea#description',
+            menubar: false,
+            inline: true,
+            plugins: [
+                'link',
+                'lists',
+                'powerpaste',
+                'autolink',
+                'tinymcespellchecker'
+            ],
+            toolbar: [
+                'undo redo | bold italic underline | fontselect fontsizeselect',
+                'forecolor backcolor | alignleft aligncenter alignright alignfull | numlist bullist outdent indent'
+            ],
+            valid_elements: 'p[style],strong,em,span[style],a[href],ul,ol,li',
+            valid_styles: {
+                '*': 'font-size,font-family,color,text-decoration,text-align'
+            },
+            powerpaste_word_import: 'clean',
+            powerpaste_html_import: 'clean',
+        };
+    
+        tinymce.init(emailBodyConfig);
+    }
 
     /* enable transition */
     $('body').removeClass('transition-off');
@@ -186,6 +363,58 @@ $(document).ready(function () {
     
 });
 
+function generateRandomString(length) {
+    var result = '';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for (var i = 0; i<length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
+
+
+function DeleteQuestion(){
+
+    document.querySelector( "#form_publication #question" ).innerHTML = "";
+    document.querySelector('#form_publication .file-quiz').innerHTML = "";
+
+}
+
+function DeleteLink(id){
+    
+    if(document.querySelector('.all-variants .clone-block-'+id)) document.querySelector('.all-variants .clone-block-'+id).remove();
+    if(document.querySelector('.all-links .clone-block-'+id)) document.querySelector('.all-links .clone-block-'+id).remove();
+    
+    if(document.getElementById("links-text-"+id)) document.getElementById("links-text-"+id).remove();
+    if(document.getElementById("links-"+id)) document.getElementById("links-"+id).remove();
+    if(document.getElementById("links-line-"+id)) document.getElementById("links-line-"+id).remove();
+    
+}
+
+function DeleteHideText(){
+    
+    document.getElementById( "text-line").remove();
+    document.querySelector('#form_publication #hide_text').value = '';
+    
+}
+
+function DeleteFile(id){
+    
+            
+    
+    $( "#media-block-"+id).remove();
+    $( "#media-"+id).remove();
+    
+    $( "#f-block-"+id).remove();
+    $( "#file-"+id).remove();
+    
+    
+    $( "#form_publication #del_files" ).append( "<input type='hidden' name='del_files[]' value='"+id+"'>" );
+    
+    //$( "input#file_"+response.id ).remove();
+
+}
 
 
 function DropzoneDeleteFile(id){
@@ -346,6 +575,7 @@ if(document.getElementById('form_files_dropzone')){
         fileDropzoneExist.processQueue();
     });
 }
+
 
 
 

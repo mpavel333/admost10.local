@@ -9,7 +9,13 @@ use DB;
 use Auth;
 use App\Models\Publications;
 
+use App\Http\Controllers\DropzoneController;
+
 use Illuminate\Database\Query\JoinClause;
+
+use App\Models\Files;
+
+use File;
 
 class PublicationsController extends Controller
 {
@@ -31,31 +37,40 @@ class PublicationsController extends Controller
 
         $Publication = new Publications;
         $Publication->user_id = $user->id;
-        //$Order->channel_id = $request->input('channel_id');
-        
-        //$channels_id = $request->input('channels_id');
-        //$notifications = $request->input('notifications');
-        //$place = $request->input('place');
-        
-        //print_r($channels_id); die;
-        
         
         if($request->input('channels_id')) $Publication->channels_id = json_encode($request->input('channels_id'));
         
-        
-        
-        //$Order->name = $request->input('name');
         $Publication->link = $request->input('link');
         $Publication->message = $request->input('message');
+        $Publication->hide_text = $request->input('hide_text');
+        
+        
+        if($request->input('links')){
+            $links['links'] = $request->input('links');
+            $links['links_text'] = $request->input('links_text');
+            $Publication->links = json_encode($links,JSON_UNESCAPED_UNICODE);
+        }
+        
+        if($request->input('question')){
+            $Publication->question = json_encode($request->input('question'),JSON_UNESCAPED_UNICODE);
+        }
+        
         
         $Publication->notifications = $request->input('notifications') ? 1 : 0;
         $Publication->place = $request->input('place') ? 1 : 0;
         
+        $Publication->type = $request->input('type');
         
         
-        $Publication->published = date('Y-m-d H:i:s',strtotime($request->input('date-1').' '.$request->input('time-1')));
-        $Publication->answer = date('Y-m-d H:i:s',strtotime($request->input('date-2').' '.$request->input('time-2')));
+        $Publication->date_published = date('Y-m-d H:i:s',strtotime($request->input('date-1').' '.$request->input('time-1')));
+        $Publication->date_repeat = date('Y-m-d H:i:s',strtotime($request->input('date-2').' '.$request->input('time-2')));
+        $Publication->date_delete = date('Y-m-d H:i:s',strtotime($request->input('date-3').' '.$request->input('time-3')));
+        
         $Publication->save();
+        
+        
+        //die;
+                        
         
         $files = $request->input('files');
         
@@ -92,15 +107,52 @@ class PublicationsController extends Controller
         //$Order->name = $request->input('name');
         $Publication->link = $request->input('link');
         $Publication->message = $request->input('message');
+
+        $Publication->hide_text = $request->input('hide_text');
+        
+        
+        if($request->input('links')){
+            $links['links'] = $request->input('links');
+            $links['links_text'] = $request->input('links_text');
+            //print_r($links); die;
+            $Publication->links = json_encode($links,JSON_UNESCAPED_UNICODE);
+        }
+        
+        if($request->input('question')){
+            $Publication->question = json_encode($request->input('question'),JSON_UNESCAPED_UNICODE);
+        }
         
         $Publication->notifications = $request->input('notifications') ? 1 : 0;
         $Publication->place = $request->input('place') ? 1 : 0;
         
+        $Publication->type = $request->input('type');
         
         
-        $Publication->published = date('Y-m-d H:i:s',strtotime($request->input('date-1').' '.$request->input('time-1')));
-        $Publication->answer = date('Y-m-d H:i:s',strtotime($request->input('date-2').' '.$request->input('time-2')));
+        $Publication->date_published = date('Y-m-d H:i:s',strtotime($request->input('date-1').' '.$request->input('time-1')));
+        $Publication->date_repeat = date('Y-m-d H:i:s',strtotime($request->input('date-2').' '.$request->input('time-2')));
+        $Publication->date_delete = date('Y-m-d H:i:s',strtotime($request->input('date-3').' '.$request->input('time-3')));
+
         $Publication->save();
+        
+        //////////////////
+        if($request->input('del_files')){
+            foreach($request->input('del_files') as $id){
+                
+            $File = Files::find($id);
+            
+                if($File){
+                    DB::delete('delete from files where id = ?',[$File->id]);
+                    DB::delete('delete from publications_files where file_id = ?',[$File->id]);
+                    if(File::exists($File->path.'/'.$File->filename)) {
+                        File::delete($File->path.'/'.$File->filename);
+                        //$result_message = 'file delete';
+                    }
+                }
+            
+            }
+        }
+        /////////////////////
+        
         
         $files = $request->input('files');
         
@@ -182,6 +234,28 @@ class PublicationsController extends Controller
         
         $publication = DB::table('publications')->where('user_id', $user->id)->where('id', $id)->first(); 
         if(!$publication) return redirect()->route('user.publications')->with(['warning'=>'Такой пост не найден']); 
+
+        $publication->media = DB::table('publications_files')->where('publications_files.publication_id', $id)
+                                              ->join('files', function (JoinClause $join) {
+                                                    $join->on('files.id', '=', 'publications_files.file_id')
+                                                         ->where('files.status', '=', 1)
+                                                         ->whereIn('files.extension', ['jpeg','jpg','png','gif']);
+                                                    })                                   
+                                              ->select('publications_files.*','files.filename','files.path')
+                                              ->get();        
+
+        
+        
+        $publication->files = DB::table('publications_files')->where('publications_files.publication_id', $id)
+                                              ->join('files', function (JoinClause $join) {
+                                                    $join->on('files.id', '=', 'publications_files.file_id')
+                                                         ->where('files.status', '=', 1)
+                                                         ->whereIn('files.extension', ['doc','docx','pdf','txt','xls','xlsx']);
+                                                    })                                   
+                                              ->select('publications_files.*','files.filename','files.path')
+                                              ->get();        
+        
+        
         
         
         $channels = DB::table('channels')->where('user_id', $user->id)->where('tg_status', 1)->where('status', 1)->get();

@@ -1,4 +1,4 @@
-<html>
+<!DOCTYPE html>
 
 <head>
 
@@ -55,10 +55,10 @@
                                     <div class="step-block message">
                                         <div class="tit">Пост</div>
                                         <div class="inputblock">
-                                            <input type="text" placeholder="Посилання на канал або ресурс" name="link" class="form-control">
+                                            <input type="text" placeholder="Посилання на канал або ресурс" name="link" class="form-control" required="">
                                         </div>
                                         <div class="inputblock message-field">
-                                            <textarea class="form-control" name="message" placeholder="Текст повідомлення"></textarea>
+                                            <textarea class="form-control" name="message" placeholder="Текст повідомлення" required=""></textarea>
                                             <div class="file-menu dropdown-link">
                                                 <div class="main-icon fill-inherit full-opacity">
                                                     <?php include 'images/file.svg'; ?>
@@ -111,6 +111,7 @@
                                         </div>
                                         <div class="file-content">
                                             <div class="file-links file-row">
+                                                {{--
                                                 <div class="link-line field-line">
                                                     <div class="f-block">
                                                         <div class="icon">
@@ -135,6 +136,7 @@
                                                         <div class="icon delete-icon-main"></div>
                                                     </div>
                                                 </div>
+                                                --}}
                                             </div>
                                             <div class="file-media file-row">
                                                 <a class="cl-btn blue-l-btn" href="#" data-bs-toggle="modal" data-bs-target="#photo-video-modal">
@@ -188,6 +190,9 @@
                                                 --}}
                                             </div>
                                             <div class="file-quiz file-row">
+                                                
+                                                
+                                                {{--
                                                 <div class="quiz-line field-line">
                                                     <div class="f-block">
                                                         <div class="icon">
@@ -196,10 +201,12 @@
                                                         <p>Кнопка</p>
                                                     </div>
                                                     <div class="field-controls">
-                                                        <div class="icon edit-icon"></div>
+                                                        <div class="icon edit-icon" data-bs-toggle="modal" data-bs-target="#quiz-modal"></div>
                                                         <div class="icon delete-icon-main"></div>
                                                     </div>
                                                 </div>
+                                                
+                                                
                                                 <div class="quiz-line field-line">
                                                     <div class="f-block">
                                                         <div class="icon">
@@ -208,12 +215,15 @@
                                                         <p>Кнопка</p>
                                                     </div>
                                                     <div class="field-controls">
-                                                        <div class="icon edit-icon"></div>
+                                                        <div class="icon edit-icon" ></div>
                                                         <div class="icon delete-icon-main"></div>
                                                     </div>
                                                 </div>
+                                                --}}
                                             </div>
                                             <div class="file-text file-row">
+                                                
+                                                {{--
                                                 <div class="text-line field-line">
                                                     <div class="f-block">
                                                         <div class="icon">
@@ -238,6 +248,7 @@
                                                         <div class="icon delete-icon-main"></div>
                                                     </div>
                                                 </div>
+                                                --}}
                                             </div>
                                             <div class="file-blocks file-row">
                                                {{-- 
@@ -307,16 +318,16 @@
                                                 <p>Дата та час автоматичного видалення</p>
                                                 <div class="inputs">
                                                     <div class="date-input icon-input">
-                                                        <label for="date-2">
+                                                        <label for="date-3">
                                                             <img src="images/date.svg" alt="date">
                                                         </label>
-                                                        <input class="form-control" id="date-2" name="date-del" type="date" placeholder="ДД.ММ.РРРР" required>
+                                                        <input class="form-control" id="date-3" name="date-3" type="date" placeholder="ДД.ММ.РРРР" required>
                                                     </div>
                                                     <div class="time-input icon-input">
-                                                        <label for="time-2">
+                                                        <label for="time-3">
                                                             <img src="images/time.svg" alt="date">
                                                         </label>
-                                                        <input class="form-control" id="time-2" name="time-del" type="time" placeholder="00:00" required>
+                                                        <input class="form-control" id="time-3" name="time-3" type="time" placeholder="00:00" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -335,14 +346,42 @@
                                             </div>
                                         </div>
                                     </div>
+                                    
+                                    
+                                    <div class="step-block settings">
+                                        <div class="tit">Тип поста</div>
+                                        <div class="fields-block">
+                                            
+                                            <select name="type" required>
+                                                <option value=""></option>
+                                                <option value="1">Изображение и описание</option>
+                                                <option value="2">Группа изображений и описание</option>
+                                                <option value="3">Изображение и кнопки(ссылки)</option>
+                                                <option value="4">Опрос и описание</option>
+                                                <option value="5">Простое сообщение</option>
+                                                <option value="6">Документ</option>
+                                            </select>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    
                                 </div>
                                 
                                 <?php /*
                                         <input type="hidden" name="channel_id" value="{{ $channel->id }}"/>
+                                        
+                                        <div id="hide_text"></div>
+                                        
                                     */
                                 ?>
                                 <div id="files"></div>                                 
                                 
+                                <div id="links"></div>                                 
+                                
+                                <div id="question"></div>
+                                
+                                <input type="hidden" id="hide_text" name="hide_text" value=""/> 
                                 
                             
                             <div class="for-btn text-center mt-4">

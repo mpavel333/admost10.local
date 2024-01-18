@@ -50,23 +50,42 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            <div class="title">Фото/Відео</div>
-            <form action="" method="post">
+            <div class="title">Опрос</div>
+            <form id="form_question" method="post">
                 <div class="modal-blocks">
                     <div class="modal-block">
-                        <div class="tit">Запитання</div>
+                        <div class="tit">Вопрос</div>
                         <div class="inputblock">
-                            <input type="text" placeholder="Поставте запитання" name="question" class="form-control" required>
+                            <input type="text" placeholder="Поставте запитання" name="question" value="<?php echo (isset($question))? $question->question : ''; ?>" class="form-control" required>
                         </div>
                     </div>
                     <div class="modal-block">
-                        <div class="tit">Запитання</div>
+                        <div class="tit">Ответы</div>
                         <div class="fields-block">
                             <div class="all-variants">
+                            
+                            <?php if($question && $question->variant){
+                                
+                                //print_r($question->variant);
+                                
+                                foreach($question->variant as $key=>$value){ ?>
+                                    
+                                    <div class="inputblock clone-block removable clone-block-variant<?php echo $key ?> filled">
+                                        <div class="delete-icon-main" onclick="DeleteLink('variant<?php echo $key ?>')"></div>
+                                        <input class="clone-input variant-variant<?php echo $key ?>" name="variant[]" value="<?php echo $value ?>" placeholder="Варіант" type="text" required="" btn_link_id="variant<?php echo $key ?>">
+                                    </div>
+                                    
+                            <?php                                    
+                                    
+                                }
+                            }?>
+                            
+                                {{--
                                 <div class="inputblock clone-block removable">
                                     <div class="delete-icon-main"></div>
                                     <input class="clone-input" name="variant" placeholder="Варіант" type="text" required>
                                 </div>
+                                --}}
                             </div>
                             <a class="cl-btn w-100 new-clone-btn" href="#" data-wrapper=".all-variants" data-template=".variants-template">
                                 <div class="icon">
@@ -80,22 +99,22 @@
                         <div class="fields-block">
                             <div class="settings-line">
                                 <label for="anonim-check-1">Анонімне голосувння</label>
-                                <input id="anonim-check-1" name="notifications" type="checkbox">
+                                <input id="anonim-check-1" name="anonim" type="checkbox" <?php echo ($question->anonim==1)? 'checked' : ''; ?>>
                             </div>
                             <div class="settings-line">
                                 <label for="variant-1">Вибір декількох варіантів</label>
-                                <input id="variant-1" name="place" type="checkbox">
+                                <input id="variant-1" name="several" type="checkbox" <?php echo ($question->several==1)? 'checked' : ''; ?>>
                             </div>
                             <div class="settings-line">
                                 <label for="vic-1">Режим вікторини</label>
-                                <input id="vic-1" name="place" type="checkbox">
+                                <input id="vic-1" name="quiz" type="checkbox" <?php echo ($question->quiz==1)? 'checked' : ''; ?>>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="for-btn">
                     <button class="cl-btn big" type="submit">
-                        Завантажити медіа
+                        Сохранить
                     </button>
                 </div>
             </form>
@@ -108,30 +127,48 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            <div class="title">Посилання</div>
-            <form action="" method="post">
+            <div class="title">Ссылки</div>
+            <form id="form_links" method="post">
                 <div class="modal-blocks">
                     <div class="modal-block">
                         <div class="fields-links">
                             <div class="all-links">
+                            
+                            
+                                   <?php if($links){
+                                        foreach($links->links as $key=>$value){ ?>
+                                        
+                                            <div class="inputblock clone-block removable clone-block-<?php echo $key ?> filled">
+                                                    <div class="delete-icon-main" onclick="DeleteLink('<?php echo $key ?>')"></div>
+                                                    <input class="clone-input links-<?php echo $key ?>" name="links[]" value="<?php echo $value ?>" placeholder="Ссылка" type="text" required="" btn_link_id="<?php echo $key ?>">
+                                                    <input class="clone-input links-text-<?php echo $key ?>" name="links_text[]" value="<?php echo $links->links_text[$key] ?>" placeholder="Текст ссылки" type="text" required="" btn_link_id="<?php echo $key ?>">
+                                            </div>                                      
+                                        
+                                        <?php } ?>
+                                    <?php } ?>                            
+                            
+                            
+                            
+                            {{--
                                 <div class="inputblock clone-block removable">
                                     <div class="delete-icon-main"></div>
-                                    <input class="clone-input" name="link" placeholder="Посилання" type="text" required>
-                                    <input class="clone-input" name="link-text" placeholder="Текст посилання" type="text" required>
+                                    <input class="clone-input" name="link[]" placeholder="Посилання" type="text" required>
+                                    <input class="clone-input" name="link-text[]" placeholder="Текст ссылки" type="text" required>
                                 </div>
+                            --}}
                             </div>
                             <a class="cl-btn w-100 new-clone-btn" href="#" data-wrapper=".all-links" data-template=".links-template">
                                 <div class="icon">
                                     <?php include 'images/plus.svg'; ?>
                                 </div>
-                                <p class="text-start">Додати інший варіант</p>
+                                <p class="text-start">Добавить</p>
                             </a>
                         </div>
                     </div>
                 </div>
                 <div class="for-btn">
                     <button class="cl-btn big" type="submit">
-                        Зберегти і додати посилання
+                        Сохранить и добавить ссылки
                     </button>
                 </div>
             </form>
@@ -145,11 +182,11 @@
         <div class="modal-content">
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             <div class="title">Прихований текст</div>
-            <form action="" method="post">
+            <form id="form_hide_text" method="post">
                 <div class="modal-blocks">
                     <div class="modal-block">
                         <div class="inputblock">
-                            <textarea placeholder="Текст, що не доступний для непідписників" name="question" class="form-control" required></textarea>
+                            <textarea placeholder="Текст, що не доступний для непідписників" name="hide_text" class="form-control" required>{{ $publication->hide_text }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -255,7 +292,7 @@
 <template class="variants-template">
     <div class="inputblock clone-block removable">
         <div class="delete-icon-main"></div>
-        <input class="clone-input" name="variant" placeholder="Варіант" type="text" required>
+        <input class="clone-input" name="variant[]" placeholder="Варіант" type="text" required>
     </div>
 </template>
 
@@ -263,7 +300,7 @@
 <template class="links-template">
     <div class="inputblock clone-block removable">
         <div class="delete-icon-main"></div>
-        <input class="clone-input" name="link" placeholder="Посилання" type="text" required>
-        <input class="clone-input" name="link-text" placeholder="Текст посилання" type="text" required>
+        <input class="clone-input" name="links[]" placeholder="Ссылка" type="text" required>
+        <input class="clone-input" name="links_text[]" placeholder="Текст ссылки" type="text" required>
     </div>
 </template>

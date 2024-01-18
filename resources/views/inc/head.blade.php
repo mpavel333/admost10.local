@@ -66,7 +66,3 @@ $meta->image = $meta->url . 'images/social.jpg';
 }
 
 </style>
-<!--
-<script src="http://admost10.local/workerman11.js" type="text/javascript"></script>
--->
-

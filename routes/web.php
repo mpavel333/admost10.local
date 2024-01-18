@@ -129,6 +129,9 @@ Route::get('/check_auth', [TelegramController::class, 'check_auth'])->name('auth
 Route::get('/test_post', [TelegramController::class, 'test_post']);
 Route::get('/del_post', [TelegramController::class, 'del_post']);
 Route::get('/autoposting', [TelegramController::class, 'autoposting']);
+Route::get('/autopostingdelete', [TelegramController::class, 'autopostingdelete']);
+
+
 
 Route::get('/get_channel_info', [TelegramController::class, 'getChannelInfo']);
 Route::get('/get_updates', [TelegramController::class, 'getUpdates']);

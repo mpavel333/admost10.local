@@ -23,6 +23,10 @@ return new class extends Migration
                 $table->string('link')->nullable();
                 $table->string('image')->nullable();
                 $table->text('message')->nullable();
+                $table->text('hide_text')->nullable();
+                
+                $table->mediumText('links')->nullable();
+                $table->mediumText('question')->nullable();
                 
                 $table->integer('tariff')->nullable(); //->comment('Формат 1/24');
                 //$table->integer('price')->nullable()->unsigned();

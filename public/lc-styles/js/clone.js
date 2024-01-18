@@ -6,15 +6,23 @@ btn.forEach(function (el) {
     const cloneTemplate = el.dataset.template;
     const allClones = cloneWrapper.querySelectorAll('.clone-block');
 
+    
+    
     if (el) {
 
         // number in input name
         let largestNumber = 0;
-
+        
+        
+        
         el.addEventListener('click', function (e) {
             e.preventDefault();
+            
+            
 
             const template = document.querySelector(cloneTemplate);
+            
+            //template.attr('id',id);
 
             const allClones = cloneWrapper.querySelectorAll('.clone-block');
             const cloneCount = parseInt(allClones.length);
@@ -24,6 +32,34 @@ btn.forEach(function (el) {
             const cloneBlock = templateClone.querySelector('.clone-block');
             const removeBtn = templateClone.querySelector('.delete-icon-main');
             const cloneInputs = cloneBlock.querySelectorAll('.clone-input');
+            
+            let id=generateRandomString(10);
+
+                
+                
+                removeBtn.setAttribute("onclick", "DeleteLink('"+id+"')");
+                
+            //cloneBlock.forEach(function (block) {
+                //let currentName = input.getAttribute('name');
+            //console.log(111);
+                cloneBlock.classList.add('clone-block-'+id);
+            
+            //}); 
+
+            cloneInputs.forEach(function (input) {
+                let currentName = input.getAttribute('name');
+                //let currentNumber = 0;
+                
+                currentName = currentName.replace("[]", "");
+                
+                //console.log(currentName);
+                
+                input.classList.add(currentName+'-'+id);
+                
+                input.setAttribute("btn_link_id", id);
+                
+                
+            });   
 
 /*
             // getting input name and add number
@@ -60,7 +96,7 @@ btn.forEach(function (el) {
 */
 
             // remove created buttons
-            deleteBlock(removeBtn);
+            //deleteBlock(removeBtn);
 
             // add filled class to input if it not empty to CREATED BLOCKS
             addFilled(cloneBlock);
@@ -74,7 +110,15 @@ btn.forEach(function (el) {
     // remove all existing on load buttons
     initialBlocks.forEach(function (block) {
         let btn = block.querySelector('.delete-icon-main');
-        deleteBlock(btn);
+        //deleteBlock(btn);
+        //
+        
+        
+        btn.addEventListener('click', (e) => {
+            //DeleteLink(id);
+            //console.log(id);
+        });
+        
     });
 
     // add filled class to input if it not empty to  EXISTING BLOCKS
