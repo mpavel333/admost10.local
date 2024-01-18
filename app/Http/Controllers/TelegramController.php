@@ -344,7 +344,7 @@ class TelegramController extends Controller
                             
                             $params = [
                                 'chat_id' => '@'.$chat_id,
-                                'media' => json_encode($media),
+                                'media' => json_encode($media,JSON_UNESCAPED_UNICODE),
                             ];                             
                             
                             $params = array_merge($params, $media_img);
@@ -368,7 +368,7 @@ class TelegramController extends Controller
                                 foreach($links->links as $key=>$value){
                                     $buttons[]=['text'=>$links->links_text[$key],"url"=>$value];
                                 }           
-                                $replyMarkup = json_encode(["inline_keyboard"=>[$buttons]]);                            
+                                $replyMarkup = json_encode(["inline_keyboard"=>[$buttons]],JSON_UNESCAPED_UNICODE);                            
                             
                             
                             //print_r($replyMarkup); //die;
