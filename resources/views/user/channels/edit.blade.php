@@ -29,7 +29,7 @@
                                 <img src="images/arr.svg" alt="icon">
                             </a>
                         </div>
-                        <p>Редактировать канал</p>
+                        <p>{{ __('text.text_144') }}</p>
                     </h1>
                     <div class="channel-fields">
                         <form action="{{ route('user.channels.edit.submit',$channel->id) }}" method="post">
@@ -37,14 +37,14 @@
                             <div class="f-row">
                                 <div class="info-column basic-info p-0">
                                     <div class="text-block">
-                                        <div class="tit">Посилання на канал</div>
+                                        <div class="tit">{{ __('text.text_131') }}</div>
                                         <div class="inputblock">
                                             <input name="link" value="{{$channel->link}}" disabled="" type="text" placeholder="https://t.me/yourchanell" class="form-control" required>
-                                            <p class="info"></p>
+                                            <p class="info">{{ __('text.text_132') }}</p>
                                         </div>
                                     </div>
                                     <div class="text-block">
-                                        <div class="tit">Тематика каналу</div>
+                                        <div class="tit">{{ __('text.text_133') }}</div>
                                         <div class="inputblock">
                                             <select id="category_id" name="category_id" class="form-select">
                                                 
@@ -56,12 +56,12 @@
 
                                             </select>
                                             <script type="text/javascript">document.getElementById("category_id").value = '{{$channel->category_id}}';</script>
-                                            <p class="info">Можна обрати до 3х категорій</p>
+                                            <p class="info">{{ __('text.text_134') }}</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="info-column formats">
-                                    <div class="tit">Формати розміщення</div>
+                                    <div class="tit">{{ __('text.text_135') }}</div>
                                     <div class="fields-block">
                                         <div class="all-formats">
                                             
@@ -70,9 +70,9 @@
                                                 <div class="inputblock format-block clone-block filled removable" data-currency="грн">
                                                     <div class="check"></div>
                                                     <div class="delete-icon-main" data-id="{{$tariff->id}}"></div>
-                                                    <input class="format-input clone-input" name="format[{{$tariff->id}}]" value="{{$tariff->format}}" placeholder="Свій формат" type="text">
+                                                    <input class="format-input clone-input" name="format[{{$tariff->id}}]" value="{{$tariff->format}}" placeholder="{{ __('text.text_136') }}" type="text">
                                                     <div class="divider"></div>
-                                                    <input class="price-input clone-input" name="price[{{$tariff->id}}]" value="{{$tariff->price}}" placeholder="Вкажіть ціну" type="text" onkeypress='validate(event)'>
+                                                    <input class="price-input clone-input" name="price[{{$tariff->id}}]" value="{{$tariff->price}}" placeholder="{{ __('text.text_137') }}" type="text" onkeypress='validate(event)'>
                                                 </div>
                                                     
                                                 @endforeach                                            
@@ -90,23 +90,23 @@
                                                     //<img src="images/plus.svg" alt="icon">?>
                                                     
                                                 </div>
-                                                <p class="text-start">Додати свій формат</p>
+                                                <p class="text-start">{{ __('text.text_138') }}</p>
                                             </a>
                                         </div>
                                     </div>
-                                    <p class="info">Тут одразу пояснюємо, що таке формат розміщення, для таких, як я)))</p>
+                                    <p class="info">{{ __('text.text_139') }}</p>
                                 </div>
                                 <div class="info-column description">
-                                    <div class="tit">Джерело підписників</div>
+                                    <div class="tit">{{ __('text.text_140') }}</div>
                                     <div class="inputblock">
-                                        <textarea class="form-control" name="description" placeholder="Опис">{{$channel->description}}</textarea>
+                                        <textarea class="form-control" name="description" placeholder="{{ __('text.text_141') }}">{{$channel->description}}</textarea>
                                     </div>
-                                    <p class="info" id="description">Детально вкажіть методи просування каналу і тд</p>
+                                    <p class="info" id="description">{{ __('text.text_142') }}</p>
                                 </div>
                             </div>
                             <div class="for-btn text-center add-btn-wrapper">
                                 <button type="submit" class="cl-btn big">
-                                    <p>Відправити на модерацію</p>
+                                    <p>{{ __('text.text_143') }}</p>
                                     <div class="icon ms-2">
                                         
                                         <?php include 'images/arr-top-right.svg'; 
@@ -133,9 +133,9 @@
         <div class="inputblock clone-block format-block removable" data-currency="грн">
             <div class="check"></div>
             <div class="delete-icon-main"></div>
-            <input class="clone-input format-input" name="format_new[]" placeholder="Свій формат" type="text">
+            <input class="clone-input format-input" name="format_new[]" placeholder="{{ __('text.text_136') }}" type="text">
             <div class="divider"></div>
-            <input class="clone-input price-input" name="price_new[]" placeholder="Вкажіть ціну" type="text" onkeypress='validate(event)'>
+            <input class="clone-input price-input" name="price_new[]" placeholder="{{ __('text.text_137') }}" type="text" onkeypress='validate(event)'>
         </div>
     </template>
 

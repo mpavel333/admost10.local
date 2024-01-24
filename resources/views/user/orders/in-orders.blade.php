@@ -39,7 +39,7 @@
 @foreach ($orders as $order)
 
 
-        <div class="collapse-block">
+        <div class="collapse-block @if($order->status==1) in_work @endif">
             <button class="btn collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#order-{{$order->id}}">
                 <div class="c-block cbl-1">
                     <div class="channel-order-info">

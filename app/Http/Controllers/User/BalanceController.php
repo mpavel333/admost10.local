@@ -30,11 +30,14 @@ class BalanceController extends Controller
         
         if($amount && is_numeric($amount)){
 
-            DB::table('users')
-            ->where('id', $user->id)
-            ->update(['balance'=>($user->balance + $amount)]);         
+            //DB::table('users')
+            //->where('id', $user->id)
+            //->update(['balance'=>($user->balance + $amount)]);         
             
-        
+            
+            self::AddBalance($user,$amount);
+            UserController::addReport($user,'Ваш баланс пополнен на '.$amount.'грн.');
+                    
             $with=['success'=>'Ваш баланс пополнен на '.$amount.' грн'];
         
         }
@@ -44,6 +47,39 @@ class BalanceController extends Controller
         
         
     } 
+    
+    
+    public static function AddBalance($user,$amount)
+    {
+            
+            DB::table('users')->where('id', $user->id)
+            ->update(['balance'=>($user->balance + $amount)]);        
+        
+    }
+    
+    public static function MinBalance($user,$amount)
+    {
+        
+            DB::table('users')->where('id', $user->id)
+            ->update(['balance'=>($user->balance - $amount)]);         
+            
+    }
 
+
+    public static function checkBalance($user,$amount)
+    {
+            
+            if($user->balance<$amount):
+                return false;
+            else:
+                return true;
+            endif;
+        
+    }
+
+
+
+        
+    
     
 }

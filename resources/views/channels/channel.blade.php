@@ -113,7 +113,7 @@
                         
                         @if(Auth::user())
                         
-                        <form id="form_orders" action="{{ route('user.orders.add.submit') }}" method="post">
+                        <form id="form_publication" action="{{ route('user.orders.add.submit') }}" method="post">
                             @csrf
                                 <div class="s-row">
                                     <div class="step-block">
@@ -271,10 +271,47 @@
                                             </div>
                                         </div>
                                         <div class="info">Вище відображаються тарифи, які пропонує адміністратор цього каналу. Оберіть підходящий та переходьте до наступного кроку</div>
+                                    
+                                        <div class="for-files">
+    
+                                            <div class="file-media file-row"></div>
+                                            <div class="file-blocks file-row"></div>
+                                            <div class="file-quiz file-row"></div>
+                                            <div class="file-links file-row"></div>
+                                            <div class="file-text file-row"></div>
+    
+                                        
+                                        </div>                                    
+                                    
                                     </div>
+                                    
+                                    <div class="step-block"></div>
+                                    
+                                    <div class="step-block"></div>
+                                    
+                                    <div class="step-block settings">
+                                        <div class="tit">Тип поста</div>
+                                        <div class="fields-block">
+                                            
+                                            <select name="type" required>
+                                                <option value=""></option>
+                                                <option value="1">Изображение и описание</option>
+                                                <option value="2">Группа изображений и описание</option>
+                                                <option value="3">Изображение и кнопки(ссылки)</option>
+                                                <option value="4">Опрос и описание</option>
+                                                <option value="5">Простое сообщение</option>
+                                                <option value="6">Документ</option>
+                                            </select>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                    
                                 </div>
                                 
                                 
+                                
+
 
                                 <div class="for-btn text-center mt-4">
                                     <button type="submit" class="cl-btn big">
@@ -285,9 +322,17 @@
                                     </button>
                                 </div>
                             
-                                <input type="hidden" name="channel_id" value="{{ $channel->id }}"/>
+                                <input type="hidden" name="channel_id" class="channels_id" value="{{ $channel->id }}"/>
+
+                                <input type="hidden" id="hide_text" name="hide_text" value=""/>
+                                
+                                
                                 
                                 <div id="files"></div>                               
+                                <div id="question"></div> 
+                                <div id="links"></div>                                  
+                                
+                                
                                 
                             </form>
                             

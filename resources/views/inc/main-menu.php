@@ -9,7 +9,7 @@
                     <img src="lc-styles/images/m1.svg"/>
                     <?php //include 'images/m1.svg'; ?>
                 </div>
-                <p>Мої канали</p>
+                <p><? echo __('text.text_113') ?></p>
             </a>
         </div>
 
@@ -19,7 +19,7 @@
                     <img src="lc-styles/images/m1.svg"/>
                     <?php //include 'images/m1.svg'; ?>
                 </div>
-                <p>Мої публикации</p>
+                <p><? echo __('text.text_114') ?></p>
             </a>
         </div>
        
@@ -29,7 +29,7 @@
                     <img src="lc-styles/images/m2.svg"/>
                     <?php //include 'images/m2.svg'; ?>
                 </div>
-                <p>Вхідні заявки</p>
+                <p><? echo __('text.text_115') ?></p>
             </a>
         </div>
         <div class="link">
@@ -38,7 +38,7 @@
                     <img src="lc-styles/images/m3.svg"/>
                     <?php //include 'images/m3.svg'; ?>
                 </div>
-                <p>Вихідні заявки</p>
+                <p><? echo __('text.text_116') ?></p>
             </a>
         </div>
         <hr>
@@ -48,7 +48,7 @@
                     <img src="lc-styles/images/m4.svg"/>
                     <?php //include 'images/m4.svg'; ?>
                 </div>
-                <p>Обрані канали</p>
+                <p><? echo __('text.text_117') ?></p>
             </a>
         </div>
         <div class="link">
@@ -57,7 +57,7 @@
                     <img src="lc-styles/images/m5.svg"/>
                     <?php //include 'images/m5.svg'; ?>
                 </div>
-                <p>Чорний список</p>
+                <p><? echo __('text.text_118') ?></p>
             </a>
         </div>
         <hr>
@@ -67,7 +67,7 @@
                     <img src="lc-styles/images/m6.svg"/>
                     <?php //include 'images/m6.svg'; ?>
                 </div>
-                <p>Реферальна програма</p>
+                <p><? echo __('text.text_119') ?></p>
             </a>
         </div>
         <div class="link">
@@ -76,7 +76,7 @@
                     <img src="lc-styles/images/m7.svg"/>
                     <?php //include 'images/m7.svg'; ?>
                 </div>
-                <p>Просувайся у нас</p>
+                <p><? echo __('text.text_120') ?></p>
             </a>
         </div>
         <div class="link">
@@ -85,7 +85,7 @@
                     <img src="lc-styles/images/m8.svg"/>
                     <?php //include 'images/m8.svg'; ?>
                 </div>
-                <p>Тех. підтримка</p>
+                <p><? echo __('text.text_121') ?></p>
             </a>
         </div>
         <div class="link">
@@ -94,7 +94,7 @@
                     <img src="lc-styles/images/m9.svg"/>
                     <?php //include 'images/m9.svg'; ?>
                 </div>
-                <p>Про нас</p>
+                <p><? echo __('text.text_122') ?></p>
             </a>
         </div>
         

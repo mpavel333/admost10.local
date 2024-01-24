@@ -30,7 +30,7 @@
                 @include('inc.alerts')
                 
                     <h1 class="title gap-title">
-                        <p>Мои публикации </p> 
+                        <p>{{ __('text.text_114') }}</p> 
                     </h1>
                     
                     <div class="orders-inner">
@@ -39,26 +39,17 @@
 @foreach ($publications as $publication)
 
 
-        <div class="collapse-block @if($publication->status) in_work @endif">
+        <div class="collapse-block @if($publication->status==1) in_work @elseif($publication->status==2) stopped @endif ">
             <button class="btn collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#order-{{$publication->id}}">
                 <div class="c-block cbl-1">
                     <div class="channel-order-info">
                    
-                   
-                   <?php //print_r($publications) ?>
-                   
-                  
-                    
-                    
-                    <?php //print_r($publications->channels) ?>
-                    
-                    
                        @foreach ($publication->channels as $channel)
-                        
-                            <div class="pic">
-                                <img src="@if($channel->image)images\channels\{{$channel->image}}@else images\channels\no-image.png @endif" alt="pic">
-                                <div class="notification-count gray"></div>
-                            </div>
+                    
+                        <div class="pic">
+                            <img src="@if($channel->image)images\channels\{{$channel->image}}@else images\channels\no-image.png @endif" alt="pic">
+                            <div class="notification-count gray"></div>
+                        </div>
 
                         <div class="main-info">
                             <div class="name-row">
@@ -73,29 +64,25 @@
                             
                        @endforeach    
                    
-                  
-                        
-
-                        
                     </div>
                 </div>
                 <div class="c-block cbl-2">
                     <div class="number-block">
-                        <p>Дата публікації</p>
+                        <p>{{ __('text.text_145') }}</p>
                         <div class="number"><?php echo date('d.m.Y',strtotime($publication->date_published)) ?></div>
                     </div>
                     <div class="number-block">
-                        <p>Час публікації</p>
+                        <p>{{ __('text.text_146') }}</p>
                         <div class="number"><?php echo date('H:i',strtotime($publication->date_published)) ?></div>
                     </div>
                 </div>
                 <div class="c-block cbl-3">
                     <div class="number-block">
-                        <p>Дата повтора публікації</p>
+                        <p>{{ __('text.text_147') }}</p>
                         <div class="number"><?php echo date('d.m.Y',strtotime($publication->date_repeat)) ?></div>
                     </div>
                     <div class="number-block">
-                        <p>Час повтора публікації</p>
+                        <p>{{ __('text.text_148') }}</p>
                         <div class="number"><?php echo date('H:i',strtotime($publication->date_repeat)) ?></div>
                     </div>
                 </div>
@@ -111,7 +98,7 @@
                     <div class="collapse-content">
                         <div class="c-block cbl-1">
                             <div class="for-text">
-                                <div class="tit">Рекламний текст</div>
+                                <div class="tit">{{ __('text.text_149') }}</div>
                                 <div class="text">
                                     <p>{{ $publication->message }}</p>
                                 </div>
@@ -119,15 +106,15 @@
                         </div>
                         <div class="c-block cbl-2">
                             <div class="tech-task">
-                                <div class="tit">ТЗ від замовника</div>
+                                <div class="tit">{{ __('text.text_150') }}</div>
                                 <div class="text">
                                     <p></p>
                                 </div>
                             </div>
                         </div>
                         <div class="c-block cbl-3">
-                            <div class="tit">Рекламне посилання</div>
-                            <div class="copy-block" data-success="Скопійовано!">
+                            <div class="tit">{{ __('text.text_151') }}</div>
+                            <div class="copy-block" data-success="{{ __('text.text_152') }}">
                                 <input value="{{ $publication->link }}" type="text" readonly>
                                 <div class="icon">
                                     <img src="images/copy-icon.svg" alt="copy">
@@ -147,28 +134,53 @@
                     <div class="collapse-buttons">
                         <div class="for-btn">
                         @if($publication->status==1)
-                            <a class="cl-btn btn-success">Пост опубликован</a>
+                            <a class="cl-btn btn-success">{{ __('text.text_153') }}</a>
                         @endif
                         @if($publication->status!=1)
                             <a class="cl-btn" href="<?php echo route('user.publications.published',['id'=>$publication->id,'hash'=>hash('sha256', $publication->id.env('ORDERS_SOLT'))]) ?>">
-                                Публиковать
+                                {{ __('text.text_154') }}
                             </a>
                         @endif
                         </div>
                         <div class="for-btn">
                         @if($publication->status!=0)
                             <a class="cl-btn deny-btn" href="<?php echo route('user.publications.cancel',['id'=>$publication->id,'hash'=>hash('sha256', $publication->id.env('ORDERS_SOLT'))]) ?>">
-                                Снять с публикации
+                                {{ __('text.text_155') }}
                             </a>
                         @endif
                         </div>
 
                         <div class="for-btn">
                             <a class="cl-btn cl-btn blue-l-btn open-chat" href="<?php echo route('user.publications.edit',$publication->id) ?>">
-                                <p>Редактировать</p>
+                                <p>{{ __('text.text_156') }}</p>
                             </a>
                         </div>
                     </div>
+                    
+                    @if($publication->status)
+                    <div class="collapse-message">
+                        <strong>{{ __('text.text_157') }}:</strong>
+                    
+                    
+                        @switch($publication->status)
+                            @case(1)
+                                <span>{{ __('text.text_158') }}</span>
+                                @break
+                            
+                            @case(2)
+                                <span>{{ __('text.text_159') }}</span>
+                                @break
+                            
+                            @default
+                        
+                        @endswitch                   
+                    
+                    </div>
+                    
+                    @endif
+                    
+                    
+                    
                 </div>
             </div>
         </div>
@@ -180,7 +192,7 @@
         <div class="modal-content">
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             <div class="preview-inner">
-                <div class="title min-offset">Попередій перегляд посту</div>
+                <div class="title min-offset">{{ __('text.text_160') }}</div>
                 <div class="modal-blocks min-offset">
                     <div class="modal-block">
                         <div class="pic">
@@ -193,7 +205,7 @@
                         </div>
                     </div>
                     <div class="modal-block">
-                        <div class="copy-block" data-success="Скопійовано!">
+                        <div class="copy-block" data-success="{{ __('text.text_152') }}">
                             <input value="{{ $publication->link }}" type="text" readonly>
                             <div class="icon">
                                 <img src="images/copy-icon.svg" alt="copy">

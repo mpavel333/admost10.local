@@ -26,7 +26,7 @@
                 <?php /*MAIN MENU*/ //include 'main-menu.php'; ?>
 
                 <div class="panel-main channels-content white-block">
-                    <h1 class="title gap-title">Мої канали</h1>
+                    <h1 class="title gap-title">{{ __('text.text_113') }}</h1>
 
 
                     
@@ -55,7 +55,7 @@
                                     //<img src="lc-styles/images/plus.svg">
                                     ?>
                                 </div>
-                                <p>Додати канал</p>
+                                <p>{{ __('text.text_25') }}</p>
                             </a>
                         </div>
                         
@@ -68,14 +68,14 @@
                                 </div>
                                 
                                 @if($channel->tg_status==1)
-                                    <p class="green" title="Подтвержден телеграмом"><?php echo $channel->link ?></p>
+                                    <p class="green" title="{{ __('text.text_123') }}"><?php echo $channel->link ?></p>
                                 @else
-                                    <p title="Не подтвержден телеграмом"><?php echo $channel->link ?></p>
+                                    <p title="{{ __('text.text_124') }}"><?php echo $channel->link ?></p>
                                 @endif
                                 
                                 
                                 @if($channel->status==1)
-                                    <p class="confirmed" title="Подтвержден администратором"></p>
+                                    <p class="confirmed" title="{{ __('text.text_125') }}"></p>
                                 @endif
                                 
                             </a>
@@ -96,9 +96,9 @@
                     </span>
                     <!--end::Svg Icon-->                    
                     <div class="d-flex flex-column">
-                        <h4 class="mb-1 text-primary">Подтверждение прав на ваших каналах.</h4>
-                        <span>Пожалуйста добавьте нашего бота <a href="https://t.me/<?php echo env('BOT_USERNAME') ?>" target="_blank">@<?php echo env('BOT_USERNAME') ?></a> в администраторы вашего канала и нажмите <a href="<?php echo route('user.channels.check_tg_status') ?>" class="btn btn-secondary me-2 mb-2">Подтвердить права</a></span>
-                        <p>Если после добавления бота права не подтверждуються, попробуйте удалить бота из администраторов канала а затем добавить его повторно. Если даже после этого ваши каналы не подтверждаються, напишите о проблеме оператору в онлайн чат.</p>
+                        <h4 class="mb-1 text-primary">{{ __('text.text_126') }}</h4>
+                        <span>{{ __('text.text_127') }} <a href="https://t.me/<?php echo env('BOT_USERNAME') ?>" target="_blank">@<?php echo env('BOT_USERNAME') ?></a> {{ __('text.text_128') }} <a href="<?php echo route('user.channels.check_tg_status') ?>" class="btn btn-secondary me-2 mb-2">{{ __('text.text_129') }}</a></span>
+                        <p>{{ __('text.text_130') }}</p>
                     </div>
                 </div>                    
                     

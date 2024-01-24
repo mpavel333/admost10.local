@@ -152,13 +152,13 @@ if(document.getElementById('form_links')){
           
           let id = field.getAttribute('btn_link_id');
           let name = field.name.replace("[]", "");
-          let link_id = name+'-'+id;
+          let link_id = name+'_'+id;
           
           if(document.querySelector('#form_publication #links #'+link_id)){
             
                 document.querySelector('#form_publication #links #'+link_id).value = field.value;
                 
-                document.querySelector('#links-line-'+id+' .f-block p').innerHTML = field.value;
+                document.querySelector('#links_line_'+id+' .f-block p').innerHTML = field.value;
                 
                 
             
@@ -169,7 +169,7 @@ if(document.getElementById('form_links')){
                     if(name=='links_text'){
                         
                         
-                        let link_line = '<div id="links-line-'+id+'" class="link-line field-line">'+
+                        let link_line = '<div id="links_line_'+id+'" class="link-line field-line">'+
                                                 '<div class="f-block">'+
                                                     '<div class="icon">'+
                                                         '<img src="images/link-ic.svg">'+

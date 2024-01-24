@@ -6,6 +6,8 @@ use Illuminate\Support\ServiceProvider;
 //use Illuminate\Support\Facades\View;
 use App\Models\Orders;
 
+use App\Http\Controllers\User\UserController;
+
 use Auth;
 
 class AppServiceProvider extends ServiceProvider
@@ -30,7 +32,10 @@ class AppServiceProvider extends ServiceProvider
                 
                     $view->with('in_orders', Orders::getUserInOrdersCount());
                     $view->with('out_orders', Orders::getUserOutOrdersCount());
-                
+                    
+                    $view->with('report_new_messages', UserController::getNewMessageCount());
+                    
+                    
                 }
             
                        

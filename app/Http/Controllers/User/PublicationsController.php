@@ -30,12 +30,18 @@ class PublicationsController extends Controller
     }       
 
 
-    public function submit(Request $request)
+    public function submit(Request $request,$id=false)
     {
-      
+        
+        $new = false;
+        
         $user = Auth::user();
+        $Publication = Publications::find($id);
+        
+        if(!$Publication): $Publication = new Publications; $new = true; endif;
+        
 
-        $Publication = new Publications;
+        //$Publication = new Publications;
         $Publication->user_id = $user->id;
         
         if($request->input('channels_id')) $Publication->channels_id = json_encode($request->input('channels_id'));
@@ -69,7 +75,24 @@ class PublicationsController extends Controller
         $Publication->save();
         
         
-        //die;
+        //////////////////
+        if($request->input('del_files')){
+            foreach($request->input('del_files') as $id){
+                
+            $File = Files::find($id);
+            
+                if($File){
+                    DB::delete('delete from files where id = ?',[$File->id]);
+                    DB::delete('delete from publications_files where file_id = ?',[$File->id]);
+                    if(File::exists($File->path.'/'.$File->filename)) {
+                        File::delete($File->path.'/'.$File->filename);
+                        //$result_message = 'file delete';
+                    }
+                }
+            
+            }
+        }
+        /////////////////////
                         
         
         $files = $request->input('files');
@@ -82,19 +105,21 @@ class PublicationsController extends Controller
         }
         
         
-        $with=['success'=>'Публикация создана'];
-        
-        //die; 
+        if($new):
+            $with=['success'=>'Публикация создана'];
+        else:
+            $with=['success'=>'Публикация обновлена'];
+        endif;
         
         return redirect()->route('user.publications')->with($with);        
     
     }    
     
-
+/*
 
     public function edit_submit(Request $request,$id)
     {
-      
+        
         $user = Auth::user();
 
         $Publication = Publications::find($id);
@@ -171,7 +196,7 @@ class PublicationsController extends Controller
         return redirect()->route('user.publications.edit',$id)->with($with);        
     
     }  
-
+*/
     
     
     public function publications()
@@ -306,11 +331,45 @@ class PublicationsController extends Controller
     }       
     
     
+    public static function setStatus($id,$status)
+    {
+    
+        DB::table('publications')->where('id', $id)->update(['status'=>$status]);
+    
+    }
     
     
     
     
+    public static function addPublicationsTelegramDB($id,$message_id)
+    {
     
+        DB::table('publications_telegram')->insert(['publication_id'=>$id,
+                                                    //'channel_id'=>$channel->id,
+                                                    'message_id'=>$message_id,
+                                                    "created_at"=>now(),
+                                                    "updated_at"=>now()
+                                                 ]);    
+ 
+    
+    }
+    
+    
+    
+    public static function getFiles($id,$extensions)
+    {
+
+        $files = DB::table('publications_files')->where('publications_files.publication_id', $id)
+                                              ->join('files', function (JoinClause $join) use ($extensions) {
+                                                    $join->on('files.id', '=', 'publications_files.file_id')
+                                                         ->where('files.status', '=', 1)
+                                                         ->whereIn('files.extension', $extensions);
+                                                    })                                   
+                                              ->select('publications_files.*','files.filename','files.path')
+                                              ->get();  
+    
+        return $files;
+    }
     
     
 }

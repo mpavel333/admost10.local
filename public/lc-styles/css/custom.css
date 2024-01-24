@@ -98,6 +98,80 @@
   background: #CEFFD8;
 }
 
+.panel-inner .panel-body .orders .collapse-block.stopped {
+  background: #F5B687;
+}
+
+
+
+.report_title.report_item{
+    font-size: 18px;
+    color: #3162E8;
+    //margin-bottom: 30px;
+}
+
+.report_item{
+    display: flex;
+    flex-direction:row;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid black;
+}
+
+.report_item:first-child,
+.report_item:last-child{
+    border-bottom: 0;
+}
+
+.report_item > div{
+    padding: 0 10px;
+}
+
+.report_item .report_id{
+    width: 50px;
+    flex-grow:1;
+}
+
+.report_item .report_message{
+    width: 300px;
+    flex-grow:2;
+}
+
+.report_item .report_created{
+    width: 100px;
+    flex-grow:1;
+}
+
+.notification{
+    position: relative;
+}
+
+.new_rep_mes{
+    position: absolute;
+    left: 11px;
+    top: -9px;
+    background-color: red;
+    color: white;
+    border-radius: 10px;
+    display: block;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    font-size: 14px
+}
+
+.collapse-message{
+    padding: 10px 0;
+    text-decoration: underline;
+}
+
+
+.for-files .file-row .field-line {
+  display: flex;
+}
+
+
+
 
 
 

@@ -10,20 +10,20 @@
         <div class="tech-menu tech-menu-move">
             @if(Auth::user())
                 <div class="link">
-                    <a class="{{ (request()->is('user/publication')) ? 'active' : '' }}" href="{{route('user.publications.add')}}">Відкладена публікація</a>
+                    <a class="{{ (request()->is('user/publication')) ? 'active' : '' }}" href="{{route('user.publications.add')}}">{{ __('text.text_108') }}</a>
                 </div>
             @endif
             <div class="link">
-                <a class="{{ (request()->is('channels') OR request()->is('channel/*')) ? 'active' : '' }}" href="{{route('channels')}}">Каталог каналів</a>
+                <a class="{{ (request()->is('channels') OR request()->is('channel/*')) ? 'active' : '' }}" href="{{route('channels')}}">{{ __('text.text_2') }}</a>
             </div>
             <div class="link">
-                <a href="#">Участь у добірках</a>
+                <a href="#">{{ __('text.text_53') }}</a>
             </div>
             <div class="link">
-                <a href="#">Купівля/продаж кналів</a>
+                <a href="#">{{ __('text.text_109') }}</a>
             </div>
             <div class="link">
-                <a href="#">Вакансії</a>
+                <a href="#">{{ __('text.text_110') }}</a>
             </div>
         </div>
     </div>
@@ -44,7 +44,7 @@
                             ?>
                             
                         </div>
-                        <p>Увійти</p>
+                        <p>{{ __('text.text_6') }}</p>
                     </a>
                 </div>
                 <div class="for-btn">
@@ -54,7 +54,7 @@
                             //<img src="main-page/images/plus.svg">
                             ?>
                         </div>
-                        <p>Приєднатися</p>
+                        <p>{{ __('text.text_7') }}</p>
                     </a>
                 </div>                
 
@@ -67,25 +67,60 @@
     @if(Auth::user())
     
         <a href="{{route('user.balance.index')}}" class="balance balance-move cl-btn blue-l-btn cl-dark">
-            <p class="flex-grow-1">Баланс: <span class="fw-bold">{{Auth::user()->balance}} грн</span></p>
+            <p class="flex-grow-1">{{ __('text.text_112') }}: <span class="fw-bold">{{Auth::user()->balance}} {{ __('text.text_20') }}</span></p>
             <div class="icon ms-2">
                 <?php include 'lc-styles/images/plus.svg'; ?>
             </div>
         </a>
         <div class="languages languages-move dropdown-link">
             <div class="current icon">
-                <img src="lc-styles/images/flag.svg" alt="flag">
+            
+            <?php
+            
+            $lang = App\Http\Middleware\LocaleMiddleware::getLocale(); 
+            
+                
+            switch ($lang) {
+                case "ua":
+                    echo '<img src="metronik/assets/media/flags/ukraine.svg" alt="flag">';
+                    break;
+                case "ru":
+                    echo '<img src="metronik/assets/media/flags/russia.svg" alt="flag">';
+                    break;
+                case "en":
+                    echo '<img src="metronik/assets/media/flags/united-states.svg" alt="flag">';
+                    break;
+            }
+                            
+                
+            ?>
+            
             </div>
             <div class="lang-dropdown dropdown-default">
                 <div class="dropdown-inner">
-                    <a href="" class="icon">
-                        <img src="lc-styles/images/flag.svg" alt="flag">
+                    
+                  
+                    
+                    <a href="<?= route('setlocale', ['lang' => 'ua']) ?>" class="icon ua">
+                        <img src="metronik/assets/media/flags/ukraine.svg" alt="flag">
                     </a>
+                    
+                    <a href="<?= route('setlocale', ['lang' => 'ru']) ?>" class="icon ru">
+                        <img src="metronik/assets/media/flags/russia.svg" alt="flag">
+                    </a>
+                    
+                    <a href="<?= route('setlocale', ['lang' => 'en']) ?>" class="icon usa">
+                        <img src="metronik/assets/media/flags/united-states.svg" alt="flag">
+                    </a>
+                    
+                    
+                    
+                    
                 </div>
             </div>
         </div>
         <div class="notification notification-move fill-inherit">
-            <?php include 'lc-styles/images/bell.svg'; ?>
+            <a href="{{route('user.report.index')}}"><?php include 'lc-styles/images/bell.svg'; ?><?php echo ($report_new_messages>0)? '<span class="new_rep_mes">'.$report_new_messages.'</span>' : '' ?></a>
         </div>
         <div class="account-menu account-move dropdown-link">
             <div class="current">
@@ -97,10 +132,10 @@
             <div class="account-dropdown dropdown-default">
                 <div class="dropdown-inner">
                     <div class="link">
-                        <a href="#">Налаштування</a>
+                        <a href="#">{{ __('text.text_111') }}</a>
                     </div>
                     <div class="link">
-                        <a href="{{ route('logout') }}">Вихід</a>
+                        <a href="{{ route('logout') }}">{{ __('text.text_10') }}</a>
                     </div>
 
                 </div>

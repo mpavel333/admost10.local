@@ -39,7 +39,7 @@
 @foreach ($orders as $order)
 
 
-        <div class="collapse-block">
+        <div class="collapse-block @if($order->status==1) in_work @endif">
             <button class="btn collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#order-{{$order->id}}">
                 <div class="c-block cbl-1">
                     <div class="channel-order-info">
@@ -127,13 +127,14 @@
                         </div>
                     </div>
                     <div class="collapse-buttons">
-                    {{--
+                    
                         <div class="for-btn">
-                            <a class="cl-btn" href="#">
-                                Прийняти заявку
+                            <a class="cl-btn" href="{{route('user.orders.edit',$order->id)}}">
+                                Редактировать
                             </a>
                         </div>
-                    --}}
+
+                    
                         @if($order->status==1)
                         <div class="for-btn">
                             <a class="cl-btn btn-success">Заявка принята</a>

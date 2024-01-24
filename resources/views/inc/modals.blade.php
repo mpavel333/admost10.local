@@ -3,18 +3,18 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            <div class="title">Фото/Відео</div>
+            <div class="title">{{ __('text.text_163') }}</div>
             <form id="form_media_dropzone" method="post" action="{{ route('user.file.add') }}"  class="media-dropzone dropzone-form">
                 @csrf
                 <div class="open-upload-prompt" id="media_dropzone">
-                    Перетягніть файли у цю область
+                    {{ __('text.text_187') }}
                 </div>
 
                 <hr class="mb-0">
                 <div class="file-media file-row mb-0"></div>
                 <div class="for-btn">
                     <button class="cl-btn big" type="submit">
-                        Завантажити медіа
+                        {{ __('text.text_188') }}
                     </button>
                 </div>
             </form>
@@ -27,17 +27,17 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            <div class="title">Файл</div>
+            <div class="title">{{ __('text.text_164') }}</div>
             <form id="form_files_dropzone" method="post" action="{{ route('user.file.add') }}" class="file-dropzone dropzone-form">
                 <div class="open-upload-prompt">
-                    Перетягніть файли у цю область
+                    {{ __('text.text_187') }}
                 </div>
 
                 <hr class="mb-0">
                 <div class="file-blocks file-row mb-0"></div>
                 <div class="for-btn">
                     <button class="cl-btn big" type="submit">
-                        Завантажити файли
+                        {{ __('text.text_189') }}
                     </button>
                 </div>
             </form>
@@ -50,63 +50,54 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            <div class="title">Опрос</div>
+            <div class="title">{{ __('text.text_165') }}</div>
             <form id="form_question" method="post">
                 <div class="modal-blocks">
                     <div class="modal-block">
-                        <div class="tit">Вопрос</div>
+                        <div class="tit">{{ __('text.text_190') }}</div>
                         <div class="inputblock">
-                            <input type="text" placeholder="Поставте запитання" name="question" value="<?php echo (isset($question))? $question->question : ''; ?>" class="form-control" required>
+                            <input type="text" placeholder="{{ __('text.text_191') }}" name="question" value="<?php echo (isset($question))? $question->question : ''; ?>" class="form-control" required>
                         </div>
                     </div>
                     <div class="modal-block">
-                        <div class="tit">Ответы</div>
+                        <div class="tit">{{ __('text.text_192') }}</div>
                         <div class="fields-block">
                             <div class="all-variants">
                             
                             <?php if($question && $question->variant){
-                                
-                                //print_r($question->variant);
-                                
                                 foreach($question->variant as $key=>$value){ ?>
                                     
                                     <div class="inputblock clone-block removable clone-block-variant<?php echo $key ?> filled">
                                         <div class="delete-icon-main" onclick="DeleteLink('variant<?php echo $key ?>')"></div>
                                         <input class="clone-input variant-variant<?php echo $key ?>" name="variant[]" value="<?php echo $value ?>" placeholder="Варіант" type="text" required="" btn_link_id="variant<?php echo $key ?>">
                                     </div>
-                                    
-                            <?php                                    
-                                    
-                                }
-                            }?>
-                            
-                                {{--
-                                <div class="inputblock clone-block removable">
-                                    <div class="delete-icon-main"></div>
-                                    <input class="clone-input" name="variant" placeholder="Варіант" type="text" required>
-                                </div>
-                                --}}
+                                        
+                                <?php                                    
+                                        
+                                    }
+                                }?>
+
                             </div>
                             <a class="cl-btn w-100 new-clone-btn" href="#" data-wrapper=".all-variants" data-template=".variants-template">
                                 <div class="icon">
                                     <?php include 'images/plus.svg'; ?>
                                 </div>
-                                <p class="text-start">Додати інший варіант</p>
+                                <p class="text-start">{{ __('text.text_193') }}</p>
                             </a>
                         </div>
                     </div>
                     <div class="modal-block">
                         <div class="fields-block">
                             <div class="settings-line">
-                                <label for="anonim-check-1">Анонімне голосувння</label>
+                                <label for="anonim-check-1">{{ __('text.text_194') }}</label>
                                 <input id="anonim-check-1" name="anonim" type="checkbox" <?php echo ($question->anonim==1)? 'checked' : ''; ?>>
                             </div>
                             <div class="settings-line">
-                                <label for="variant-1">Вибір декількох варіантів</label>
+                                <label for="variant-1">{{ __('text.text_195') }}</label>
                                 <input id="variant-1" name="several" type="checkbox" <?php echo ($question->several==1)? 'checked' : ''; ?>>
                             </div>
                             <div class="settings-line">
-                                <label for="vic-1">Режим вікторини</label>
+                                <label for="vic-1">{{ __('text.text_196') }}</label>
                                 <input id="vic-1" name="quiz" type="checkbox" <?php echo ($question->quiz==1)? 'checked' : ''; ?>>
                             </div>
                         </div>
@@ -114,7 +105,7 @@
                 </div>
                 <div class="for-btn">
                     <button class="cl-btn big" type="submit">
-                        Сохранить
+                        {{ __('text.text_197') }}
                     </button>
                 </div>
             </form>
@@ -127,7 +118,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            <div class="title">Ссылки</div>
+            <div class="title">{{ __('text.text_105') }}</div>
             <form id="form_links" method="post">
                 <div class="modal-blocks">
                     <div class="modal-block">
@@ -140,35 +131,27 @@
                                         
                                             <div class="inputblock clone-block removable clone-block-<?php echo $key ?> filled">
                                                     <div class="delete-icon-main" onclick="DeleteLink('<?php echo $key ?>')"></div>
-                                                    <input class="clone-input links-<?php echo $key ?>" name="links[]" value="<?php echo $value ?>" placeholder="Ссылка" type="text" required="" btn_link_id="<?php echo $key ?>">
-                                                    <input class="clone-input links-text-<?php echo $key ?>" name="links_text[]" value="<?php echo $links->links_text[$key] ?>" placeholder="Текст ссылки" type="text" required="" btn_link_id="<?php echo $key ?>">
+                                                    <input class="clone-input links_<?php echo $key ?>" name="links[]" value="<?php echo $value ?>" placeholder="Ссылка" type="text" required="" btn_link_id="<?php echo $key ?>">
+                                                    <input class="clone-input links_text_<?php echo $key ?>" name="links_text[]" value="<?php echo $links->links_text[$key] ?>" placeholder="Текст ссылки" type="text" required="" btn_link_id="<?php echo $key ?>">
                                             </div>                                      
                                         
                                         <?php } ?>
                                     <?php } ?>                            
                             
-                            
-                            
-                            {{--
-                                <div class="inputblock clone-block removable">
-                                    <div class="delete-icon-main"></div>
-                                    <input class="clone-input" name="link[]" placeholder="Посилання" type="text" required>
-                                    <input class="clone-input" name="link-text[]" placeholder="Текст ссылки" type="text" required>
-                                </div>
-                            --}}
+
                             </div>
                             <a class="cl-btn w-100 new-clone-btn" href="#" data-wrapper=".all-links" data-template=".links-template">
                                 <div class="icon">
                                     <?php include 'images/plus.svg'; ?>
                                 </div>
-                                <p class="text-start">Добавить</p>
+                                <p class="text-start">{{ __('text.text_198') }}</p>
                             </a>
                         </div>
                     </div>
                 </div>
                 <div class="for-btn">
                     <button class="cl-btn big" type="submit">
-                        Сохранить и добавить ссылки
+                        {{ __('text.text_199') }}
                     </button>
                 </div>
             </form>
@@ -181,18 +164,18 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            <div class="title">Прихований текст</div>
+            <div class="title">{{ __('text.text_167') }}</div>
             <form id="form_hide_text" method="post">
                 <div class="modal-blocks">
                     <div class="modal-block">
                         <div class="inputblock">
-                            <textarea placeholder="Текст, що не доступний для непідписників" name="hide_text" class="form-control" required>{{ $publication->hide_text }}</textarea>
+                            <textarea placeholder="{{ __('text.text_200') }}" name="hide_text" class="form-control" required>{{ $publication->hide_text }}</textarea>
                         </div>
                     </div>
                 </div>
                 <div class="for-btn">
                     <button class="cl-btn big" type="submit">
-                        Додати прихований текст
+                        {{ __('text.text_201') }}
                     </button>
                 </div>
             </form>
@@ -292,7 +275,7 @@
 <template class="variants-template">
     <div class="inputblock clone-block removable">
         <div class="delete-icon-main"></div>
-        <input class="clone-input" name="variant[]" placeholder="Варіант" type="text" required>
+        <input class="clone-input" name="variant[]" placeholder="{{ __('text.text_202') }}" type="text" required>
     </div>
 </template>
 
@@ -300,7 +283,7 @@
 <template class="links-template">
     <div class="inputblock clone-block removable">
         <div class="delete-icon-main"></div>
-        <input class="clone-input" name="links[]" placeholder="Ссылка" type="text" required>
-        <input class="clone-input" name="links_text[]" placeholder="Текст ссылки" type="text" required>
+        <input class="clone-input" name="links[]" placeholder="{{ __('text.text_105') }}" type="text" required>
+        <input class="clone-input" name="links_text[]" placeholder="{{ __('text.text_203') }}" type="text" required>
     </div>
 </template>

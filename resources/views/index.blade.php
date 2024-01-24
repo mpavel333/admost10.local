@@ -93,19 +93,19 @@ $meta->image = $meta->url . 'images/social.jpg';
                             <div class="close-menu d-lg-none">&times;</div>
                             <nav class="menu">
                                 <div class="link">
-                                    <a href="">Про нас</a>
+                                    <a href="">{{ __('text.text_1') }}</a>
                                 </div>
                                 <div class="link">
-                                    <a href="{{route('channels')}}">Каталог каналів</a>
+                                    <a href="{{route('channels')}}">{{ __('text.text_2') }}</a>
                                 </div>
                                 <div class="link">
-                                    <a href="">Категорії</a>
+                                    <a href="">{{ __('text.text_3') }}</a>
                                 </div>
                                 <div class="link">
-                                    <a href="">Контакти</a>
+                                    <a href="">{{ __('text.text_4') }}</a>
                                 </div>
                                 <div class="link">
-                                    <a href="">Наш блог</a>
+                                    <a href="">{{ __('text.text_5') }}</a>
                                 </div>
                             </nav>
                             <!-- controls mob -->
@@ -118,7 +118,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                                             ?>
                                             
                                         </div>
-                                        <p>Увійти</p>
+                                        <p>{{ __('text.text_6') }}</p>
                                     </a>
                                 </div>
                                 <div class="for-btn w-100">
@@ -128,7 +128,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                                             //<img src="main-page/images/plus.svg">
                                             ?>
                                         </div>
-                                        <p>Приєднатися</p>
+                                        <p>{{ __('text.text_7') }}</p>
                                     </a>
                                 </div>
                             </div>
@@ -149,7 +149,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                             ?>
                             
                         </div>
-                        <p>Увійти</p>
+                        <p>{{ __('text.text_6') }}</p>
                     </a>
                 </div>
                 <div class="for-btn">
@@ -159,7 +159,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                             //<img src="main-page/images/plus.svg">
                             ?>
                         </div>
-                        <p>Приєднатися</p>
+                        <p>{{ __('text.text_7') }}</p>
                     </a>
                 </div>                
         
@@ -174,7 +174,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                             //<img src="main-page/images/login.svg">
                             ?>
                         </div>
-                        <p>Adminpanel</p>
+                        <p>{{ __('text.text_8') }}</p>
                     </a>
                 </div>
                 
@@ -187,7 +187,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                             //<img src="main-page/images/login.svg">
                              ?>
                         </div>
-                        <p>Личный кабинет</p>
+                        <p>{{ __('text.text_9') }}</p>
                     </a>
                 </div>
                 
@@ -200,7 +200,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                             //<img src="main-page/images/login.svg">
                         ?>
                         </div>
-                        <p>Выход</p>
+                        <p>{{ __('text.text_10') }}</p>
                     </a>
                 </div>
         
@@ -231,11 +231,10 @@ $meta->image = $meta->url . 'images/social.jpg';
                                 <h1 class="title">
                                     <span>
                                         <div class="icon">
-                                        
                                             <img src="main-page/images/flag.svg" alt="flag">
                                         </div>
                                         AdMost
-                                    </span> — українська біржа реклами в Telegram
+                                    </span>{{ __('text.text_11') }}
                                 </h1>
                                 <div class="m-row">
                                     <div class="row align-items-center">
@@ -246,7 +245,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                                         </div>
                                         <div class="col">
                                             <div class="text">
-                                                <p>Єднаємо рекламодавців та власників телеграм каналів, роблячи їх співпрацю прозорою та ефективною</p>
+                                                <p>{{ __('text.text_12') }}</p>
                                             </div>
                                         </div>
                                         <!-- desktop btn -->
@@ -258,7 +257,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                                                         //<img src="main-page/images/plus.svg">
                                                         ?>
                                                     </div>
-                                                    <p>Почати Зараз</p>
+                                                    <p>{{ __('text.text_13') }}</p>
                                                 </a>
                                             </div>
                                         </div>
@@ -280,7 +279,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                                 //<img src="main-page/images/plus.svg">
                                 ?>
                             </div>
-                            <p>Почати Зараз</p>
+                            <p>{{ __('text.text_13') }}</p>
                         </a>
                     </div>
                 </div>
@@ -290,7 +289,7 @@ $meta->image = $meta->url . 'images/social.jpg';
         <section class="community">
             <div class="container big">
                 <h2 class="title main-title text-center">
-                    Долучайтесь до зростючої спільноти <br class="d-none d-md-inline"> власників телеграм каналів
+                    {!! __('text.text_14') !!}
                 </h2>
                 <div class="marquee-sliders">
                     <div class="swiper-marquee">
@@ -449,9 +448,9 @@ $meta->image = $meta->url . 'images/social.jpg';
                 <div class="calculator">
                     <div class="for-title text-md-center text-xl-start">
                         <div class="title color-secondary fw-semi">
-                            Скільки можна заробити?
+                            {{ __('text.text_15') }}
                         </div>
-                        <p class="mt-3">Розрахуйте прибуток зі свого телеграм-каналу <br class="d-none d-md-inline"> <span class="fw-semi">за одне розміщення</span></p>
+                        <p class="mt-3">{!! __('text.text_16') !!}</p>
                     </div>
                     <div class="c-row">
                         <div class="row g-0">
@@ -459,7 +458,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                                 <div class="c-block cb-1">
                                     <form action="" method="post">
                                         <div class="inputblock">
-                                            <p>Тематика</p>
+                                            <p>{{ __('text.text_17') }}</p>
                                             <select name="subject" class="form-select dark-select">
                                                 <option value="Авто и мото">Авто и мото</option>
                                                 <option value="Хуёто">Хуйото</option>
@@ -467,7 +466,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                                         </div>
                                         <div class="subscribers-slider">
                                             <div class="i-top">
-                                                <p>Кількість підписників</p>
+                                                <p>{{ __('text.text_18') }}</p>
                                                 <div class="count"></div>
                                             </div>
                                             <input type="text" class="subscribers-count" name="range" value="" data-type="single" data-min="0" data-max="50000000" data-from="0" data-to="500" data-grid="false" />
@@ -479,9 +478,9 @@ $meta->image = $meta->url . 'images/social.jpg';
                                 <div class="c-block cb-2">
                                     <div class="result">
                                         <div class="for-price d-flex align-items-center d-md-block">
-                                            <div class="tit me-4 me-md-0 mb-md-3">Приблизний <br class="d-md-none"> прибуток</div>
+                                            <div class="tit me-4 me-md-0 mb-md-3">{!! __('text.text_19') !!}</div>
                                             <div class="price lh-1 text-nowrap">
-                                                <span class="fs-xl-48 fs-34 fw-bold me-1 text-nowrap">300 456</span>грн
+                                                <span class="fs-xl-48 fs-34 fw-bold me-1 text-nowrap">300 456</span>{{ __('text.text_20') }}
                                             </div>
                                         </div>
                                         <div class="for-btn">
@@ -491,7 +490,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                                                     //<img src="main-page/images/plus.svg">
                                                     ?>
                                                 </div>
-                                                <p>Додати у каталог</p>
+                                                <p>{{ __('text.text_21') }}</p>
                                             </a>
                                         </div>
                                     </div>
@@ -509,7 +508,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                     <div class="row">
                         <div class="col-12 col-lg">
                             <h2 class="title main-title text-center text-lg-start">
-                                Долучайтесь до зростючої спільноти <br class="d-none d-md-inline"> власників телеграм каналів
+                                {!! __('text.text_22') !!}
                             </h2>
                         </div>
                         <div class="col-12 col-lg-auto d-none d-lg-block">
@@ -526,10 +525,10 @@ $meta->image = $meta->url . 'images/social.jpg';
                                 <div class="s-block sb-1">
                                     <div class="number">01</div>
                                     <div class="s-title">
-                                        <div class="tit">Додайте свій канал</div>
+                                        <div class="tit">{{ __('text.text_23') }}</div>
                                         <!-- text mobile -->
                                         <div class="text d-xl-none">
-                                            <p>Після додавання каналу до нашого обміну рекламою в телеграмах ваш ресурс відображатиметься в загальному каталозі, і ви можете прийняти програми для розміщення</p>
+                                            <p>{{ __('text.text_24') }}</p>
                                         </div>
                                         <div class="for-btn">
                                             <a class="cl-btn" href="#">
@@ -538,7 +537,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                                                     //<img src="main-page/images/plus.svg">
                                                     ?>
                                                 </div>
-                                                <p>Додати канал</p>
+                                                <p>{{ __('text.text_25') }}Додати канал</p>
                                             </a>
                                         </div>
                                     </div>
@@ -548,7 +547,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                                 <div class="s-block sb-2">
                                     <!-- text desktop -->
                                     <div class="text">
-                                        <p>Після додавання каналу до нашого обміну рекламою в телеграмах ваш ресурс відображатиметься в загальному каталозі, і ви можете прийняти програми для розміщення</p>
+                                        <p>{{ __('text.text_24') }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -567,10 +566,10 @@ $meta->image = $meta->url . 'images/social.jpg';
                                 <div class="s-block sb-1">
                                     <div class="number">02</div>
                                     <div class="s-title">
-                                        <div class="tit">Вкажіть вартість</div>
+                                        <div class="tit">{{ __('text.text_26') }}</div>
                                         <!-- text mobile -->
                                         <div class="text d-xl-none">
-                                            <p>Тут ви можете вказати кілька тарифів на рекламу на своєму телеграмському каналі (наприклад, розміщення до 24.12.36/48 годин), це збільшить покриття рекламодавців</p>
+                                            <p>{{ __('text.text_27') }}</p>
                                         </div>
                                         <div class="for-btn">
                                             <a class="cl-btn" href="#">
@@ -579,7 +578,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                                                     //<img src="main-page/images/plus.svg">
                                                     ?>
                                                 </div>
-                                                <p>Додати канал</p>
+                                                <p>{{ __('text.text_25') }}</p>
                                             </a>
                                         </div>
                                     </div>
@@ -589,7 +588,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                                 <div class="s-block sb-2">
                                     <!-- text desktop -->
                                     <div class="text">
-                                        <p>Тут ви можете вказати кілька тарифів на рекламу на своєму телеграмському каналі (наприклад, розміщення до 24.12.36/48 годин), це збільшить покриття рекламодавців</p>
+                                        <p>{{ __('text.text_27') }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -608,10 +607,10 @@ $meta->image = $meta->url . 'images/social.jpg';
                                 <div class="s-block sb-1">
                                     <div class="number">03</div>
                                     <div class="s-title">
-                                        <div class="tit">Приймайте заявки на розіміщення реклами</div>
+                                        <div class="tit">{{ __('text.text_28') }}</div>
                                         <!-- text mobile -->
                                         <div class="text d-xl-none">
-                                            <p>Начните продавать рекламу на действительно новом уровне. Ваша задача - иметь качественный канал, а мы в свою очередь обеспечим вас потенциальнми рекламодателями.</p>
+                                            <p>{{ __('text.text_29') }}</p>
                                         </div>
                                         <div class="for-btn">
                                             <a class="cl-btn" href="#">
@@ -620,7 +619,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                                                     //<img src="main-page/images/plus.svg">
                                                     ?>
                                                 </div>
-                                                <p>Додати канал</p>
+                                                <p>{{ __('text.text_25') }}</p>
                                             </a>
                                         </div>
                                     </div>
@@ -630,7 +629,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                                 <div class="s-block sb-2">
                                     <!-- text desktop -->
                                     <div class="text">
-                                        <p>Начните продавать рекламу на действительно новом уровне. Ваша задача - иметь качественный канал, а мы в свою очередь обеспечим вас потенциальнми рекламодателями.</p>
+                                        <p>{{ __('text.text_29') }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -650,7 +649,7 @@ $meta->image = $meta->url . 'images/social.jpg';
         <section class="why">
             <div class="container">
                 <h2 class="title text-center">
-                    Чому вам потрібно працювати <br class="d-none d-md-inline"> з AdMost? І які переваги ви отримуєте
+                    {!! __('text.text_30') !!}
                 </h2>
                 <div class="w-row">
                     <div class="row gy-3">
@@ -661,10 +660,10 @@ $meta->image = $meta->url . 'images/social.jpg';
                                         <div class="icon">
                                             <img src="main-page/images/w1.svg" alt="icon">
                                         </div>
-                                        <div class="tit">Гарантія безпечних <br class="d-md-none"> платежів</div>
+                                        <div class="tit">{!! __('text.text_31') !!}</div>
                                     </div>
                                     <div class="text">
-                                        <p> Гроші на розміщення списаються лише для успішних виконаних замовлень.</p>
+                                        <p> {{ __('text.text_32') }}</p>
                                     </div>
                                 </div>
                                 <div class="w-block">
@@ -672,10 +671,10 @@ $meta->image = $meta->url . 'images/social.jpg';
                                         <div class="icon">
                                             <img src="main-page/images/w4.svg" alt="icon">
                                         </div>
-                                        <div class="tit">Перевірені канали</div>
+                                        <div class="tit">{{ __('text.text_33') }}</div>
                                     </div>
                                     <div class="text">
-                                        <p>Наша команда проводить аудит усіх телеграм каналів, які додають адміністратори, і не допускає погані канали до біржі</p>
+                                        <p>{{ __('text.text_34') }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -687,10 +686,10 @@ $meta->image = $meta->url . 'images/social.jpg';
                                         <div class="icon">
                                             <img src="main-page/images/w2.svg" alt="icon">
                                         </div>
-                                        <div class="tit">Комісія</div>
+                                        <div class="tit">{{ __('text.text_35') }}</div>
                                     </div>
                                     <div class="text">
-                                        <p>У нас немає комісії за рекламу, яку ви продали, ми беремо щомісячну оплату в розмірі 199 гривень на місяць (перший місяць безкоштовно), яка включає аналітику, відкладений постинг та інше</p>
+                                        <p>{{ __('text.text_36') }}</p>
                                     </div>
                                 </div>
                                 <div class="w-block">
@@ -698,10 +697,10 @@ $meta->image = $meta->url . 'images/social.jpg';
                                         <div class="icon">
                                             <img src="main-page/images/w5.svg" alt="icon">
                                         </div>
-                                        <div class="tit">Відкладений постинг</div>
+                                        <div class="tit">{{ __('text.text_37') }}</div>
                                     </div>
                                     <div class="text">
-                                        <p>Автоматизуйте публікацію своїх дописів на каналі Telegram через наш модуль відкладеного постингу</p>
+                                        <p>{{ __('text.text_38') }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -713,10 +712,10 @@ $meta->image = $meta->url . 'images/social.jpg';
                                         <div class="icon">
                                             <img src="main-page/images/w3.svg" alt="icon">
                                         </div>
-                                        <div class="tit">Взаємопіар та добірки</div>
+                                        <div class="tit">{{ __('text.text_39') }}</div>
                                     </div>
                                     <div class="text">
-                                        <p>Створіть свої особисті добірки каналів для взаємного PR або беріть участь у вже створених іншими адміністраторами</p>
+                                        <p>{{ __('text.text_40') }}</p>
                                     </div>
                                 </div>
                                 <div class="w-block">
@@ -724,10 +723,10 @@ $meta->image = $meta->url . 'images/social.jpg';
                                         <div class="icon">
                                             <img src="main-page/images/w6.svg" alt="icon">
                                         </div>
-                                        <div class="tit">Instant view</div>
+                                        <div class="tit">{{ __('text.text_41') }}</div>
                                     </div>
                                     <div class="text">
-                                        <p>Опублікуйте статті для миттєвого перегляду в Telegram на нашій платформі та отримайте особистий індексований блог</p>
+                                        <p>{{ __('text.text_42') }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -746,7 +745,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                         <div class="col-12 col-lg-6">
                             <div class="w-right">
                                 <div class="tit fs-xl-28 fs-22 fw-semi">
-                                    Прямо зараз, отримай <span class="color-secondary">30 днів безкоштовного користування</span> <br class="d-none d-xl-inline"> нашою платформою
+                                    {!! __('text.text_43') !!}
                                 </div>
                                 <div class="for-btn mt-4">
                                     <a class="cl-btn big" href="#">
@@ -755,7 +754,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                                             //<img src="main-page/images/plus.svg">
                                             ?>
                                         </div>
-                                        <p>Додати канал</p>
+                                        <p>{{ __('text.text_25') }}</p>
                                     </a>
                                 </div>
                             </div>
@@ -774,12 +773,12 @@ $meta->image = $meta->url . 'images/social.jpg';
                     <div class="row">
                         <div class="col-12 col-lg-8">
                             <h2 class="title">
-                                Наші тарифні плани на перші 30 днів безкоштовно
+                                {{ __('text.text_44') }}
                             </h2>
                         </div>
                         <div class="col-12 col-lg-4">
                             <div class="tit fs-xl-28 fs-md-24 fs-20 fw-semi">
-                                <span class="color-main">Підписка набагато вигідніша</span> для вас, ніж віддавати % від продажів на других біржах
+                                {!! __('text.text_45') !!}
                             </div>
                         </div>
                     </div>
@@ -790,28 +789,28 @@ $meta->image = $meta->url . 'images/social.jpg';
                             <div class="swiper-slide">
                                 <div class="packet">
                                     <div class="p-top">
-                                        <div class="name">Новачок</div>
-                                        <p>Підходить для початківця адміністратора</p>
+                                        <div class="name">{{ __('text.text_46') }}</div>
+                                        <p>{{ __('text.text_47') }}</p>
                                     </div>
                                     <div class="p-body">
                                         <div class="for-price">
                                             <div class="price color-main">
-                                                <span class="number">199</span>грн/міс
+                                                <span class="number">199</span>{{ __('text.text_48') }}
                                             </div>
-                                            <p class="txt">перші 30 днів безкоштовно</p>
+                                            <p class="txt">{{ __('text.text_49') }}</p>
                                         </div>
                                         <div class="arrow-list">
-                                            <p><span class="color-main fw-semi">2</span> канали</p>
-                                            <p>Відкладений постинг</p>
-                                            <p>Купівля та продаж реклами</p>
-                                            <p>Участь у добірках</p>
-                                            <p>Виведення коштів 1 раз на тиждень</p>
+                                            <p><span class="color-main fw-semi">2</span> {{ __('text.text_50') }}</p>
+                                            <p>{{ __('text.text_51') }}</p>
+                                            <p>{{ __('text.text_52') }}</p>
+                                            <p>{{ __('text.text_53') }}</p>
+                                            <p>{{ __('text.text_54') }}</p>
                                         </div>
                                     </div>
                                     <div class="p-bottom">
                                         <div class="for-btn">
                                             <a class="cl-btn big" href="#">
-                                                Оплатити
+                                                {{ __('text.text_55') }}
                                             </a>
                                         </div>
                                     </div>
@@ -819,24 +818,24 @@ $meta->image = $meta->url . 'images/social.jpg';
                             </div>
                             <div class="swiper-slide">
                                 <div class="packet packet-dark">
-                                    <div class="labe">Популярний</div>
+                                    <div class="labe">{{ __('text.text_56') }}</div>
                                     <div class="p-top">
-                                        <div class="name">Професіонал</div>
-                                        <p>Підходить для невеликої каналу мережі</p>
+                                        <div class="name">{{ __('text.text_57') }}</div>
+                                        <p>{{ __('text.text_58') }}</p>
                                     </div>
                                     <div class="p-body">
                                         <div class="for-price">
                                             <div class="price color-secondary">
-                                                <span class="number">269</span>грн/міс
+                                                <span class="number">269</span>{{ __('text.text_48') }}
                                             </div>
-                                            <p class="txt">перші 30 днів безкоштовно</p>
+                                            <p class="txt">{{ __('text.text_49') }}</p>
                                         </div>
                                         <div class="arrow-list light">
-                                            <p><span class="color-secondary fw-semi">6</span> каналів</p>
-                                            <p>Відкладений постинг</p>
-                                            <p>Купівля та продаж реклами</p>
-                                            <p>Створення та участь у добірках</p>
-                                            <p>Виведення коштів <span class="color-secondary fw-semi">3</span> рази на тиждень</p>
+                                            <p><span class="color-secondary fw-semi">6</span> {{ __('text.text_59') }}</p>
+                                            <p>{{ __('text.text_51') }}</p>
+                                            <p>{{ __('text.text_52') }}</p>
+                                            <p>{{ __('text.text_60') }}</p>
+                                            <p>{!! __('text.text_61') !!}</p>
                                         </div>
                                         <div class="plus">
                                             <?php include 'main-page/images/packet-plus.svg'; 
@@ -844,16 +843,16 @@ $meta->image = $meta->url . 'images/social.jpg';
                                             ?>
                                         </div>
                                         <div class="arrow-list light">
-                                            <p>Аналітика каналів біржи</p>
-                                            <p>Блог миттєвого перегляду</p>
-                                            <p>Найм до <span class="color-secondary fw-semi">5</span> продавців</p>
-                                            <p>Купівля та продаж каналів</p>
+                                            <p>{{ __('text.text_62') }}</p>
+                                            <p>{{ __('text.text_63') }}</p>
+                                            <p>{!! __('text.text_64') !!}</p>
+                                            <p>{{ __('text.text_65') }}</p>
                                         </div>
                                     </div>
                                     <div class="p-bottom">
                                         <div class="for-btn">
                                             <a class="cl-btn big" href="#">
-                                                Оплатити
+                                                {{ __('text.text_66') }}
                                             </a>
                                         </div>
                                     </div>
@@ -862,22 +861,22 @@ $meta->image = $meta->url . 'images/social.jpg';
                             <div class="swiper-slide">
                                 <div class="packet packet-light">
                                     <div class="p-top">
-                                        <div class="name">Бізнесмен</div>
-                                        <p>Тільки для великих сіток <br> каналів</p>
+                                        <div class="name">{{ __('text.text_67') }}</div>
+                                        <p>{!! __('text.text_68') !!}</p>
                                     </div>
                                     <div class="p-body">
                                         <div class="for-price">
                                             <div class="price color-main">
-                                                <span class="number">499</span>грн/міс
+                                                <span class="number">499</span>{{ __('text.text_48') }}
                                             </div>
-                                            <p class="txt">перші 30 днів безкоштовно</p>
+                                            <p class="txt">{{ __('text.text_49') }}</p>
                                         </div>
                                         <div class="arrow-list">
-                                            <span class="fw-semi color-main">6</span> каналів
-                                            Відкладений постинг
-                                            Купівля та продаж реклами
-                                            Створення та участь у добірках
-                                            Виведення коштів за запитом
+                                            <span class="fw-semi color-main">6</span> {{ __('text.text_59') }}
+                                            {{ __('text.text_51') }}
+                                            {{ __('text.text_52') }}
+                                            {{ __('text.text_60') }}
+                                            {{ __('text.text_69') }}
                                         </div>
                                         <div class="plus">
                                             <?php include 'main-page/images/packet-plus.svg'; 
@@ -885,16 +884,16 @@ $meta->image = $meta->url . 'images/social.jpg';
                                             ?>
                                         </div>
                                         <div class="arrow-list">
-                                            <p>Аналітика каналів біржи</p>
-                                            <p>Блог миттєвого перегляду</p>
-                                            <p>Найм до <span class="fw-semi color-main">10</span> продавців</p>
-                                            <p>Купівля та продаж каналів</p>
+                                            <p>{{ __('text.text_62') }}</p>
+                                            <p>{{ __('text.text_63') }}</p>
+                                            <p>{!! __('text.text_70') !!}
+                                            <p>{{ __('text.text_65') }}</p>
                                         </div>
                                     </div>
                                     <div class="p-bottom">
                                         <div class="for-btn">
                                             <a class="cl-btn big" href="#">
-                                                Оплатити
+                                                {{ __('text.text_66') }}
                                             </a>
                                         </div>
                                     </div>
@@ -904,7 +903,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                     </div>
                     <div class="swiper-button relative-button d-lg-none opacity-50 justify-content-center mt-4">
                         <div class="swiper-button-prev packets-prev"></div>
-                        <p class="mx-4">Гортай, щоб побачити усі тарифи</p>
+                        <p class="mx-4">{{ __('text.text_71') }}</p>
                         <div class="swiper-button-next packets-next"></div>
                     </div>
                 </div>
@@ -915,104 +914,104 @@ $meta->image = $meta->url . 'images/social.jpg';
             <div class="container big">
                 <div class="c-inner">
                     <h2 class="title text-center">
-                        Величезний вибір категорій <br class="d-none d-md-inline"> для вашого бізнесу
+                        {!! __('text.text_72') !!}
                     </h2>
                     <div class="c-row fw-semi">
                         <div class="c-block">
                             <div class="icon squad">
                                 <img src="main-page/images/c1.svg" alt="icon">
                             </div>
-                            <p>Криптовалюти</p>
+                            <p>{{ __('text.text_73') }}</p>
                         </div>
                         <div class="c-block">
                             <div class="icon squad">
                                 <img src="main-page/images/c2.svg" alt="icon">
                             </div>
-                            <p>Гумор</p>
+                            <p>{{ __('text.text_74') }}</p>
                         </div>
                         <div class="c-block">
                             <div class="icon squad">
                                 <img src="main-page/images/c3.svg" alt="icon">
                             </div>
-                            <p>Новини/ЗМІ</p>
+                            <p>{{ __('text.text_75') }}</p>
                         </div>
                         <div class="c-block">
                             <div class="icon squad">
                                 <img src="main-page/images/c4.svg" alt="icon">
                             </div>
-                            <p>Пізнавальні</p>
+                            <p>{{ __('text.text_76') }}</p>
                         </div>
                         <div class="c-block">
                             <div class="icon squad">
                                 <img src="main-page/images/c5.svg" alt="icon">
                             </div>
-                            <p>Політика</p>
+                            <p>{{ __('text.text_77') }}</p>
                         </div>
                         <div class="c-block">
                             <div class="icon squad">
                                 <img src="main-page/images/c6.svg" alt="icon">
                             </div>
-                            <p>Вакансії/Робота</p>
+                            <p>{{ __('text.text_78') }}</p>
                         </div>
                         <div class="c-block">
                             <div class="icon squad">
                                 <img src="main-page/images/c7.svg" alt="icon">
                             </div>
-                            <p>Регіональні</p>
+                            <p>{{ __('text.text_79') }}</p>
                         </div>
                         <div class="c-block">
                             <div class="icon squad">
                                 <img src="main-page/images/c8.svg" alt="icon">
                             </div>
-                            <p>Спорт</p>
+                            <p>{{ __('text.text_80') }}</p>
                         </div>
                         <div class="c-block">
                             <div class="icon squad">
                                 <img src="main-page/images/c9.svg" alt="icon">
                             </div>
-                            <p>Жіночі</p>
+                            <p>{{ __('text.text_81') }}</p>
                         </div>
                         <div class="c-block">
                             <div class="icon squad">
                                 <img src="main-page/images/c10.svg" alt="icon">
                             </div>
-                            <p>Медецина</p>
+                            <p>{{ __('text.text_82') }}</p>
                         </div>
                         <div class="c-block">
                             <div class="icon squad">
                                 <img src="main-page/images/c11.svg" alt="icon">
                             </div>
-                            <p>Бізнес</p>
+                            <p>{{ __('text.text_83') }}</p>
                         </div>
                         <div class="c-block">
                             <div class="icon squad">
                                 <img src="main-page/images/c12.svg" alt="icon">
                             </div>
-                            <p>Новини 18+</p>
+                            <p>{{ __('text.text_84') }}</p>
                         </div>
                         <div class="c-block">
                             <div class="icon squad">
                                 <img src="main-page/images/c13.svg" alt="icon">
                             </div>
-                            <p>IT/Додатки</p>
+                            <p>{{ __('text.text_85') }}</p>
                         </div>
                         <div class="c-block">
                             <div class="icon squad">
                                 <img src="main-page/images/c14.svg" alt="icon">
                             </div>
-                            <p>Геймінг</p>
+                            <p>{{ __('text.text_86') }}</p>
                         </div>
                         <div class="c-block">
                             <div class="icon squad">
                                 <img src="main-page/images/c15.svg" alt="icon">
                             </div>
-                            <p>Авто і мото</p>
+                            <p>{{ __('text.text_87') }}</p>
                         </div>
                         <div class="c-block">
                             <div class="icon squad">
                                 <img src="main-page/images/c16.svg" alt="icon">
                             </div>
-                            <p>Цитати</p>
+                            <p>{{ __('text.text_88') }}</p>
                         </div>
                     </div>
                     <div class="for-btn">
@@ -1022,7 +1021,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                                 //<img src="main-page/images/plus.svg">
                                 ?>
                             </div>
-                            <p>Додати канал</p>
+                            <p>{{ __('text.text_25') }}</p>
                         </a>
                     </div>
                 </div>
@@ -1035,7 +1034,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                     <div class="row">
                         <div class="col-12 col-md">
                             <h2 class="title">
-                                З нами співпрацюють бренди
+                                {{ __('text.text_89') }}
                             </h2>
                         </div>
                         <div class="col-12 col-md-auto d-none d-md-block">
@@ -1099,7 +1098,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                         <div class="col-12 col-lg-8">
                             <div class="w-right ps-xl-4">
                                 <h2 class="title fs-xl-28 fs-22 fw-semi">
-                                    <span class="color-secondary">Ми готові вам допомогти</span> <br> і взяти вашу рекламну <br class="d-xl-none"> кампанію в Телеграм <br class="d-xl-none"> на себе
+                                    {!! __('text.text_90') !!}
                                 </h2>
                                 <!-- pic mobile -->
                                 <div class="pic d-md-none">
@@ -1112,7 +1111,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                                             //<img src="main-page/images/plus.svg">
                                             ?>
                                         </div>
-                                        <p>Замовити рекламу</p>
+                                        <p>{{ __('text.text_91') }}</p>
                                     </a>
                                 </div>
                             </div>
@@ -1128,7 +1127,7 @@ $meta->image = $meta->url . 'images/social.jpg';
         <section class="faq">
             <div class="container">
                 <h2 class="title fs-xl-28 fs-22 fw-semi text-center text-md-start">
-                    Питання - Відповідь
+                    {{ __('text.text_92') }}
                 </h2>
                 <div class="f-row">
                     <div class="row">
@@ -1136,51 +1135,51 @@ $meta->image = $meta->url . 'images/social.jpg';
                             <div class="accordion" id="faq">
                                 <div class="card">
                                     <button class="btn collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#f-1">
-                                        Як почати заробляти на платформі?
+                                        {{ __('text.text_93') }}
                                     </button>
                                     <div id="f-1" class="collapse" data-bs-parent="#faq">
                                         <div class="card-body">
-                                            <p>Спочатку потрібно розмістити власний канал у каталозі платформи. Для цього зареєструйтесь на платформі та <span class="fw-semi color-main">заповніть заявку</span> на додавання каналу. Протягом 3 днів ваш канал проходитиме модерацію. Після успішного результату перевірки канал потрапляє до каталогу платформи.</p>
+                                            <p>{!! __('text.text_94') !!}</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card">
                                     <button class="btn collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#f-2">
-                                        Які є обмеження каналів?
+                                        {{ __('text.text_95') }}
                                     </button>
                                     <div id="f-2" class="collapse" data-bs-parent="#faq">
                                         <div class="card-body">
-                                            <p>Спочатку потрібно розмістити власний канал у каталозі платформи. Для цього зареєструйтесь на платформі та заповніть заявку на додавання каналу. Протягом 3 днів ваш канал проходитиме модерацію. Після успішного результату перевірки канал потрапляє до каталогу платформи.</p>
+                                            <p>{!! __('text.text_94') !!}</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card">
                                     <button class="btn collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#f-3">
-                                        Скільки я можу заробляти?
+                                        {{ __('text.text_96') }}
                                     </button>
                                     <div id="f-3" class="collapse" data-bs-parent="#faq">
                                         <div class="card-body">
-                                            <p>Спочатку потрібно розмістити власний канал у каталозі платформи. Для цього зареєструйтесь на платформі та заповніть заявку на додавання каналу. Протягом 3 днів ваш канал проходитиме модерацію. Після успішного результату перевірки канал потрапляє до каталогу платформи.</p>
+                                            <p>{!! __('text.text_94') !!}</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card">
                                     <button class="btn collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#f-4">
-                                        Чи потрібно платити за канали?
+                                        {{ __('text.text_97') }}
                                     </button>
                                     <div id="f-4" class="collapse" data-bs-parent="#faq">
                                         <div class="card-body">
-                                            <p>Спочатку потрібно розмістити власний канал у каталозі платформи. Для цього зареєструйтесь на платформі та заповніть заявку на додавання каналу. Протягом 3 днів ваш канал проходитиме модерацію. Після успішного результату перевірки канал потрапляє до каталогу платформи.</p>
+                                            <p>{!! __('text.text_94') !!}</p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card">
                                     <button class="btn collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#f-5">
-                                        Як отримати оплату за роботу?
+                                        {{ __('text.text_98') }}
                                     </button>
                                     <div id="f-5" class="collapse" data-bs-parent="#faq">
                                         <div class="card-body">
-                                            <p>Спочатку потрібно розмістити власний канал у каталозі платформи. Для цього зареєструйтесь на платформі та заповніть заявку на додавання каналу. Протягом 3 днів ваш канал проходитиме модерацію. Після успішного результату перевірки канал потрапляє до каталогу платформи.</p>
+                                            <p>{!! __('text.text_94') !!}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -1188,7 +1187,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                         </div>
                         <div class="col-12 col-lg-4">
                             <div class="start-now">
-                                <div class="tit fs-30 fw-semi">Почати прямо <br> зараз</div>
+                                <div class="tit fs-30 fw-semi">{{ __('text.text_99') }}</div>
                                 <div class="pic">
                                     <img src="main-page/images/tg-big.png" alt="pic">
                                 </div>
@@ -1199,7 +1198,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                                             //<img src="main-page/images/plus.svg">
                                             ?>
                                         </div>
-                                        <p>Додати канал</p>
+                                        <p>{{ __('text.text_25') }}</p>
                                     </a>
                                 </div>
                             </div>
@@ -1218,40 +1217,40 @@ $meta->image = $meta->url . 'images/social.jpg';
                                 <a href="#" class="logo">
                                     <img src="main-page/images/logo.svg" alt="logo">
                                 </a>
-                                <p class="fs-14 opacity-50 mt-3 mt-md-4">AdMost — українська біржа <br class="d-none d-md-inline"> реклами в Telegram</p>
+                                <p class="fs-14 opacity-50 mt-3 mt-md-4">{!! __('text.text_100') !!}</p>
                             </div>
                         </div>
                         <div class="col-6 col-lg-3 order-3 order-lg-2">
                             <div class="for-links">
-                                <div class="tit opacity-50 fw-semi">Послуги</div>
+                                <div class="tit opacity-50 fw-semi">{{ __('text.text_101') }}</div>
                                 <div class="links">
                                     <div class="link">
-                                        <a href="">Дизайн</a>
+                                        <a href="">{{ __('text.text_102') }}</a>
                                     </div>
                                     <div class="link">
-                                        <a href="">Контент менеджмент</a>
+                                        <a href="">{{ __('text.text_103') }}</a>
                                     </div>
                                     <div class="link">
-                                        <a href="">Створення каналів</a>
+                                        <a href="">{{ __('text.text_104') }}</a>
                                     </div>
                                     <div class="link">
-                                        <a href="">Замовити рекламу</a>
+                                        <a href="">{{ __('text.text_91') }}</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-6 col-lg-3 order-4 order-lg-3">
                             <div class="for-links">
-                                <div class="tit opacity-50 fw-semi">Посилання</div>
+                                <div class="tit opacity-50 fw-semi">{{ __('text.text_105') }}</div>
                                 <div class="links">
                                     <div class="link">
-                                        <a href="">Про нас</a>
+                                        <a href="">{{ __('text.text_1') }}</a>
                                     </div>
                                     <div class="link">
-                                        <a href="">Політика конфіденційності</a>
+                                        <a href="">{{ __('text.text_106') }}</a>
                                     </div>
                                     <div class="link">
-                                        <a href="">Угода користувача</a>
+                                        <a href="">{{ __('text.text_107') }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -1265,7 +1264,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                                             //<img src="main-page/images/login.svg">
                                             ?>
                                         </div>
-                                        <p class="text-end flex-grow-1">Увійти</p>
+                                        <p class="text-end flex-grow-1">{{ __('text.text_6') }}</p>
                                     </a>
                                 </div>
                                 <div class="for-btn">
@@ -1275,7 +1274,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                                             //<img src="main-page/images/plus.svg">
                                             ?>
                                         </div>
-                                        <p>Приєднатися</p>
+                                        <p>{{ __('text.text_7') }}</p>
                                     </a>
                                 </div>
                             </div>

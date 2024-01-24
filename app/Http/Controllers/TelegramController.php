@@ -24,7 +24,10 @@ use DB;
 
 use App\Models\User;
 
-
+use App\Http\Controllers\User\BalanceController;
+use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\User\PublicationsController;
+use App\Http\Controllers\User\OrdersController;
 
 use Crypter;
 
@@ -197,8 +200,6 @@ class TelegramController extends Controller
 //getFile?file_id=the_file_id
 
 
-
-    
     public static function autoposting()
     {
          //2023-07-25 19:23:00
@@ -208,6 +209,309 @@ class TelegramController extends Controller
          echo 'time on server :'.$published;
          
          echo '<br><br>';
+
+         
+         
+         
+         self::postingPublications();
+        
+         self::postingOrders();
+    
+    }
+
+
+    public static function postingOrders()
+    {
+         $published= date('Y-m-d H:i').':00';
+
+         $orders = DB::table('orders')
+             ->join('channels', 'orders.channel_id', '=', 'channels.id')
+             ->join('tariffs', 'orders.tariff_id', '=', 'tariffs.id')
+             ->where(['orders.status' => 1,'orders.published'=>$published])
+             //->where(['orders.status' => 1])
+             ->select('orders.*','channels.link as channel_link','tariffs.price as price')
+         ->get();       
+         
+         //print_r($orders);
+         
+         //die;
+        
+        if($orders){
+            
+            foreach($orders as $key=>$order){
+                
+
+
+            $UserOrder = User::find($order->user_id);
+            
+            //Проверка баланса у пользователя
+            if(BalanceController::checkBalance($UserOrder,$order->price)):
+
+               //$text = $order->message.'<a href="'.$order->link.'">'.$order->link.'</a>'; 
+               
+               //echo 'ok';
+               
+               
+                $images = OrdersController::getFiles($order->id,['jpeg','jpg','png','gif']);
+                $files = OrdersController::getFiles($order->id,['doc','docx','pdf','txt','xls','xlsx']);
+               
+               
+               
+                    $chat_id = str_replace('https://t.me/','',$order->channel_link);
+                    
+                    switch ($order->type) {
+                        case 1:
+                           
+                           //Изображение и описание
+                            
+                           $params = array(
+                                'chat_id' => '@'.$chat_id,
+                                
+                                'photo' => (isset($images[0]))? env('APP_URL_DEV').'/'.$images[0]->path.'/'. $images[0]->filename : '', // режим отображения сообщения HTML (не все HTML теги работают)
+                                //'photo'=>'https://w.wallhaven.cc/full/zy/wallhaven-zyvwyy.jpg',
+                                
+                                'caption'=> $order->message,
+                                'parse_mode' => 'HTML',
+                           ); 
+                           
+                           //print_r($params);  
+                                                      
+                           $sendTelegram = self::post($params,'sendPhoto');     
+                                              
+
+                           break;
+                        case 2:
+                            
+                          //Группа изображений и описание  
+                            
+                            $media = [];
+                            $media_img = [];
+                            foreach($images as $key=>$image){
+                                if($key==0):
+                                    array_push($media,['type' => 'photo', 'media' => 'attach://image_'.$key, 'caption'=>$order->message, 'parse_mode' => 'HTML']);
+                                else:
+                                    array_push($media,['type' => 'photo', 'media' => 'attach://image_'.$key]);
+                                endif;
+                                $media_img['image_'.$key] = curl_file_create(env('APP_URL_DEV').'/'.$image->path.'/'. $image->filename);
+                            }
+                            
+                            $params = [
+                                'chat_id' => '@'.$chat_id,
+                                'media' => json_encode($media,JSON_UNESCAPED_UNICODE),
+                            ];                             
+                            
+                            $params = array_merge($params, $media_img);
+                            
+
+                            $sendTelegram = self::post_media($params,'sendMediaGroup');     
+                            
+                            //print_r($sendTelegram);                     
+                           
+
+                            break;
+                        case 3:
+                            
+                        //Изображение и кнопки(ссылки)    
+                        
+                        $replyMarkup = [];
+                        
+                            if($order->links){
+                                $links = json_decode($order->links);
+                                $buttons=[];
+                                foreach($links->links as $key=>$value){
+                                    $buttons[]=['text'=>$links->links_text[$key],"url"=>$value];
+                                }           
+                                $replyMarkup = json_encode(["inline_keyboard"=>[$buttons]],JSON_UNESCAPED_UNICODE);                            
+                            
+                            
+                            //print_r($replyMarkup); //die;
+                             
+                            $params = array(
+                                //'chat_id' => '@1001823070497', // id получателя
+                                'chat_id' => '@'.$chat_id,
+                                //'message_thread_id' => $result->result->message_thread_id, // текст сообщения
+                                'photo' => (isset($images[0]))? env('APP_URL_DEV').'/'.$images[0]->path.'/'. $images[0]->filename : '', // режим отображения сообщения HTML (не все HTML теги работают)
+                                'caption'=> $order->message,
+                                'parse_mode' => 'HTML',
+                                
+                                "reply_markup"=>$replyMarkup,
+                            );                            
+                            
+                            $sendTelegram = self::post($params,'sendPhoto');   
+                            
+                            }
+                            
+                            break;
+                        case 4:
+                            
+                            // Опрос и описание
+                            if($order->question){
+                                $question = json_decode($order->question);          
+                                
+                                //print_r($question);
+                                
+                                $params = array(
+                                    'chat_id' => '@'.$chat_id,
+                                    'question'=> $question->question,
+                                    'options' => $question->variant,
+                                );    
+                                
+                                //if($question->anonim==0) $params = array_merge($params, ['is_anonymous'=>'False']);
+                                if($question->several==1) $params = array_merge($params, ['allows_multiple_answers'=>1]);
+                                if($question->quiz==1):
+                                    $params = array_merge($params, ['type'=>'quiz']);
+                                    $params = array_merge($params, ['correct_option_id'=>0]);
+                                endif;
+    
+                                $sendTelegram = self::post($params,'sendPoll');   
+                                
+                            }
+                            
+                            
+                            break;
+                            
+    
+                        case 5:
+                        
+                        //Простое сообщение
+                        
+                           $params = array(
+                                //'chat_id' => '@1001823070497', // id получателя
+                                'chat_id' => '@'.$chat_id,
+                                'text' => $order->message.' <a href="'.$order->link.'">'.$order->link.'</a>', // текст сообщения
+                                'parse_mode' => 'HTML', // режим отображения сообщения HTML (не все HTML теги работают)
+                           );
+                                           
+                            $sendTelegram = self::post($params,'sendMessage');                        
+                        
+                        
+                        break;
+                        
+                        case 6:
+                        
+                        //Документ
+                            
+                            foreach($files as $key=>$file){
+                            
+                                $params = [
+                                    'chat_id' => '@'.$chat_id,
+                                    //'caption' => $publication->message,
+                                    'document' => curl_file_create(env('APP_URL_DEV').'/'.$file->path.'/'. $file->filename)                                
+                                ];                             
+                                
+                                $sendTelegram = self::post_media($params,'sendDocument'); 
+                            
+                            }                       
+                            
+                            //print_r($sendTelegram);
+                        
+                        break;
+                        
+                        
+                        
+                        
+                    }
+                    
+               
+               
+               
+               
+                    
+////////////////////////                 
+
+                    if(isset($sendTelegram) && $sendTelegram->ok==1):
+                        
+                        if(is_array($sendTelegram->result)){
+                            $message_ids = [];
+                            foreach($sendTelegram->result as $message) $message_ids[]=$message->message_id;
+                            $message_id = implode(',',$message_ids);
+                        }else{
+                            $message_id = $sendTelegram->result->message_id;
+                        }
+/*                        
+                        DB::table('publications_telegram')->insert(['publication_id'=>$publication->id,
+                                                                    //'channel_id'=>$channel->id,
+                                                                    'message_id'=>$message_id,
+                                                                    "created_at"=>now(),
+                                                                    "updated_at"=>now()
+                                                                 ]);    
+                        
+*/                        
+                        OrdersController::addPublicationsTelegramDB($order->id,$message_id);
+                        
+                        
+                        //Списание оплаты за пост
+                        BalanceController::MinBalance($UserOrder,$order->price);
+                        UserController::addReport($UserOrder,'Заявка ID-'.$order->id.' опубликована. Списано -'.$order->price.'грн.');
+                                                                 
+/*                    
+                        $User = User::find($publication->user_id);
+                        DB::table('users')
+                        ->where('id', $publication->user_id)
+                        ->update(['balance'=>($User->balance - 300)]);                                                                 
+                                                                                        
+*/                    
+                    else:
+                        print_r($params);
+                        print_r($sendTelegram);
+                    endif;
+                    
+//////////////////////////                
+               
+               
+               
+/*                
+    
+               $params = array(
+                    //'chat_id' => '@1001823070497', // id получателя
+                    'chat_id' => '@'.$order->channel_link,
+                    'text' => $order->message, // текст сообщения
+                    'parse_mode' => 'HTML', // режим отображения сообщения HTML (не все HTML теги работают)
+               );
+                    
+               //self::post($params,'sendMessage');
+                
+*/            
+            
+            
+            
+            
+            
+            
+            
+            
+            else:
+            
+                //echo 'bal';
+
+             //PublicationsController::setStatus($publication->id,2);
+             UserController::addReport($UserOrder,'Недостаточно средств для публикации. Заявка ID-'.$order->id.' не опубликована.');
+
+            
+            
+            endif;
+            
+            
+            }
+            
+            
+        }
+
+
+
+    }
+    
+    public static function postingPublications()
+    {
+
+
+         //2023-07-25 19:23:00
+         //date_default_timezone_set('Europe/Kiev');
+         
+         //$published= date('Y-m-d H:i').':00';
+         //echo 'time on server :'.$published;
+         
+         //echo '<br><br>';
          
          
          
@@ -245,7 +549,8 @@ class TelegramController extends Controller
         }
         */
         
-        
+         $published= date('Y-m-d H:i').':00';
+         
         
          $publications = DB::table('publications')
             ->where(['status' => 1])
@@ -255,6 +560,7 @@ class TelegramController extends Controller
                       ->orWhere('date_repeat', $published);
             })            
           
+         
          ->get();       
          
          //print_r($publications);        
@@ -274,8 +580,13 @@ class TelegramController extends Controller
     <option value="6">Документ</option>
 */
         
+        $UserPublication = User::find($publication->user_id);
         
-         
+        //Проверка баланса у пользователя
+        if(BalanceController::checkBalance($UserPublication,300)):
+        
+        
+/*         
         
         $images = DB::table('publications_files')->where('publications_files.publication_id', $publication->id)
                                               ->join('files', function (JoinClause $join) {
@@ -296,13 +607,16 @@ class TelegramController extends Controller
                                               ->select('publications_files.*','files.filename','files.path')
                                               ->get();  
                                               
-
+*/
+        
+        $images = PublicationsController::getFiles($publication->id,['jpeg','jpg','png','gif']);
+        $files = PublicationsController::getFiles($publication->id,['doc','docx','pdf','txt','xls','xlsx']);
                                               
         $channels = DB::table('channels')->whereIn('id',json_decode($publication->channels_id))->get();
         
             if($channels):  
                 
-                foreach($channels as $key=>$channel){
+                foreach($channels as $key=>$channel):
                     
                     $chat_id = str_replace('https://t.me/','',$channel->link);
                     
@@ -473,21 +787,29 @@ class TelegramController extends Controller
                         }else{
                             $message_id = $sendTelegram->result->message_id;
                         }
-                        
+/*                        
                         DB::table('publications_telegram')->insert(['publication_id'=>$publication->id,
                                                                     //'channel_id'=>$channel->id,
                                                                     'message_id'=>$message_id,
                                                                     "created_at"=>now(),
                                                                     "updated_at"=>now()
                                                                  ]);    
+                        
+*/                        
+                        PublicationsController::addPublicationsTelegramDB($publication->id,$message_id);
+                        
+                        
+                        //Списание оплаты за пост
+                        BalanceController::MinBalance($UserPublication,300);
+                        UserController::addReport($UserPublication,'Пост ID-'.$publication->id.' опубликован. Списано -300грн.');
                                                                  
-                    
+/*                    
                         $User = User::find($publication->user_id);
                         DB::table('users')
                         ->where('id', $publication->user_id)
                         ->update(['balance'=>($User->balance - 300)]);                                                                 
                                                                                         
-                    
+*/                    
                     else:
                         print_r($params);
                         print_r($sendTelegram);
@@ -496,9 +818,22 @@ class TelegramController extends Controller
 //////////////////////////                    
                       
                    
-                 } 
+                 endforeach; 
                   
-             endif;  
+             endif; 
+           
+           else:
+           
+           //echo 'Недостаточно средств '.$UserPublication->id;
+             //DB::table('publications')->where('id', $publication->id)->update(['status'=>2]);
+            
+            
+             //Если Недостаточно средств отключаем публикацию
+             PublicationsController::setStatus($publication->id,2);
+             UserController::addReport($UserPublication,'Недостаточно средств для публикации. Пост ID-'.$publication->id.' не опубликован.');
+             
+             
+           endif; 
             
          
          }
@@ -519,8 +854,81 @@ class TelegramController extends Controller
          echo 'time on server :'.$date;
           
          echo '<br><br>';
+    
+         self::deletePublications();    
+         //self::deleteOrders();    
          
-                 
+             
+    }
+    
+    
+    public static function deleteOrders()
+    {   
+
+
+
+         $orders = DB::table('orders')
+             ->join('channels', 'orders.channel_id', '=', 'channels.id')
+             ->rightJoin('orders_telegram', 'orders.id', '=', 'orders_telegram.order_id')
+             //->join('tariffs', 'orders.tariff_id', '=', 'tariffs.id')
+             //->where(['orders.status' => 1,'orders.published'=>$published])
+             ->where(['orders.status' => 1])
+             ->select('orders.*','channels.link as channel_link','orders_telegram.message_id')
+         ->get(); 
+         
+                          
+/*        
+         $publications = DB::table('publications')
+         
+         ->rightJoin('publications_telegram', 'publications.id', '=', 'publications_telegram.publication_id')
+         //->where(['publications.status' => 1,'publications.date_delete'=>$date])
+         ->where(['publications.status' => 1])
+         ->select('publications_telegram.*','publications.channels_id')
+         ->get();       
+         
+*/         
+//print_r($publications);    
+         
+         //die;    
+
+             foreach($orders as $key=>$order){
+                
+                //if($publication->channels_id):
+                //    $channels = DB::table('channels')->whereIn('id',json_decode($publication->channels_id))->get();
+    
+                //    if($channels):  
+                        
+                        //foreach($channels as $key=>$channel){
+                            
+                            $chat_id = str_replace('https://t.me/','',$order->channel_link);
+                            
+                            $params = array(
+                                'chat_id' => '@'.$chat_id,
+                                'message_ids' => explode(',',$order->message_id), // текст сообщения
+                            );    
+                        
+                            $sendTelegram = self::post($params,'deleteMessages');  
+                        
+                       // }
+                    
+                    //endif;
+               //endif; 
+               
+               DB::delete('delete from orders_telegram where id = ?',[$order->id]);
+        
+            }
+    
+    }    
+    
+    
+    
+    
+
+
+    public static function deletePublications()
+    {   
+         
+         $date= date('Y-m-d H:i').':00';        
         
          $publications = DB::table('publications')
          
@@ -562,6 +970,18 @@ class TelegramController extends Controller
             }
     
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
