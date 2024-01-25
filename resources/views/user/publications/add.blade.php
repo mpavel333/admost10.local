@@ -26,7 +26,7 @@
                 <div class="panel-main post-inner">
                     <div class="channel-pages white-block">
                         <div class="links-wrapper">
-                            <div class="links">
+                            <div class="links channel">
                                 
                                 @foreach ($channels as $channel)
                                 

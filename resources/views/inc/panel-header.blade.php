@@ -2,7 +2,7 @@
     <div class="h-col min-banner">
         <div class="logo">
             <a href="{{ route('index') }}">
-                <img src="lc-styles/images/logo.svg" alt="logo">
+                <img src="account/images/logo.svg" alt="logo">
             </a>
         </div>
     </div>
@@ -69,7 +69,7 @@
         <a href="{{route('user.balance.index')}}" class="balance balance-move cl-btn blue-l-btn cl-dark">
             <p class="flex-grow-1">{{ __('text.text_112') }}: <span class="fw-bold">{{Auth::user()->balance}} {{ __('text.text_20') }}</span></p>
             <div class="icon ms-2">
-                <?php include 'lc-styles/images/plus.svg'; ?>
+                <?php include 'account/images/plus.svg'; ?>
             </div>
         </a>
         <div class="languages languages-move dropdown-link">
@@ -81,6 +81,7 @@
             
                 
             switch ($lang) {
+                default:
                 case "ua":
                     echo '<img src="metronik/assets/media/flags/ukraine.svg" alt="flag">';
                     break;
@@ -120,19 +121,19 @@
             </div>
         </div>
         <div class="notification notification-move fill-inherit">
-            <a href="{{route('user.report.index')}}"><?php include 'lc-styles/images/bell.svg'; ?><?php echo ($report_new_messages>0)? '<span class="new_rep_mes">'.$report_new_messages.'</span>' : '' ?></a>
+            <a href="{{route('user.report.index')}}"><?php include 'account/images/bell.svg'; ?><?php echo ($report_new_messages>0)? '<span class="new_rep_mes">'.$report_new_messages.'</span>' : '' ?></a>
         </div>
         <div class="account-menu account-move dropdown-link">
             <div class="current">
                 <div class="name">ДД</div>
                 <div class="avatar d-none">
-                    <img src="lc-styles/images/user.webp" alt="avatar">
+                    <img src="account/images/user.webp" alt="avatar">
                 </div>
             </div>
             <div class="account-dropdown dropdown-default">
                 <div class="dropdown-inner">
                     <div class="link">
-                        <a href="#">{{ __('text.text_111') }}</a>
+                        <a href="{{ route('user.settings.index') }}">{{ __('text.text_111') }}</a>
                     </div>
                     <div class="link">
                         <a href="{{ route('logout') }}">{{ __('text.text_10') }}</a>

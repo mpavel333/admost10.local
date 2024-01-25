@@ -51,8 +51,8 @@
                         <div class="ch-col">
                             <a href="{{ route('user.channels.add') }}" class="channel-btn new-channel-btn">
                                 <div class="icon">
-                                    <?php include 'lc-styles/images/plus.svg'; 
-                                    //<img src="lc-styles/images/plus.svg">
+                                    <?php include 'account/images/plus.svg'; 
+                                    //<img src="account/images/plus.svg">
                                     ?>
                                 </div>
                                 <p>{{ __('text.text_25') }}</p>

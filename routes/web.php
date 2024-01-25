@@ -92,6 +92,10 @@ Route::group(['prefix' => App\Http\Middleware\LocaleMiddleware::getLocale()], fu
         
             Route::get('/report', [UserController::class, 'getReport'])->name('user.report.index');  
         
+
+            Route::get('/settings', [UserController::class, 'settings'])->name('user.settings.index');  
+            Route::post('/settings/save', [UserController::class, 'settings_submit'])->name('user.settings.submit');  
+
             
             
             Route::get('/publication', [UserPublicationsController::class, 'add'])->name('user.publications.add');  

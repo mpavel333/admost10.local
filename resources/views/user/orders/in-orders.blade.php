@@ -30,7 +30,7 @@
                 @include('inc.alerts')
                 
                     <h1 class="title gap-title">
-                        <p>Входящие заявки на рекламу </p>
+                        <p>{{ __('text.text_223') }}</p>
                     </h1>
                     
                     <div class="orders-inner">
@@ -57,28 +57,28 @@
                                 </div>
                             </div>
                             <div class="lead-time">
-                                Час на виконання <span>18:38:25</span>
+                                {{ __('text.text_224') }} <span>18:38:25</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="c-block cbl-2">
                     <div class="number-block">
-                        <p>Формат</p>
+                        <p>{{ __('text.text_225') }}</p>
                         <div class="number">{{ $order->tariff_format }}</div>
                     </div>
                     <div class="number-block">
-                        <p>Ціна</p>
-                        <div class="number price">{{ $order->tariff_price }}<span class="currency">грн</span></div>
+                        <p>{{ __('text.text_226') }}</p>
+                        <div class="number price">{{ $order->tariff_price }}<span class="currency">{{ __('text.text_20') }}</span></div>
                     </div>
                 </div>
                 <div class="c-block cbl-3">
                     <div class="number-block">
-                        <p>Дата публікації</p>
+                        <p>{{ __('text.text_145') }}</p>
                         <div class="number">{{$order->published}}</div>
                     </div>
                     <div class="number-block">
-                        <p>Час публікації</p>
+                        <p>{{ __('text.text_146') }}</p>
                         <div class="number">10:00 - 19:00</div>
                     </div>
                 </div>
@@ -94,7 +94,7 @@
                     <div class="collapse-content">
                         <div class="c-block cbl-1">
                             <div class="for-text">
-                                <div class="tit">Рекламний текст</div>
+                                <div class="tit">{{ __('text.text_149') }}</div>
                                 <div class="text">
                                     <p>{{ $order->message }}</p>
                                 </div>
@@ -102,15 +102,15 @@
                         </div>
                         <div class="c-block cbl-2">
                             <div class="tech-task">
-                                <div class="tit">ТЗ від замовника</div>
+                                <div class="tit">{{ __('text.text_150') }}</div>
                                 <div class="text">
                                     <p></p>
                                 </div>
                             </div>
                         </div>
                         <div class="c-block cbl-3">
-                            <div class="tit">Рекламне посилання</div>
-                            <div class="copy-block" data-success="Скопійовано!">
+                            <div class="tit">{{ __('text.text_151') }}</div>
+                            <div class="copy-block" data-success="{{ __('text.text_152') }}">
                                 <input value="{{ $order->link }}" type="text" readonly>
                                 <div class="icon">
                                     <img src="images/copy-icon.svg" alt="copy">
@@ -129,24 +129,24 @@
                     <div class="collapse-buttons">
                         <div class="for-btn">
                         @if($order->status==1)
-                            <a class="cl-btn btn-success">Заявка принята</a>
+                            <a class="cl-btn btn-success">{{ __('text.text_227') }}</a>
                         @endif
                         @if($order->status!=1)
                             <a class="cl-btn" href="<?php echo route('user.orders.confirm',['id'=>$order->id,'hash'=>hash('sha256', $order->id.env('ORDERS_SOLT'))]) ?>">
-                                Прийняти заявку
+                                {{ __('text.text_228') }}
                             </a>
                         @endif
                         </div>
                         <div class="for-btn">
                             <a class="cl-btn cl-btn blue-l-btn open-chat" data-bs-toggle="modal" data-bs-target="#chat-modal-{{$order->id}}" order_id="{{$order->id}}" user_id="<?php echo Auth::user()->id ?>" hash="<?php echo hash('sha256', $order->id.Auth::user()->id.env('CHAT_HASH_SOLT')) ?>" href="#">
-                                <p>Відкрити чат</p>
+                                <p>{{ __('text.text_229') }}</p>
                                 <div class="notification-count blue ms-2">{{$order->chat_messages_count}}</div>
                             </a>
                         </div>
                         <div class="for-btn">
                         @if($order->status!=2)
-                            <a class="cl-btn deny-btn" {{-- data-bs-toggle="modal" data-bs-target="#deny-modal" --}} href="<?php echo route('user.orders.cancel',['id'=>$order->id,'hash'=>hash('sha256', $order->id.env('ORDERS_SOLT'))]) ?>">
-                                Відхилити заявку
+                            <a class="cl-btn deny-btn" href="<?php echo route('user.orders.cancel',['id'=>$order->id,'hash'=>hash('sha256', $order->id.env('ORDERS_SOLT'))]) ?>">
+                                {{ __('text.text_230') }}
                             </a>
                         @endif
                         </div>
@@ -162,7 +162,7 @@
         <div class="modal-content">
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             <div class="preview-inner">
-                <div class="title min-offset">Попередій перегляд посту</div>
+                <div class="title min-offset">{{ __('text.text_231') }}</div>
                 <div class="modal-blocks min-offset">
                     <div class="modal-block">
                         <div class="pic">
@@ -175,7 +175,7 @@
                         </div>
                     </div>
                     <div class="modal-block">
-                        <div class="copy-block" data-success="Скопійовано!">
+                        <div class="copy-block" data-success="{{ __('text.text_152') }}">
                             <input value="{{ $order->link }}" type="text" readonly>
                             <div class="icon">
                                 <img src="images/copy-icon.svg" alt="copy">
@@ -199,7 +199,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 <div class="chat-inner">
                     <div class="chat-head">
-                        <div class="title">Онлайн чат с клиентом</div>
+                        <div class="title">{{ __('text.text_232') }}</div>
                     </div>
                     <div class="chat-order-info">
                         <div class="c-block cbl-1">
@@ -217,28 +217,28 @@
                                         </div>
                                     </div>
                                     <div class="lead-time">
-                                        Час на виконання <span>18:38:25</span>
+                                        {{ __('text.text_224') }} <span>18:38:25</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="c-block cbl-2">
                             <div class="number-block">
-                                <p>Формат</p>
+                                <p>{{ __('text.text_225') }}</p>
                                 <div class="number">1/24</div>
                             </div>
                             <div class="number-block">
-                                <p>Ціна</p>
-                                <div class="number price">3 000<span class="currency">грн</span></div>
+                                <p>{{ __('text.text_226') }}</p>
+                                <div class="number price">3 000<span class="currency">{{ __('text.text_20') }}</span></div>
                             </div>
                         </div>
                         <div class="c-block cbl-3">
                             <div class="number-block">
-                                <p>Дата публікації</p>
+                                <p>{{ __('text.text_145') }}</p>
                                 <div class="number">26.04.2023</div>
                             </div>
                             <div class="number-block">
-                                <p>Час публікації</p>
+                                <p>{{ __('text.text_146') }}</p>
                                 <div class="number">10:00 - 19:00</div>
                             </div>
                         </div>
@@ -259,7 +259,7 @@
                             @csrf
                             <input type="hidden" name="order_id" value="{{$order->id}}"/>
                             <input type="hidden" name="user_id" value="<?php echo Auth::user()->id ?>"/>
-                            <textarea class="message" placeholder="Повідомленя" name="message" class="form-control"></textarea>
+                            <textarea class="message" placeholder="{{ __('text.text_233') }}" name="message" class="form-control"></textarea>
                             <button type="submit" class="cl-btn no-stroke">
                                 <div class="icon fill-inherit">
                                     <?php include 'images/paperplane.svg'; ?>
@@ -275,7 +275,7 @@
             <div class="preview-modal-block">
                 <button type="button" class="btn-close"></button>
                 <div class="preview-inner">
-                    <div class="preview-title">Попередій перегляд посту</div>
+                    <div class="preview-title">{{ __('text.text_160') }}</div>
                     <div class="modal-blocks min-offset">
                         <div class="modal-block">
                             <div class="pic">
@@ -288,7 +288,7 @@
                             </div>
                         </div>
                         <div class="modal-block">
-                            <div class="copy-block" data-success="Скопійовано!">
+                            <div class="copy-block" data-success="{{ __('text.text_152') }}">
                                 <input value="{{ $order->link }}" type="text" readonly>
                                 <div class="icon">
                                     <img src="images/copy-icon.svg" alt="copy">

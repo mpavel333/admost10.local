@@ -6,12 +6,41 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 
+use App\Models\User;
+
 use Auth;
 use DB;
 
 class UserController extends Controller
 {
 
+
+
+    public static function settings()
+    {
+        
+        //$user = Auth::user();
+        
+        //return DB::table('users_report')->where(['user_id'=>$user->id,'status'=>1])->count();
+        
+        return view('user.settings.index'); 
+       
+    } 
+    
+    
+    public static function settings_submit()
+    {
+        
+        //$user = Auth::user();
+        
+        //return DB::table('users_report')->where(['user_id'=>$user->id,'status'=>1])->count();
+        
+        
+       
+    } 
+    
+    
+    
 
     public static function getNewMessageCount()
     {
@@ -35,7 +64,7 @@ class UserController extends Controller
         
         DB::table('users_report')->where('user_id', $user->id)->update(['status'=>0]);
         
-        $report = DB::table('users_report')->where('user_id',$user->id)->orderBy('id', 'DESC')->paginate(10);
+        $report = DB::table('users_report')->where('user_id',$user->id)->orderBy('id', 'DESC')->paginate(15);
        
         return view('user.report.index',['report'=>$report]);
         

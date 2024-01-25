@@ -26,7 +26,7 @@
                 <?php /*MAIN MENU*/ //include 'main-menu.php'; ?>
 
                 <div class="panel-main channels-content white-block">
-                    <h1 class="title gap-title">Каталог каналов</h1>
+                    <h1 class="title gap-title">{{ __('text.text_204') }}</h1>
 
                     @include('inc.alerts')
                     

@@ -105,9 +105,9 @@ class OrdersController extends Controller
         
         
         if($new):
-            $with=['success'=>'Заявка создана'];
+            $with=['success'=>__('text.text_237', ['ID' => $Order->id])];
         else:
-            $with=['success'=>'Заявка обновлена'];
+            $with=['success'=>__('text.text_238', ['ID' => $Order->id])];
         endif;
         //die;
         

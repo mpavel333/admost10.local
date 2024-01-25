@@ -112,7 +112,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                             <div class="control-buttons d-flex column-gap-2 d-md-none">
                                 <div class="for-btn w-100">
                                     <a href="/login" class="login cl-btn dark-l-btn w-100">
-                                        <div class="icon"> 1111
+                                        <div class="icon">
                                             <?php include 'main-page/images/login.svg'; 
                                                     //<img src="main-page/images/login.svg">
                                             ?>
@@ -537,7 +537,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                                                     //<img src="main-page/images/plus.svg">
                                                     ?>
                                                 </div>
-                                                <p>{{ __('text.text_25') }}Додати канал</p>
+                                                <p>{{ __('text.text_25') }}</p>
                                             </a>
                                         </div>
                                     </div>

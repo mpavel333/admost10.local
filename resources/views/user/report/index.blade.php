@@ -24,33 +24,36 @@
 
                 <div class="panel-main channel-new white-block">
                     <h1 class="gap-title d-flex align-items-center">
-                        <p>Ваша история событий:</p>
+                        <p>{{ __('text.text_239') }}:</p>
                     </h1>
                     
                     
                     @include('inc.alerts')                    
                     
+                    <div class="page-content">
                     
-                    <div class="report-fields">
-
-                            <div class="report_title report_item">    
-                                <div class="report_id">ID</div>
-                                <div class="report_message">Сообщение</div>
-                                <div class="report_created">Дата\Время</div>
-                            </div>
+                        <div class="report-fields">
+    
+                                <div class="report_title report_item">    
+                                    <div class="report_id">ID</div>
+                                    <div class="report_message">{{ __('text.text_240') }}</div>
+                                    <div class="report_created">{{ __('text.text_241') }}</div>
+                                </div>
+                            
+                            @foreach ($report as $item)
+                                <div class="report_item">    
+                                    <div class="report_id">{{ $item->id }}</div>
+                                    <div class="report_message">{{ $item->message }}</div>
+                                    <div class="report_created">{{ $item->created_at }}</div>
+                                </div>
+                            @endforeach
+                            
+                            
+                        </div>
                         
-                        @foreach ($report as $item)
-                            <div class="report_item">    
-                                <div class="report_id">{{ $item->id }}</div>
-                                <div class="report_message">{{ $item->message }}</div>
-                                <div class="report_created">{{ $item->created_at }}</div>
-                            </div>
-                        @endforeach
-                        
-                        
+                        <?php echo $report->render(); ?>  
+                    
                     </div>
-                    
-                    <?php echo $report->render(); ?>  
                     
                 </div>
                 <div class="panel-banner white-block min-banner">
@@ -64,16 +67,6 @@
         </div>
     </div>
 
-    <!-- Format template -->
-    <template class="format-template">
-        <div class="inputblock clone-block format-block removable" data-currency="грн">
-            <div class="check"></div>
-            <div class="delete-icon-main"></div>
-            <input class="clone-input format-input" name="format[]" placeholder="Свій формат" type="text">
-            <div class="divider"></div>
-            <input class="clone-input price-input" name="price[]" placeholder="Вкажіть ціну" type="text" onkeypress='validate(event)'>
-        </div>
-    </template>
 
     <!-- all plugins -->
     @include('inc.scripts')

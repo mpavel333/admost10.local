@@ -30,15 +30,10 @@ class BalanceController extends Controller
         
         if($amount && is_numeric($amount)){
 
-            //DB::table('users')
-            //->where('id', $user->id)
-            //->update(['balance'=>($user->balance + $amount)]);         
-            
-            
             self::AddBalance($user,$amount);
-            UserController::addReport($user,'Ваш баланс пополнен на '.$amount.'грн.');
+            UserController::addReport($user,__('text.text_246', ['amount' => $amount]));
                     
-            $with=['success'=>'Ваш баланс пополнен на '.$amount.' грн'];
+            $with=['success'=>__('text.text_246', ['amount' => $amount])];
         
         }
         

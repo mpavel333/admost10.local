@@ -55,7 +55,7 @@ class Orders extends Model
         $orders = DB::table('channels')->where('channels.user_id', $user->id)
                                      ->join('orders', 'channels.id', '=', 'orders.channel_id')
                                      
-                                     ->join('tariffs', 'orders.tariff_id' , '=', 'tariffs.id')
+                                     ->leftjoin('tariffs', 'orders.tariff_id' , '=', 'tariffs.id')
                                      
                                      //->join('channels', 'channels.id', '=', 'orders.channel_id')
                                      
@@ -103,9 +103,9 @@ class Orders extends Model
         $orders = DB::table('orders')->where('orders.user_id', $user->id)
                                      ->leftjoin('channels', 'channels.id', '=', 'orders.channel_id')
                                      //->join('channels', 'channels.id', '=', 'orders.channel_id')
-                                     ->join('tariffs', 'orders.tariff_id' , '=', 'tariffs.id')
+                                     ->leftjoin('tariffs', 'orders.tariff_id' , '=', 'tariffs.id')
                                      
-                                     ->select('orders.*','channels.name as channel_name','channels.image as channel_image')
+                                     ->select('orders.*','channels.name as channel_name','channels.image as channel_image','tariffs.format as tariff_format', 'tariffs.price as tariff_price')
                                      ->orderBy('id', 'DESC')
                                      ->get();        
         

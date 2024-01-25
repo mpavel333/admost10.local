@@ -54,11 +54,11 @@
                                     <div class="col-12 col-md-4">
                                         <div class="types">
                                             <div class="t-block">
-                                                <div class="min-tit">Категория</div>
+                                                <div class="min-tit">{{ __('text.text_205') }}</div>
                                                 <div class="txt">Публічна персона</div>
                                             </div>
                                             <div class="t-block">
-                                                <div class="min-tit">Гео та мова каналу</div>
+                                                <div class="min-tit">{{ __('text.text_206') }}</div>
                                                 <div class="txt">Україна, Українська</div>
                                             </div>
                                         </div>
@@ -71,19 +71,19 @@
                             <div class="statistic statistic-move">
                                 <div class="s-block">
                                     <div class="number">406.4 К</div>
-                                    <p>Підпісників</p>
+                                    <p>{{ __('text.text_207') }}</p>
                                 </div>
                                 <div class="s-block">
                                     <div class="number">23.5 М</div>
-                                    <p>Переглядів</p>
+                                    <p>{{ __('text.text_208') }}</p>
                                 </div>
                                 <div class="s-block">
                                     <div class="number">10 К</div>
-                                    <p>Згадувань</p>
+                                    <p>{{ __('text.text_209') }}</p>
                                 </div>
                                 <div class="s-block">
                                     <div class="number">23%</div>
-                                    <p>ERR</p>
+                                    <p>{{ __('text.text_210') }}</p>
                                 </div>
                             </div>
                         </div>
@@ -92,21 +92,23 @@
                         <div class="links-wrapper">
                             <div class="links">
                                 <div class="link">
-                                    <a class="active" href="#">Покупка реклами</a>
+                                    <a class="active">{{ __('text.text_211') }}</a>
+                                </div>
+                                {{--
+                                <div class="link">
+                                    <a href="#">{{ __('text.text_212') }}</a>
                                 </div>
                                 <div class="link">
-                                    <a href="#">Аналітика каналу</a>
+                                    <a href="#">{{ __('text.text_213') }}</a>
                                 </div>
-                                <div class="link">
-                                    <a href="#">Відгуки</a>
-                                </div>
+                                --}}
                             </div>
                         </div>
                         <div class="steps">
                         
                         @if(Auth::guest())
                             <br />
-                            <p>Для покупки рекламы необходима <a href="{{route('login')}}">авторизация</a></p>
+                            <p>{{ __('text.text_214') }} <a href="{{route('login')}}">{{ __('text.text_215') }}</a></p>
                         
                         @endif
                         
@@ -117,8 +119,8 @@
                             @csrf
                                 <div class="s-row">
                                     <div class="step-block">
-                                        <div class="s-tit">Крок 1</div>
-                                        <div class="tit">Оберіть тариф</div>
+                                        <div class="s-tit">{{ __('text.text_216') }}</div>
+                                        <div class="tit">{{ __('text.text_217') }}</div>
                                         <div class="radioboxes">
                                             
                                             @foreach ($tariffs as $tariff)
@@ -128,7 +130,7 @@
                                                 <label for="tr-{{$tariff->id}}">
                                                     <p>{{$tariff->format}}</p>
                                                     <div class="price">
-                                                        <span>{{$tariff->price}}</span> грн
+                                                        <span>{{$tariff->price}}</span> {{ __('text.text_20') }}
                                                     </div>
                                                 </label>
                                             </div>                                            
@@ -136,53 +138,23 @@
                                             
                                             @endforeach 
                                             
-                                            
-                                            {{--
-                                            <div class="radiobox">
-                                                <input class="nulled" type="radio" name="tariff" id="tr-1" checked>
-                                                <label for="tr-1">
-                                                    <p>1/24</p>
-                                                    <div class="price">
-                                                        <span>3 000</span> грн
-                                                    </div>
-                                                </label>
-                                            </div>
-                                            <div class="radiobox">
-                                                <input class="nulled" type="radio" name="tariff" id="tr-2">
-                                                <label for="tr-2">
-                                                    <p>3/48</p>
-                                                    <div class="price">
-                                                        <span>6 000</span> грн
-                                                    </div>
-                                                </label>
-                                            </div>
-                                            <div class="radiobox">
-                                                <input class="nulled" type="radio" name="tariff" id="tr-3">
-                                                <label for="tr-3">
-                                                    <p>4/72</p>
-                                                    <div class="price">
-                                                        <span>9 000</span> грн
-                                                    </div>
-                                                </label>
-                                            </div>
-                                            
-                                            --}}
+
                                             
                                         </div>
-                                        <div class="info">Вище відображаються тарифи, які пропонує адміністратор цього каналу. Оберіть підходящий та переходьте до наступного кроку</div>
+                                        <div class="info">{{ __('text.text_218') }}</div>
                                     </div>
                                     <div class="step-block for-dates">
-                                        <div class="s-tit">Крок 2</div>
-                                        <div class="tit">Дата публікації</div>
+                                        <div class="s-tit">{{ __('text.text_219') }}</div>
+                                        <div class="tit">{{ __('text.text_145') }}</div>
                                         <div class="dates">
                                             <div class="inputblock date-block">
-                                                <p>Вкажіть дату та час розміщення</p>
+                                                <p>{{ __('text.text_169') }}</p>
                                                 <div class="inputs">
                                                     <div class="date-input icon-input">
                                                         <label for="date-1">
                                                             <img src="images/date.svg" alt="date">
                                                         </label>
-                                                        <input class="form-control nulled" id="date-1" name="date-1" type="date" placeholder="ДД.ММ.РРРР" required>
+                                                        <input class="form-control nulled" id="date-1" name="date-1" type="date" placeholder="{{ __('text.text_170') }}" required>
                                                     </div>
                                                     <div class="time-input icon-input">
                                                         <label for="time-1">
@@ -193,13 +165,13 @@
                                                 </div>
                                             </div>
                                             <div class="inputblock date-block">
-                                                <p>Відповісти не пізніше</p>
+                                                <p>{{ __('text.text_220') }}</p>
                                                 <div class="inputs">
                                                     <div class="date-input icon-input">
                                                         <label for="date-2">
                                                             <img src="images/date.svg" alt="date">
                                                         </label>
-                                                        <input class="form-control" id="date-2" name="date-2" type="date" placeholder="ДД.ММ.РРРР" required>
+                                                        <input class="form-control" id="date-2" name="date-2" type="date" placeholder="{{ __('text.text_170') }}" required>
                                                     </div>
                                                     <div class="time-input icon-input">
                                                         <label for="time-2">
@@ -210,16 +182,16 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="info">Вище відображаються тарифи, які пропонує адміністратор цього каналу. Оберіть підходящий та переходьте до наступного кроку</div>
+                                        <div class="info">{{ __('text.text_218') }}</div>
                                     </div>
                                     <div class="step-block message">
-                                        <div class="s-tit">Крок 3</div>
-                                        <div class="tit">Рекламне повідомлення</div>
+                                        <div class="s-tit">{{ __('text.text_221') }}</div>
+                                        <div class="tit">{{ __('text.text_222') }}</div>
                                         <div class="inputblock">
-                                            <input type="text" placeholder="Посилання на канал або ресурс" name="link" class="form-control">
+                                            <input type="text" placeholder="{{ __('text.text_161') }}" name="link" class="form-control">
                                         </div>
                                         <div class="inputblock message-field">
-                                            <textarea class="form-control" name="message" placeholder="Рекламне повідомлення"></textarea>
+                                            <textarea class="form-control" name="message" placeholder="{{ __('text.text_222') }}"></textarea>
                                             <div class="file-menu dropdown-link">
                                                 <div class="main-icon fill-inherit full-opacity">
                                                     <?php include 'images/file.svg'; ?>
@@ -231,7 +203,7 @@
                                                                 <div class="icon fill-inherit">
                                                                     <?php include 'images/img-ic.svg'; ?>
                                                                 </div>
-                                                                <p>Фото чи відео</p>
+                                                                <p>{{ __('text.text_163') }}</p>
                                                             </a>
                                                         </div>
                                                         <div class="link">
@@ -239,7 +211,7 @@
                                                                 <div class="icon fill-inherit">
                                                                     <?php include 'images/file-ic.svg'; ?>
                                                                 </div>
-                                                                <p>Файл</p>
+                                                                <p>{{ __('text.text_164') }}</p>
                                                             </a>
                                                         </div>
                                                         <div class="link">
@@ -247,7 +219,7 @@
                                                                 <div class="icon fill-inherit">
                                                                     <?php include 'images/rate-ic.svg'; ?>
                                                                 </div>
-                                                                <p>Опитування</p>
+                                                                <p>{{ __('text.text_165') }}</p>
                                                             </a>
                                                         </div>
                                                         <div class="link">
@@ -255,7 +227,7 @@
                                                                 <div class="icon fill-inherit">
                                                                     <?php include 'images/img-ic.svg'; ?>
                                                                 </div>
-                                                                <p>Посилання</p>
+                                                                <p>{{ __('text.text_166') }}</p>
                                                             </a>
                                                         </div>
                                                         <div class="link">
@@ -263,14 +235,14 @@
                                                                 <div class="icon fill-inherit">
                                                                     <?php include 'images/link-ic.svg'; ?>
                                                                 </div>
-                                                                <p>Прихований текст</p>
+                                                                <p>{{ __('text.text_167') }}</p>
                                                             </a>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="info">Вище відображаються тарифи, які пропонує адміністратор цього каналу. Оберіть підходящий та переходьте до наступного кроку</div>
+                                        <div class="info">{{ __('text.text_218') }}</div>
                                     
                                         <div class="for-files">
     
@@ -290,17 +262,17 @@
                                     <div class="step-block"></div>
                                     
                                     <div class="step-block settings">
-                                        <div class="tit">Тип поста</div>
+                                        <div class="tit">{{ __('text.text_181') }}</div>
                                         <div class="fields-block">
                                             
                                             <select name="type" required>
                                                 <option value=""></option>
-                                                <option value="1">Изображение и описание</option>
-                                                <option value="2">Группа изображений и описание</option>
-                                                <option value="3">Изображение и кнопки(ссылки)</option>
-                                                <option value="4">Опрос и описание</option>
-                                                <option value="5">Простое сообщение</option>
-                                                <option value="6">Документ</option>
+                                                <option value="1">{{ __('text.text_175') }}</option>
+                                                <option value="2">{{ __('text.text_176') }}</option>
+                                                <option value="3">{{ __('text.text_177') }}</option>
+                                                <option value="4">{{ __('text.text_178') }}</option>
+                                                <option value="5">{{ __('text.text_179') }}</option>
+                                                <option value="6">{{ __('text.text_180') }}</option>
                                             </select>
                                             
                                         </div>
@@ -315,7 +287,7 @@
 
                                 <div class="for-btn text-center mt-4">
                                     <button type="submit" class="cl-btn big">
-                                        <p>Відправити на модерацію</p>
+                                        <p>{{ __('text.text_143') }}</p>
                                         <div class="icon ms-2">
                                             <?php include 'images/arr-top-right.svg'; ?>
                                         </div>

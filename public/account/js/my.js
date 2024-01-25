@@ -3,7 +3,9 @@
 $(document).ready(function () {
     
 
-    $('.channel-pages .links .link a').click(function () {
+    $('.channel-pages .links.channel .link a').click(function () {
+        
+        
         
         var channel_id = $(this).attr('channel_id');
         

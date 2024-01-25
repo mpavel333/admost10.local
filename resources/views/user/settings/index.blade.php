@@ -24,7 +24,7 @@
 
                 <div class="panel-main channel-new white-block">
                     <h1 class="title gap-title d-flex align-items-center">
-                        <p>{{ __('text.text_242') }}</p>
+                        <p>{{ __('text.text_247') }}</p>
                     </h1>
                     
                     
@@ -33,7 +33,8 @@
                     <div class="page-content">
                     
                         <div class="channel-fields">
-                            <form action="{{ route('user.balance.add.submit') }}" method="post">
+                            {{--
+                            <form action="{{ route('user.settings.submit') }}" method="post">
                                 @csrf
                                 <div class="f-row">
                                     <div class="info-column basic-info p-0">
@@ -55,6 +56,7 @@
                                     </button>
                                 </div>
                             </form>
+                            --}}
                         </div>
                     
                     </div>
