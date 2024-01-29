@@ -220,13 +220,13 @@ Route::group(['prefix' => App\Http\Middleware\LocaleMiddleware::getLocale()], fu
 
 
 
-//Страница
-Route::get('/{alias}', [PagesController::class, 'page'])->name('page');
-        
-
-
 /////////////////////////////
 
 require __DIR__.'/auth.php';
+
+
+//Страница
+Route::get('/{alias}', [PagesController::class, 'page'])->name('page');
+
 
 });
