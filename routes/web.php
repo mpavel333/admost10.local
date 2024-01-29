@@ -27,34 +27,34 @@ use App\Http\Controllers\PagesController;
 
 
 
-//Ïåğåêëş÷åíèå ÿçûêîâ
+//ĞŸĞµÑ€ĞµĞºĞ»ÑÑ‡ĞµĞ½Ğ¸Ğµ ÑĞ·Ñ‹ĞºĞ¾Ğ²
 Route::get('setlocale/{lang}', function ($lang='ua') {
 
-    $referer = Redirect::back()->getTargetUrl(); //URL ïğåäûäóùåé ñòğàíèöû
-    $parse_url = parse_url($referer, PHP_URL_PATH); //URI ïğåäûäóùåé ñòğàíèöû
+    $referer = Redirect::back()->getTargetUrl(); //URL Ğ¿Ñ€ĞµĞ´Ñ‹Ğ´ÑƒÑ‰ĞµĞ¹ ÑÑ‚Ñ€Ğ°Ğ½Ğ¸Ñ†Ñ‹
+    $parse_url = parse_url($referer, PHP_URL_PATH); //URI Ğ¿Ñ€ĞµĞ´Ñ‹Ğ´ÑƒÑ‰ĞµĞ¹ ÑÑ‚Ñ€Ğ°Ğ½Ğ¸Ñ†Ñ‹
     
-    //ğàçáèâàåì íà ìàññèâ ïî ğàçäåëèòåëş
+    //Ñ€Ğ°Ğ·Ğ±Ğ¸Ğ²Ğ°ĞµĞ¼ Ğ½Ğ° Ğ¼Ğ°ÑÑĞ¸Ğ² Ğ¿Ğ¾ Ñ€Ğ°Ğ·Ğ´ĞµĞ»Ğ¸Ñ‚ĞµĞ»Ñ
     $segments = explode('/', $parse_url);
     
-    //Åñëè URL (ãäå íàæàëè íà ïåğåêëş÷åíèå ÿçûêà) ñîäåğæàë êîğğåêòíóş ìåòêó ÿçûêà
+    //Ğ•ÑĞ»Ğ¸ URL (Ğ³Ğ´Ğµ Ğ½Ğ°Ğ¶Ğ°Ğ»Ğ¸ Ğ½Ğ° Ğ¿ĞµÑ€ĞµĞºĞ»ÑÑ‡ĞµĞ½Ğ¸Ğµ ÑĞ·Ñ‹ĞºĞ°) ÑĞ¾Ğ´ĞµÑ€Ğ¶Ğ°Ğ» ĞºĞ¾Ñ€Ñ€ĞµĞºÑ‚Ğ½ÑƒÑ Ğ¼ĞµÑ‚ĞºÑƒ ÑĞ·Ñ‹ĞºĞ°
     if (in_array($segments[1], App\Http\Middleware\LocaleMiddleware::$languages)) {
 
-        unset($segments[1]); //óäàëÿåì ìåòêó
+        unset($segments[1]); //ÑƒĞ´Ğ°Ğ»ÑĞµĞ¼ Ğ¼ĞµÑ‚ĞºÑƒ
     }
 
-    //Äîáàâëÿåì ìåòêó ÿçûêà â URL (åñëè âûáğàí íå ÿçûê ïî-óìîë÷àíèş)
+    //Ğ”Ğ¾Ğ±Ğ°Ğ²Ğ»ÑĞµĞ¼ Ğ¼ĞµÑ‚ĞºÑƒ ÑĞ·Ñ‹ĞºĞ° Ğ² URL (ĞµÑĞ»Ğ¸ Ğ²Ñ‹Ğ±Ñ€Ğ°Ğ½ Ğ½Ğµ ÑĞ·Ñ‹Ğº Ğ¿Ğ¾-ÑƒĞ¼Ğ¾Ğ»Ñ‡Ğ°Ğ½Ğ¸Ñ)
     if ($lang != App\Http\Middleware\LocaleMiddleware::$mainLanguage){
         array_splice($segments, 1, 0, $lang);
     }
 
-    //ôîğìèğóåì ïîëíûé URL
+    //Ñ„Ğ¾Ñ€Ğ¼Ğ¸Ñ€ÑƒĞµĞ¼ Ğ¿Ğ¾Ğ»Ğ½Ñ‹Ğ¹ URL
     $url = Request::root().implode("/", $segments);
 
-    //åñëè áûëè åùå GET-ïàğàìåòğû - äîáàâëÿåì èõ
+    //ĞµÑĞ»Ğ¸ Ğ±Ñ‹Ğ»Ğ¸ ĞµÑ‰Ğµ GET-Ğ¿Ğ°Ñ€Ğ°Ğ¼ĞµÑ‚Ñ€Ñ‹ - Ğ´Ğ¾Ğ±Ğ°Ğ²Ğ»ÑĞµĞ¼ Ğ¸Ñ…
     if(parse_url($referer, PHP_URL_QUERY)){
         $url = $url.'?'. parse_url($referer, PHP_URL_QUERY);
     }
-    return redirect($url); //Ïåğåíàïğàâëÿåì íàçàä íà òó æå ñòğàíèöó
+    return redirect($url); //ĞŸĞµÑ€ĞµĞ½Ğ°Ğ¿Ñ€Ğ°Ğ²Ğ»ÑĞµĞ¼ Ğ½Ğ°Ğ·Ğ°Ğ´ Ğ½Ğ° Ñ‚Ñƒ Ğ¶Ğµ ÑÑ‚Ñ€Ğ°Ğ½Ğ¸Ñ†Ñƒ
 
 })->name('setlocale');
 
@@ -145,7 +145,7 @@ Route::group(['prefix' => App\Http\Middleware\LocaleMiddleware::getLocale()], fu
             Route::get('/orders/{id}/{hash}/confirm', [UserOrdersController::class, 'confirm'])->name('user.orders.confirm');
             Route::get('/orders/{id}/{hash}/cancel', [UserOrdersController::class, 'cancel'])->name('user.orders.cancel');
         
-            // Äîáàâëåíèå ôàéëîâ ÷åğåç ïëàãèí Dropzon    
+            // Ğ”Ğ¾Ğ±Ğ°Ğ²Ğ»ĞµĞ½Ğ¸Ğµ Ñ„Ğ°Ğ¹Ğ»Ğ¾Ğ² Ñ‡ĞµÑ€ĞµĞ· Ğ¿Ğ»Ğ°Ğ³Ğ¸Ğ½ Dropzon    
             Route::post('/add/file',[DropzoneController::class, 'add'])->name('user.file.add');
             Route::post('/delete/file',[DropzoneController::class, 'delete'])->name('user.file.delete'); 
             
@@ -225,7 +225,7 @@ Route::group(['prefix' => App\Http\Middleware\LocaleMiddleware::getLocale()], fu
 require __DIR__.'/auth.php';
 
 
-//Ñòğàíèöà
+//Ğ¡Ñ‚Ñ€Ğ°Ğ½Ğ¸Ñ†Ğ°
 Route::get('/{alias}', [PagesController::class, 'page'])->name('page');
 
 
