@@ -17,13 +17,13 @@
                 <a class="{{ (request()->is('channels') OR request()->is('channel/*')) ? 'active' : '' }}" href="{{route('channels')}}">{{ __('text.text_2') }}</a>
             </div>
             <div class="link">
-                <a href="#">{{ __('text.text_53') }}</a>
+                <a href="{{route('page','ucast-u-dobirkax')}}">{{ __('text.text_53') }}</a>
             </div>
             <div class="link">
-                <a href="#">{{ __('text.text_109') }}</a>
+                <a href="{{route('page','kupivliaprodaz-knaliv')}}">{{ __('text.text_109') }}</a>
             </div>
             <div class="link">
-                <a href="#">{{ __('text.text_110') }}</a>
+                <a href="{{route('page','vakansiyi')}}">{{ __('text.text_110') }}</a>
             </div>
         </div>
     </div>

@@ -1,3 +1,6 @@
+<!DOCTYPE HTML>
+<html>
+<head>
 <?php
 error_reporting(1);
 ini_set('display_errors', 1);
@@ -6,47 +9,9 @@ require($_SERVER['DOCUMENT_ROOT'].'/main-page/scss/tmplapp.php');
 $TmplApp = new TmplApp();
 $TmplApp->AutoCompileScss();
 
-# -------- META---------- #
-$meta = new stdClass();
-# Название сайта
-$meta->sitename = 'AdMost';
-# Заголовок
-$meta->title = 'AdMost — українська біржа реклами в Telegram';
-# Описание
-$meta->desc = 'Єднаємо рекламодавців та власників телеграм каналів, роблячи їх співпрацю прозорою та ефективною';
-# Текущий линк на страницу
-$meta->url = './';
-# Картинка для соц. сетей, размер: 1200x630px
-$meta->image = $meta->url . 'images/social.jpg';
-
 ?>
-<title><?php echo $meta->title; ?></title>
 
-<base href="<?php echo config('app.url'); ?>" />
-
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<meta name="title" content="<?php echo $meta->title; ?>" />
-<meta name="description" content="<?php echo $meta->desc; ?>" />
-<link rel="image_src" href="<?php echo $meta->image; ?>" />
-
-<meta property="og:locale" content="ru_RU" />
-<meta property="og:type" content="website" />
-<meta property="og:title" content="<?php echo $meta->title; ?>" />
-<meta property="og:description" content="<?php echo $meta->desc; ?>" />
-<meta property="og:image" content="<?php echo $meta->image; ?>" />
-<meta property="og:url" content="<?php echo $meta->url; ?>" />
-<meta property="og:site_name" content="<?php echo $meta->sitename; ?>" />
-
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="<?php echo $meta->title; ?>">
-<meta name="twitter:description" content="<?php echo $meta->desc; ?>">
-<meta name="twitter:image" content="<?php echo $meta->image; ?>">
-
-<meta itemprop="name" content="<?php echo $meta->title; ?>" />
-<meta itemprop="description" content="<?php echo $meta->desc; ?>" />
-<meta itemprop="image" content="<?php echo $meta->image; ?>" />
+@include('inc.metatags')
 
 
 
@@ -251,7 +216,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                                         <!-- desktop btn -->
                                         <div class="col-auto d-none d-xl-block">
                                             <div class="for-btn">
-                                                <a href="" class="cl-btn big">
+                                                <a href="{{ route('user.channels.add') }}" class="cl-btn big">
                                                     <div class="icon">
                                                         <?php include 'main-page/images/plus.svg'; 
                                                         //<img src="main-page/images/plus.svg">
@@ -273,7 +238,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                     </div>
                     <!-- mobile btn -->
                     <div class="for-btn d-xl-none">
-                        <a href="" class="cl-btn big">
+                        <a href="{{ route('user.channels.add') }}" class="cl-btn big">
                             <div class="icon">
                                 <?php include 'main-page/images/plus.svg'; 
                                 //<img src="main-page/images/plus.svg">
@@ -484,7 +449,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                                             </div>
                                         </div>
                                         <div class="for-btn">
-                                            <a href="" class="cl-btn big px-md-4">
+                                            <a href="{{ route('user.channels.add') }}" class="cl-btn big px-md-4">
                                                 <div class="icon">
                                                     <?php include 'main-page/images/plus.svg'; 
                                                     //<img src="main-page/images/plus.svg">
@@ -531,7 +496,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                                             <p>{{ __('text.text_24') }}</p>
                                         </div>
                                         <div class="for-btn">
-                                            <a class="cl-btn" href="#">
+                                            <a class="cl-btn" href="{{ route('user.channels.add') }}">
                                                 <div class="icon">
                                                     <?php include 'main-page/images/plus.svg'; 
                                                     //<img src="main-page/images/plus.svg">
@@ -572,7 +537,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                                             <p>{{ __('text.text_27') }}</p>
                                         </div>
                                         <div class="for-btn">
-                                            <a class="cl-btn" href="#">
+                                            <a class="cl-btn" href="{{ route('user.channels.add') }}">
                                                 <div class="icon">
                                                     <?php include 'main-page/images/plus.svg'; 
                                                     //<img src="main-page/images/plus.svg">
@@ -613,7 +578,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                                             <p>{{ __('text.text_29') }}</p>
                                         </div>
                                         <div class="for-btn">
-                                            <a class="cl-btn" href="#">
+                                            <a class="cl-btn" href="{{ route('user.channels.add') }}">
                                                 <div class="icon">
                                                     <?php include 'main-page/images/plus.svg'; 
                                                     //<img src="main-page/images/plus.svg">
@@ -748,7 +713,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                                     {!! __('text.text_43') !!}
                                 </div>
                                 <div class="for-btn mt-4">
-                                    <a class="cl-btn big" href="#">
+                                    <a class="cl-btn big" href="{{ route('user.channels.add') }}">
                                         <div class="icon">
                                             <?php include 'main-page/images/plus.svg'; 
                                             //<img src="main-page/images/plus.svg">
@@ -809,7 +774,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                                     </div>
                                     <div class="p-bottom">
                                         <div class="for-btn">
-                                            <a class="cl-btn big" href="#">
+                                            <a class="cl-btn big" href="{{ route('user.balance.index') }}">
                                                 {{ __('text.text_55') }}
                                             </a>
                                         </div>
@@ -851,7 +816,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                                     </div>
                                     <div class="p-bottom">
                                         <div class="for-btn">
-                                            <a class="cl-btn big" href="#">
+                                            <a class="cl-btn big" href="{{ route('user.balance.index') }}">
                                                 {{ __('text.text_66') }}
                                             </a>
                                         </div>
@@ -892,7 +857,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                                     </div>
                                     <div class="p-bottom">
                                         <div class="for-btn">
-                                            <a class="cl-btn big" href="#">
+                                            <a class="cl-btn big" href="{{ route('user.balance.index') }}">
                                                 {{ __('text.text_66') }}
                                             </a>
                                         </div>
@@ -1015,7 +980,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                         </div>
                     </div>
                     <div class="for-btn">
-                        <a class="cl-btn big" href="#">
+                        <a class="cl-btn big" href="{{ route('user.channels.add') }}">
                             <div class="icon">
                                 <?php include 'main-page/images/plus.svg'; 
                                 //<img src="main-page/images/plus.svg">
@@ -1105,7 +1070,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                                     <img src="main-page/images/rocket.png" alt="pic">
                                 </div>
                                 <div class="for-btn">
-                                    <a class="cl-btn big" href="#">
+                                    <a class="cl-btn big" href="{{ route('user.channels.add') }}">
                                         <div class="icon">
                                             <?php include 'main-page/images/plus.svg'; 
                                             //<img src="main-page/images/plus.svg">
@@ -1192,7 +1157,7 @@ $meta->image = $meta->url . 'images/social.jpg';
                                     <img src="main-page/images/tg-big.png" alt="pic">
                                 </div>
                                 <div class="for-btn">
-                                    <a class="cl-btn big" href="#">
+                                    <a class="cl-btn big" href="{{ route('user.channels.add') }}">
                                         <div class="icon">
                                             <?php include 'main-page/images/plus.svg'; 
                                             //<img src="main-page/images/plus.svg">
@@ -1257,6 +1222,10 @@ $meta->image = $meta->url . 'images/social.jpg';
                         </div>
                         <div class="col-12 col-sm-6 col-lg-3 order-2 order-lg-4 text-md-end">
                             <div class="control-buttons d-flex flex-sm-column column-gap-2 row-gap-2">
+                                
+                                
+        <?php if(Auth::guest()){ ?>
+
                                 <div class="for-btn">
                                     <a href="/login" class="login cl-btn blue-l-btn">
                                         <div class="icon">
@@ -1276,7 +1245,55 @@ $meta->image = $meta->url . 'images/social.jpg';
                                         </div>
                                         <p>{{ __('text.text_7') }}</p>
                                     </a>
-                                </div>
+                                </div>             
+        
+        <?php }else{ ?>
+            
+            <?php if(Auth::user()->isAdmin()){ ?>
+
+                <div class="for-btn">
+                    <a href="{{ route('admin.index') }}" class="login cl-btn blue-l-btn">
+                        <div class="icon">
+                            <?php include 'main-page/images/login.svg'; 
+                            //<img src="main-page/images/login.svg">
+                            ?>
+                        </div>
+                        <p>{{ __('text.text_8') }}</p>
+                    </a>
+                </div>
+                
+            <?php }else{ ?>
+                
+                <div class="for-btn">
+                    <a href="{{ route('user.index') }}" class="login cl-btn blue-l-btn">
+                        <div class="icon">
+                            <?php include 'main-page/images/login.svg';
+                            //<img src="main-page/images/login.svg">
+                             ?>
+                        </div>
+                        <p>{{ __('text.text_9') }}</p>
+                    </a>
+                </div>
+                
+            <?php } ?>
+
+                <div class="for-btn">
+                    <a href="{{ route('logout') }}" class="login cl-btn blue-l-btn">
+                        <div class="icon">
+                        <?php include 'main-page/images/login.svg'; 
+                            //<img src="main-page/images/login.svg">
+                        ?>
+                        </div>
+                        <p>{{ __('text.text_10') }}</p>
+                    </a>
+                </div>
+        
+        <?php } ?>                                
+                                
+
+                                
+                                
+                                
                             </div>
                         </div>
                     </div>

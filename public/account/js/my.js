@@ -49,9 +49,60 @@ $(document).ready(function () {
 */        
         
     });
+    
+var form_search = document.getElementById('form_search');
+if(form_search){
+    
+    //const form = document.querySelector('form');
+   // form_search.addEventListener('change', function() {
+        //alert('Hi!');
+        //console.log('aa');
+  //  });
+/*    
+    var inputs = form_search.getElementsByTagName("input"); 
+    for (i=0; i<inputs.length; i++){
+       inputs[i].addEventListener('change', function() {
+            console.log('aa');
+       });
+    }
+        
+*/    
+    var timer;
+    var timer_submit;
+    var interval = 1000;
+    var seconds = 3000;
+/*
+    form_search.addEventListener("mousemove", (event) => {
+        seconds = 3000;
+        clearInterval(timer);
+        clearTimeout(timer_submit);
+    }); 
+    
+    form_search.addEventListener("mouseleave", (event) => {
+        
+        timer = setInterval(function(){ 
+            //console.log('Timeout через: '+(seconds/1000));
+            if(document.querySelector('#form_search_timer span')){
+                document.querySelector('#form_search_timer span').innerHTML = seconds/1000;
+            }
+            
+            if(seconds>0){
+                seconds -= interval;
+            }else{
+                seconds = 3000;
+                clearInterval(timer);
+                form_search.submit();
+            }
+        },interval);
 
+        
+    }); 
+*/      
+    
+    
+    
+}
 
-//var count = 1;
  
 if(document.getElementById('form_hide_text')){
     document.getElementById('form_hide_text').addEventListener('submit', function(e){    
@@ -282,9 +333,20 @@ if(document.getElementById('form_links')){
         const block = $(this);
 
         block.click(function () {
-            block.toggleClass('active');
+            AddFavorite($(this).data("id"),1,'favorite');
         });
     });
+    
+    // blacklist
+    $('.blacklist').each(function () {
+        const block = $(this);
+
+        block.click(function () {
+            AddFavorite($(this).data("id"),2,'blacklist');
+        });
+    });
+    
+    
 
     // chat modal activating
     $('.chat-modal').each(function () {
@@ -365,6 +427,23 @@ if(document.getElementById('form_links')){
     
 });
 
+function AddFavorite(id,status,type){
+    
+  $.ajax({
+       headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+       url: 'channels/add_favorite/'+id+'/'+status,
+       type: "get",
+       success: function(response){
+            if(response.status > 0){
+                $( "#"+type+"-"+response.id).addClass('active');
+            }else if(response.status == 0){
+                $( "#"+type+"-"+response.id).removeClass('active');
+            }
+       }                   
+  });
+
+}
+
 function generateRandomString(length) {
     var result = '';
     var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -417,6 +496,9 @@ function DeleteFile(id){
     //$( "input#file_"+response.id ).remove();
 
 }
+
+
+
 
 
 function DropzoneDeleteFile(id){

@@ -9,7 +9,7 @@
             <div class="col">
                 <div class="logo">
                     <a href="">
-                        <img src="lc-styles/images/logo.svg" alt="logo">
+                        <img src="account/images/logo.svg" alt="logo">
                     </a>
                 </div>
             </div>

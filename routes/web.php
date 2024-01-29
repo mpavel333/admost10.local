@@ -7,6 +7,7 @@ use App\Http\Middleware\Authenticate;
 //////////////
 use App\Http\Controllers\Admin\ChannelsController as AdminChannelsController;
 use App\Http\Controllers\Admin\TariffsController as AdminTariffsController;
+use App\Http\Controllers\Admin\PagesController as AdminPagesController;
 
 ////////
 use App\Http\Controllers\User\ChannelsController as UserChannelsController;
@@ -22,6 +23,7 @@ use App\Http\Controllers\TelegramController;
 use App\Http\Controllers\DropzoneController;
 use App\Http\Controllers\ChannelsController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\PagesController;
 
 
 
@@ -63,16 +65,29 @@ Route::get('setlocale/{lang}', function ($lang='ua') {
 Route::group(['prefix' => App\Http\Middleware\LocaleMiddleware::getLocale()], function(){  
 
 
-        
-        
         Route::get('/', function () {
+            
+            //$Page = PagesController::getPageMetaData('index');
+            //print_r($Page);
+            //return view('index',['Page'=>$Page]);
             return view('index');
+        
         })->name('index'); 
         
         
         
         Route::get('/channels', [ChannelsController::class, 'channels'])->name('channels');
         Route::get('/channel/{id}', [ChannelsController::class, 'channel'])->name('channels.channel');
+
+        
+        Route::group(['middleware' => 'user'], function () {
+            
+            Route::get('/channels/add_favorite/{id}/{status}', [ChannelsController::class, 'add_favorite'])->name('channel.add_favorite');
+            Route::get('/channels/favorite', [ChannelsController::class, 'favorite'])->name('channels.favorite');
+            Route::get('/channels/blacklist', [ChannelsController::class, 'blacklist'])->name('channels.blacklist');
+        
+        });
+
         
         /////////////// USER
             
@@ -83,8 +98,6 @@ Route::group(['prefix' => App\Http\Middleware\LocaleMiddleware::getLocale()], fu
           //  })->name('user.index');    
             
             Route::get('/', [UserChannelsController::class, 'channels'])->name('user.index');
-        
-        
         
             Route::get('/balance', [UserBalanceController::class, 'index'])->name('user.balance.index');  
             Route::post('/balance/add', [UserBalanceController::class, 'submit'])->name('user.balance.add.submit');  
@@ -155,7 +168,8 @@ Route::group(['prefix' => App\Http\Middleware\LocaleMiddleware::getLocale()], fu
             Route::get('/channels/edit/{id}', [AdminChannelsController::class, 'edit'])->name('admin.channels.edit');
             Route::post('/channels/edit/{id}', [AdminChannelsController::class, 'save'])->name('admin.channels.save');
         
-        
+
+/*        
             Route::get('/tariffs', [AdminTariffsController::class, 'tariffs'])->name('admin.tariffs');
         
             //Route::get('/tariffs/add', [AdminTariffsController::class, 'add'])->name('admin.tariffs.add');
@@ -163,6 +177,19 @@ Route::group(['prefix' => App\Http\Middleware\LocaleMiddleware::getLocale()], fu
         
             Route::get('/tariffs/edit/{id}', [AdminTariffsController::class, 'edit'])->name('admin.tariffs.edit');
             Route::post('/tariffs/edit/{id}', [AdminTariffsController::class, 'save'])->name('admin.tariffs.save');
+        
+*/       
+        
+            
+            Route::get('/pages', [AdminPagesController::class, 'pages'])->name('admin.pages');
+            Route::get('/pages/add/', [AdminPagesController::class, 'add'])->name('admin.pages.add');
+            Route::post('/pages/submit', [AdminPagesController::class, 'submit'])->name('admin.pages.submit');
+            
+            Route::get('/pages/edit/{id}', [AdminPagesController::class, 'edit'])->name('admin.pages.edit');
+            Route::post('/pages/edit/{id}/save', [AdminPagesController::class, 'submit'])->name('admin.pages.edit.save');
+        
+        
+        
         
         
             
@@ -190,6 +217,11 @@ Route::group(['prefix' => App\Http\Middleware\LocaleMiddleware::getLocale()], fu
         Route::post('/send_message', [ChatController::class, 'sendMessage'])->name('chat.send_message');
         //Route::post('/send_message', [TelegramController::class, 'sendMessage'])->name('chat.send_message');
         //Route::get('/get_chat_messages/{order_id}', [TelegramController::class, 'getChatMessages'])->name('chat.get_chat_messages');
+
+
+
+//Страница
+Route::get('/{alias}', [PagesController::class, 'page'])->name('page');
         
 
 

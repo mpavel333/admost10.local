@@ -1,8 +1,8 @@
+<!DOCTYPE HTML>
 <html>
-
 <head>
 
-    @include('inc.head')
+@include('inc.head')
 
 </head>
 

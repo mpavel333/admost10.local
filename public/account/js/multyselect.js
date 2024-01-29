@@ -26,7 +26,7 @@ function MultySelect(element) {
 
     // writing some value to input
     const writeToInput = function (data, input) {
-        let string = Array.isArray(data) ? data.join(', ') : data;
+        let string = Array.isArray(data) ? data.join(',') : data;
         input.value = string;
     }
 
@@ -66,7 +66,7 @@ function MultySelect(element) {
     // if is multy select
     points.forEach(function (point) {
         point.addEventListener('click', function () {
-            let text = this.innerText,
+            let text = this.innerHTML,
                 val = this.dataset.val;
 
 

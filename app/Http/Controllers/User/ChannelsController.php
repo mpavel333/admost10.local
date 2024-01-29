@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use DB;
 use Auth;
 
+use Illuminate\Database\Query\JoinClause;
+
 use Image;
 use File;
 
@@ -20,6 +22,10 @@ use Illuminate\Support\Facades\Storage;
 class ChannelsController extends Controller
 {
     //private const TELEGRAM_TOKEN = '6106644969:AAEDR6n9gVN-tXa2-pqTJeuQ8E4a7Q_b-ZY';
+
+
+      
+
     
     public function channels()
     {
@@ -87,7 +93,8 @@ class ChannelsController extends Controller
                         
                         DB::table('tariffs')->where('id', $key)->where('channel_id', $check->id)->update([
                             'format'=>$format,
-                            'price'=>$price
+                            'price'=>$price,
+                            //"updated_at"=>now()
                         ]); 
                         
                     }
@@ -177,7 +184,9 @@ class ChannelsController extends Controller
                 'user_id'=>$user->id,
                 'category_id'=>$request->input('category_id'),
                 'link'=>$request->input('link'),
-                'description'=>$request->input('description')
+                'description'=>$request->input('description'),
+                "created_at"=>now(),
+                "updated_at"=>now()
             ]); 
             
 
@@ -312,6 +321,8 @@ class ChannelsController extends Controller
                                         'chat_id' => $value->my_chat_member->chat->id,
                                         'image' => $imageName,
                                         'full_info'=>$ChannelInfo->result->description
+                                        //"updated_at"=>now()
+                                    
                                     ]);   
                                     
                                     $messages[] = $channel->link; //.'('.$channel->link.')';     

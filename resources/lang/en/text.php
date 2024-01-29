@@ -264,8 +264,25 @@ return [
      'text_245' => 'Replenish',
      'text_246' => 'Your balance has been replenished by :amount UAH.',    
      
-    'text_247' => 'Settings',
-    
+     'text_247' => 'Settings',
+
+     'text_248' => 'Search',
+     'text_249' => 'Selected',
+     'text_250' => 'Sorting',
+     'text_251' => 'Ranges',
+     'text_252' => 'ER',
+     'text_253' => 'Subscribers',
+     'text_254' => 'CPV',
+     'text_255' => 'Filtering',
+     'text_256' => 'from',
+     'text_257' => 'to',
+     'text_258' => 'Views',
+     'text_259' => 'Quantity',
+     'text_260' => 'Details',
+
+     'text_261' => 'Selected channels',
+     'text_262' => 'Blacklist',
+         
     'text_' => '',
     'text_' => '',
     'text_' => '',
