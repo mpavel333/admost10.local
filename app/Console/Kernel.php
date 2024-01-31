@@ -6,6 +6,7 @@ use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 use App\Http\Controllers\TelegramController;
+use App\Http\Controllers\APItgstatController;
 
 
 class Kernel extends ConsoleKernel
