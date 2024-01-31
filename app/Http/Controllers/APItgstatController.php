@@ -47,6 +47,9 @@ class APItgstatController extends Controller
                           'tgstat_last_update'=>now()
                          ]);                   
                 
+            }else{
+                DB::table('channels')->where('id', $channel->id)
+                ->update(['tgstat_last_update'=>now()]);                   
             }
         
         endforeach; 
