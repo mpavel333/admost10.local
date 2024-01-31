@@ -24,6 +24,8 @@ use App\Http\Controllers\DropzoneController;
 use App\Http\Controllers\ChannelsController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\APItgstatController;
+
 
 
 
@@ -60,16 +62,10 @@ Route::get('setlocale/{lang}', function ($lang='ua') {
 
 
 
-
-
 Route::group(['prefix' => App\Http\Middleware\LocaleMiddleware::getLocale()], function(){  
 
 
         Route::get('/', function () {
-            
-            //$Page = PagesController::getPageMetaData('index');
-            //print_r($Page);
-            //return view('index',['Page'=>$Page]);
             return view('index');
         
         })->name('index'); 
@@ -78,15 +74,6 @@ Route::group(['prefix' => App\Http\Middleware\LocaleMiddleware::getLocale()], fu
         
         Route::get('/channels', [ChannelsController::class, 'channels'])->name('channels');
         Route::get('/channel/{id}', [ChannelsController::class, 'channel'])->name('channels.channel');
-
-        
-        Route::group(['middleware' => 'user'], function () {
-            
-            Route::get('/channels/add_favorite/{id}/{status}', [ChannelsController::class, 'add_favorite'])->name('channel.add_favorite');
-            Route::get('/channels/favorite', [ChannelsController::class, 'favorite'])->name('channels.favorite');
-            Route::get('/channels/blacklist', [ChannelsController::class, 'blacklist'])->name('channels.blacklist');
-        
-        });
 
         
         /////////////// USER
@@ -152,6 +139,18 @@ Route::group(['prefix' => App\Http\Middleware\LocaleMiddleware::getLocale()], fu
         
         
         });
+        ////////////// USER no url prefix user
+        
+        
+        Route::group(['middleware' => 'user'], function () {
+            
+            Route::get('/channels/add_favorite/{id}/{status}', [ChannelsController::class, 'add_favorite'])->name('channel.add_favorite');
+            Route::get('/channels/favorite', [ChannelsController::class, 'favorite'])->name('channels.favorite');
+            Route::get('/channels/blacklist', [ChannelsController::class, 'blacklist'])->name('channels.blacklist');
+            
+            Route::post('/send_message', [ChatController::class, 'sendMessage'])->name('chat.send_message');
+        
+        });
         
         
         /////////////// ADMIN
@@ -198,9 +197,15 @@ Route::group(['prefix' => App\Http\Middleware\LocaleMiddleware::getLocale()], fu
 
 
 /////////////////
+
+        //Route::get('/get_stat', [APItgstatController::class, 'getStat']);
         
-        //Route::get('/login_tg', [TelegramController::class, 'login_tg'])->name('auth.login_tg');
+
+
         Route::get('/check_auth', [TelegramController::class, 'check_auth'])->name('auth.check_auth');
+
+/*        
+        //Route::get('/login_tg', [TelegramController::class, 'login_tg'])->name('auth.login_tg');
         
         
         Route::get('/test_post', [TelegramController::class, 'test_post']);
@@ -218,7 +223,7 @@ Route::group(['prefix' => App\Http\Middleware\LocaleMiddleware::getLocale()], fu
         //Route::post('/send_message', [TelegramController::class, 'sendMessage'])->name('chat.send_message');
         //Route::get('/get_chat_messages/{order_id}', [TelegramController::class, 'getChatMessages'])->name('chat.get_chat_messages');
 
-
+*/
 
 /////////////////////////////
 

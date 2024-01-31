@@ -76,6 +76,8 @@
                         <div class="number"><?php echo date('H:i',strtotime($publication->date_published)) ?></div>
                     </div>
                 </div>
+                
+                @if($publication->date_repeat)
                 <div class="c-block cbl-3">
                     <div class="number-block">
                         <p>{{ __('text.text_147') }}</p>
@@ -86,6 +88,8 @@
                         <div class="number"><?php echo date('H:i',strtotime($publication->date_repeat)) ?></div>
                     </div>
                 </div>
+                @endif
+                
                 <div class="c-block cbl-4">
                     <div class="other-info">
                         <p>{{$publication->created_at}}</p>

@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 
 use Workerman\Worker;
 
-use App\Http\Controllers\TelegramController;
+use App\Http\Controllers\ChatController;
 
 //use \Auth;
 
@@ -42,37 +42,11 @@ class Workerman extends Command
     public function handle()
     {
         
+        global $text_worker; 
         global $argv;
         
-        //$argv = [];
-        //echo 11111111;
-        
-        //$arg = $this->argument('action');
-        //$param2 = $this->argument('param');
-        
-        //echo $param2;
-        //$daemonize = $this->option('daemonize');
-
-        //$argv[] = $arg;
-
         $argv[] = $this->option('daemonize') ? '-d' : '';
-        //$argv[] = ($param) ? ' -'.$param : '';
-        //$argv[] = '-d';
         
-        //echo $param3;
-        
-        //$argv[] = ($param2) ? '-'.$param2 : '';
-        
-        
-        //print_r($argv);
-        
-        
-        
-        global $text_worker; 
-        
-        
-        //Worker::$daemonize=true;
-                
         $text_worker = new Worker("websocket://".env('WEBSOCKET'));
         $text_worker->count = 1;
         
@@ -88,36 +62,7 @@ class Workerman extends Command
         
              $data = json_decode($sendData);
              
-             //print_r($data);
-
-
-             //   if(hash('sha256', $data->order_id.$data->user_id.env('CHAT_HASH_SOLT')) !== $data->hash){
-             ///       echo 'hello hack:)'; 
-             //       return;
-                    //die;
-             //   }
-
-
-
-/*             
-             if($data->action=='User'){
-                
-                //echo $data->user_id;
-                 
-                if(hash('sha256', $data->user_id.env('CHAT_HASH_SOLT')) !== $data->user_hash){
-                    echo 'hello hack:)'; 
-                    return;
-                    //die;
-                }else{
-
-                    DB::table('orders_chat_connections')->insert(['order_id'=>333,'user_id'=>$data->user_id,'connection_id'=>$connection->id,'connected'=>now()]); 
-                    
-                } 
-                
-                
-             }else{
-             
-*/                 ////////////
+                 ////////////
                  $check_connect = DB::table('orders_chat_connections')->where(['order_id'=>$data->order_id,'user_id'=>$data->user_id,'connection_id'=>$connection->id])->first(); 
                  if(!$check_connect){
                     DB::table('orders_chat_connections')->insert(['order_id'=>$data->order_id,'user_id'=>$data->user_id,'connection_id'=>$connection->id,'connected'=>now()]); 
@@ -137,7 +82,7 @@ class Workerman extends Command
                         
                         $user = DB::table('orders_chat_connections')->where(['order_id'=>$data->order_id])->where(['connection_id'=>$id])->orderBy('id', 'ASC')->first(); 
                       
-                        $messages = TelegramController::getChatMessages($data->order_id,$user->user_id,$data->hash,$data->view,$connection->id);  
+                        $messages = ChatController::getChatMessages($data->order_id,$user->user_id,$data->hash,$data->view,$connection->id);  
                          
                          $messageData = [
                             'action' => 'Message',
@@ -156,8 +101,7 @@ class Workerman extends Command
         };
         
         /////////////////
-        
-        
+
         $text_worker->onClose = function($connection)
         {
             echo 'Connection closed \n';

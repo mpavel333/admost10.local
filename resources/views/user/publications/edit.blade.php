@@ -234,15 +234,15 @@
                                                         <label for="date-2">
                                                             <img src="images/date.svg" alt="date">
                                                         </label>
-                                                        <input class="form-control" value="<?php echo date('d.m.Y',strtotime($publication->date_repeat)) ?>"
-                                                        id="date-2" name="date-2" type="text" placeholder="{{ __('text.text_170') }}" required>
+                                                        <input class="form-control" value="<?php if($publication->date_repeat) echo date('d.m.Y',strtotime($publication->date_repeat)) ?>"
+                                                        id="date-2" name="date-2" type="text" placeholder="{{ __('text.text_170') }}" >
                                                     </div>
                                                     <div class="time-input icon-input">
                                                         <label for="time-2">
                                                             <img src="images/time.svg" alt="date">
                                                         </label>
-                                                        <input class="form-control" value="<?php echo date('H:i',strtotime($publication->date_repeat)) ?>"
-                                                        id="time-2" name="time-2" type="text" placeholder="00:00" required>
+                                                        <input class="form-control" value="<?php if($publication->date_repeat) echo date('H:i',strtotime($publication->date_repeat)) ?>"
+                                                        id="time-2" name="time-2" type="text" placeholder="00:00" >
                                                     </div>
                                                 </div>
                                             </div>
@@ -253,15 +253,15 @@
                                                         <label for="date-3">
                                                             <img src="images/date.svg" alt="date">
                                                         </label>
-                                                        <input class="form-control" value="<?php echo date('d.m.Y',strtotime($publication->date_delete)) ?>"
-                                                        id="date-3" name="date-3" type="text" placeholder="{{ __('text.text_170') }}" required>
+                                                        <input class="form-control" value="<?php if($publication->date_delete) echo date('d.m.Y',strtotime($publication->date_delete)) ?>"
+                                                        id="date-3" name="date-3" type="text" placeholder="{{ __('text.text_170') }}" >
                                                     </div>
                                                     <div class="time-input icon-input">
                                                         <label for="time-3">
                                                             <img src="images/time.svg" alt="date">
                                                         </label>
-                                                        <input class="form-control" value="<?php echo date('H:i',strtotime($publication->date_delete)) ?>"
-                                                         id="time-3" name="time-3" type="text" placeholder="00:00" required>
+                                                        <input class="form-control" value="<?php if($publication->date_delete) echo date('H:i',strtotime($publication->date_delete)) ?>"
+                                                         id="time-3" name="time-3" type="text" placeholder="00:00" >
                                                     </div>
                                                 </div>
                                             </div>

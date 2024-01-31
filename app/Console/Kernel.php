@@ -7,6 +7,7 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 use App\Http\Controllers\TelegramController;
 
+
 class Kernel extends ConsoleKernel
 {
     /**
@@ -21,6 +22,8 @@ class Kernel extends ConsoleKernel
         $schedule->call(function () {
             TelegramController::autoposting();
             TelegramController::autopostingdelete();
+
+            APItgstatController::getStat();
             
         })->everyMinute();      
         

@@ -313,11 +313,9 @@
 
 <script type="text/javascript">
     const ws = new WebSocket('ws://<?php echo env('WEBSOCKET'); ?>');
-    //var user_id = <?php echo Auth::user()->id ?>;
-    //var user_hash = '<?php echo hash('sha256', Auth::user()->id.env('CHAT_HASH_SOLT')) ?>';
 </script>
 
-<script src="lc-styles/js/chats.js"></script>
+<script src="account/js/chats.js"></script>
 
                             
                         </div>

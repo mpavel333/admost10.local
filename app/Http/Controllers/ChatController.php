@@ -28,17 +28,15 @@ class ChatController extends Controller
     {
         
         $user = Auth::user();
-
+        
         if(hash('sha256', $request->input('order_id').$request->input('user_id').env('CHAT_HASH_SOLT')) !== $request->input('hash')){
-            //echo 'hello hack:)'; 
-            //die;
-            return;
+            echo 'hello hack:)'; 
+            die;
         }
         
         DB::table('orders_chat')->insert(['order_id'=>$request->input('order_id'),
                                           'user_id'=>$user->id,
                                           'message'=>$request->input('message'),
-                                          //'view'=>now(),
                                           "created_at"=>now(),
                                           "updated_at"=>now()
                                          ]);
@@ -50,14 +48,8 @@ class ChatController extends Controller
     
     
  
-    public static function getChatMessages($order_id,$user_id,$hash,$view=0)
+    public static function getChatMessages($order_id,$user_id,$hash,$view=0,$connection_id)
     {
-    
-        if(hash('sha256', $order_id.$user_id.env('CHAT_HASH_SOLT')) !== $hash){
-            //echo 'hello hack:)'; 
-            //die;
-            return;
-        }
 
         $messages = DB::table('orders_chat')->where('order_id', $order_id)->get();
 
@@ -74,21 +66,23 @@ class ChatController extends Controller
                 $message_type = 'user-message';
            }
             
-           $out.='<div class="message-row '.$message_type.' '.$message->user_id.'">
+           
+            $out.='<div class="message-row '.$message_type.'">
                     <div class="message-block">
                         <div class="message">
                             '.$message->message.'
                         </div>
                         <div class="message-info">
                             <div class="time">'.$message->created_at.'</div>
-                            <div class="status">'.(($message->status!=1 and $message->user_id != $user_id) ? 'Ще не переглянуто' : '').'</div>
+                            
                         </div>
                     </div>
                 </div>';
-        }
-
+        }   
+        
         return $out;
         
-    }
+    } 
+      
 
 }

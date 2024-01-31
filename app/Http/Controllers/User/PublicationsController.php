@@ -69,8 +69,18 @@ class PublicationsController extends Controller
         
         
         $Publication->date_published = date('Y-m-d H:i:s',strtotime($request->input('date-1').' '.$request->input('time-1')));
-        $Publication->date_repeat = date('Y-m-d H:i:s',strtotime($request->input('date-2').' '.$request->input('time-2')));
-        $Publication->date_delete = date('Y-m-d H:i:s',strtotime($request->input('date-3').' '.$request->input('time-3')));
+        
+        if($request->input('date-2') && $request->input('time-2')){
+            $Publication->date_repeat = date('Y-m-d H:i:s',strtotime($request->input('date-2').' '.$request->input('time-2')));
+        }else{
+            $Publication->date_repeat = NULL;
+        }
+
+        if($request->input('date-3') && $request->input('time-3')){
+            $Publication->date_delete = date('Y-m-d H:i:s',strtotime($request->input('date-3').' '.$request->input('time-3')));
+        }else{
+            $Publication->date_delete = NULL;
+        }
         
         $Publication->save();
         
