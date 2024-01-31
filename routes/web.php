@@ -198,7 +198,7 @@ Route::group(['prefix' => App\Http\Middleware\LocaleMiddleware::getLocale()], fu
 
 /////////////////
 
-        //Route::get('/get_stat', [APItgstatController::class, 'getStat']);
+        Route::get('/get_stat', [APItgstatController::class, 'getStat']);
         
 
 
