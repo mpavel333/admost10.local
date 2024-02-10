@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 
+use Carbon\Carbon;
 use App\Models\User;
 
 use Auth;
@@ -16,10 +17,14 @@ class UserController extends Controller
 
 
 
+
+
     public static function settings()
     {
         
-        //$user = Auth::user();
+        $user = Auth::user();
+        
+        //print_r($user->Package);
         
         //return DB::table('users_report')->where(['user_id'=>$user->id,'status'=>1])->count();
         

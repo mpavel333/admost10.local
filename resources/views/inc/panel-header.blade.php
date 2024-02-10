@@ -125,12 +125,29 @@
         </div>
         <div class="account-menu account-move dropdown-link">
             <div class="current">
-                <div class="name">ДД</div>
+                <div class="name">{{ Auth::user()->name }}</div>
                 <div class="avatar d-none">
                     <img src="account/images/user.webp" alt="avatar">
                 </div>
             </div>
             <div class="account-dropdown dropdown-default">
+                <div class="account-tariff">
+                    
+                    <?php
+                    $user = Auth::user();
+                    
+                    //print_r($user->Package);
+                    
+                    if($user->Package){ $Package = json_decode($user->Package->package);
+                
+                    echo '<p><span>Тариф:</span> '.'<b>'.$Package->name_ua.'</b></p>';
+                    //echo '<p><span>Бесплатно дней:</span> '.'<b>'.$Package->free_days.'</b></p>';
+                    echo '<p><span>От:</span> '.'<b>'.$user->Package->date_start.'</b></p>';
+                    echo '<p class="tariff_to"><span>До:</span> '.'<b>'.$user->Package->date_end.'</b></p>';
+                    
+                    }
+                    ?>
+                </div>
                 <div class="dropdown-inner">
                     <div class="link">
                         <a href="{{ route('user.settings.index') }}">{{ __('text.text_111') }}</a>

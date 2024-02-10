@@ -8,7 +8,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-
+use Carbon\Carbon;
+use App\Models\UserPackage;
+use DB;
 //use App\User;
 
 class User extends Authenticatable
@@ -70,8 +72,21 @@ class User extends Authenticatable
         return match((int)$this->role){
             0 => '/user',
             1 => '/admin',
-            // ...
         };
+    }
+    
+    public function Package() {
+        return $this->hasOne('App\Models\UserPackage', 'user_id')->where('date_end', '>' ,Carbon::now())->orderBy('id', 'desc');
     }
      
 }
+
+
+
+
+
+
+
+
+
+

@@ -6,7 +6,7 @@ use App\Http\Middleware\Authenticate;
 
 //////////////
 use App\Http\Controllers\Admin\ChannelsController as AdminChannelsController;
-use App\Http\Controllers\Admin\TariffsController as AdminTariffsController;
+use App\Http\Controllers\Admin\PackagesController as AdminPackagesController;
 use App\Http\Controllers\Admin\PagesController as AdminPagesController;
 
 ////////
@@ -15,6 +15,7 @@ use App\Http\Controllers\User\OrdersController as UserOrdersController;
 use App\Http\Controllers\User\PublicationsController as UserPublicationsController;
 use App\Http\Controllers\User\BalanceController as UserBalanceController;
 use App\Http\Controllers\User\UserController as UserController;
+use App\Http\Controllers\User\PackagesController as UserPackagesController;
 
 
 
@@ -39,9 +40,11 @@ Route::get('setlocale/{lang}', function ($lang='ua') {
     $segments = explode('/', $parse_url);
     
     //Если URL (где нажали на переключение языка) содержал корректную метку языка
-    if (in_array($segments[1], App\Http\Middleware\LocaleMiddleware::$languages)) {
-
+    if (isset($segments[1]) && in_array($segments[1], App\Http\Middleware\LocaleMiddleware::$languages)) {
         unset($segments[1]); //удаляем метку
+    }else{
+        //return redirect($referer);
+        return redirect()->route('index');
     }
 
     //Добавляем метку языка в URL (если выбран не язык по-умолчанию)
@@ -66,7 +69,10 @@ Route::group(['prefix' => App\Http\Middleware\LocaleMiddleware::getLocale()], fu
 
 
         Route::get('/', function () {
-            return view('index');
+            
+            $Packages = DB::table('packages')->get();
+            
+            return view('index',['Packages'=>$Packages]);
         
         })->name('index'); 
         
@@ -74,6 +80,9 @@ Route::group(['prefix' => App\Http\Middleware\LocaleMiddleware::getLocale()], fu
         
         Route::get('/channels', [ChannelsController::class, 'channels'])->name('channels');
         Route::get('/channel/{id}', [ChannelsController::class, 'channel'])->name('channels.channel');
+
+
+        Route::get('/package/{id}', [UserPackagesController::class, 'package'])->name('package');
 
         
         /////////////// USER
@@ -143,6 +152,9 @@ Route::group(['prefix' => App\Http\Middleware\LocaleMiddleware::getLocale()], fu
         
         
         Route::group(['middleware' => 'user'], function () {
+
+            Route::post('/package/{id}/buy', [UserPackagesController::class, 'buy'])->name('package.buy');
+
             
             Route::get('/channels/add_favorite/{id}/{status}', [ChannelsController::class, 'add_favorite'])->name('channel.add_favorite');
             Route::get('/channels/favorite', [ChannelsController::class, 'favorite'])->name('channels.favorite');
@@ -168,16 +180,6 @@ Route::group(['prefix' => App\Http\Middleware\LocaleMiddleware::getLocale()], fu
             Route::post('/channels/edit/{id}', [AdminChannelsController::class, 'save'])->name('admin.channels.save');
         
 
-/*        
-            Route::get('/tariffs', [AdminTariffsController::class, 'tariffs'])->name('admin.tariffs');
-        
-            //Route::get('/tariffs/add', [AdminTariffsController::class, 'add'])->name('admin.tariffs.add');
-            Route::post('/tariffs/add/submit', [AdminTariffsController::class, 'submit'])->name('admin.tariffs.submit');
-        
-            Route::get('/tariffs/edit/{id}', [AdminTariffsController::class, 'edit'])->name('admin.tariffs.edit');
-            Route::post('/tariffs/edit/{id}', [AdminTariffsController::class, 'save'])->name('admin.tariffs.save');
-        
-*/       
         
             
             Route::get('/pages', [AdminPagesController::class, 'pages'])->name('admin.pages');
@@ -186,6 +188,16 @@ Route::group(['prefix' => App\Http\Middleware\LocaleMiddleware::getLocale()], fu
             
             Route::get('/pages/edit/{id}', [AdminPagesController::class, 'edit'])->name('admin.pages.edit');
             Route::post('/pages/edit/{id}/save', [AdminPagesController::class, 'submit'])->name('admin.pages.edit.save');
+        
+        
+            
+            
+            Route::get('/packages', [AdminPackagesController::class, 'packages'])->name('admin.packages');
+            Route::get('/packages/add/', [AdminPackagesController::class, 'add'])->name('admin.packages.add');
+            Route::post('/packages/submit', [AdminPackagesController::class, 'submit'])->name('admin.packages.submit');
+            
+            Route::get('/packages/edit/{id}', [AdminPackagesController::class, 'edit'])->name('admin.packages.edit');
+            Route::post('/packages/edit/{id}/save', [AdminPackagesController::class, 'submit'])->name('admin.packages.edit.save');
         
         
         

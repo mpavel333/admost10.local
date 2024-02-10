@@ -51,12 +51,12 @@ return [
      'text_46' => 'Newbie',
      'text_47' => 'Suitable for a novice administrator',
      'text_48' => 'UAH/month',
-     'text_49' => 'first 30 days free',
+     'text_49' => 'first :count days free',
      'text_50' => 'channels',
      'text_51' => 'Delayed posting',
      'text_52' => 'Buying and selling advertising',
      'text_53' => 'Participation in selections',
-     'text_54' => 'Withdrawal once a week',
+     'text_54' => 'Withdrawal :count a week',
      'text_55' => 'Pay',
      'text_56' => 'Popular',
      'text_57' => 'Professional',
@@ -66,7 +66,7 @@ return [
      'text_61' => 'Withdrawal <span class="color-secondary fw-semi">3</span> times per week',
      'text_62' => 'Analytics of stock exchange channels',
      'text_63' => 'Instant View Blog',
-     'text_64' => 'Hiring up to <span class="color-secondary fw-semi">5</span> salespeople',
+     'text_64' => 'Hiring up to <span class="color-secondary fw-semi">:count</span> salespeople',
      'text_65' => 'Buying and selling channels',
      'text_66' => 'Pay',
      'text_67' => 'Businessman',
@@ -282,6 +282,9 @@ return [
 
      'text_261' => 'Selected channels',
      'text_262' => 'Blacklist',
+
+     'text_263' => 'Buy',
+     'text_264' => '- After clicking the "Buy" button, funds will be automatically debited from your account in the amount of the cost of the package',
          
     'text_' => '',
     'text_' => '',
