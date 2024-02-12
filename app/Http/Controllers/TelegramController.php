@@ -289,6 +289,7 @@ class TelegramController extends Controller
                         else:
                             //print_r($params);
                             print_r($sendTelegram);
+                            Log::debug(json_encode($sendTelegram));
                         endif;
                         
 
