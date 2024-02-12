@@ -290,7 +290,7 @@ class TelegramController extends Controller
                         else:
                             //print_r($params);
                             print_r($sendTelegram);
-                            Log::debug(json_encode($sendTelegram));
+                            Log::debug('chatid - '.$chat_id.' PostID - '.$publication->id.' :'.json_encode($sendTelegram));
                         endif;
                         
 
