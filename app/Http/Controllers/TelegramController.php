@@ -158,7 +158,7 @@ class TelegramController extends Controller
          echo '<br><br>';
 
          self::postingPublications();
-         //self::postingOrders();
+         self::postingOrders();
     
     }
 

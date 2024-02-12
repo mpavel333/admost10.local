@@ -21,8 +21,16 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
         
         $schedule->call(function () {
-            TelegramController::autoposting();
-            TelegramController::autopostingdelete();
+            //TelegramController::autoposting();
+            
+            TelegramController::postingPublications();
+            TelegramController::postingOrders();            
+            
+            
+            TelegramController::deletePublications();
+            
+            
+            //TelegramController::autopostingdelete();
             APItgstatController::getStat();
             
         })->everyMinute();      
