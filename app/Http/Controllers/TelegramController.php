@@ -213,7 +213,7 @@ class TelegramController extends Controller
                         UserController::addReport($UserOrder,'Заявка ID-'.$order->id.' опубликована. Списано -'.$order->price.'грн.');
                                                                  
                     else:
-                        print_r($params);
+                        //print_r($params);
                         print_r($sendTelegram);
                     endif;
                     
@@ -287,7 +287,7 @@ class TelegramController extends Controller
                                                                      
                       
                         else:
-                            print_r($params);
+                            //print_r($params);
                             print_r($sendTelegram);
                         endif;
                         
