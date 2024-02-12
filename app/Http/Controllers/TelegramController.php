@@ -321,7 +321,7 @@ class TelegramController extends Controller
                             
                            $params = array(
                                 'chat_id' => '@'.$chat_id,
-                                'photo' => (isset($images[0]))? env('APP_URL_DEV').'/'.$images[0]->path.'/'. $images[0]->filename : '', // режим отображения сообщения HTML (не все HTML теги работают)
+                                'photo' => (isset($images[0]))? $images[0]->path.'/'. $images[0]->filename : '', // режим отображения сообщения HTML (не все HTML теги работают)
                                 'caption'=> $publication->message,
                                 'parse_mode' => 'HTML',
                            ); 
@@ -372,7 +372,7 @@ class TelegramController extends Controller
 
                                 $params = array(
                                     'chat_id' => '@'.$chat_id,
-                                    'photo' => (isset($images[0]))? env('APP_URL_DEV').'/'.$images[0]->path.'/'. $images[0]->filename : '', // режим отображения сообщения HTML (не все HTML теги работают)
+                                    'photo' => (isset($images[0]))? $images[0]->path.'/'. $images[0]->filename : '', // режим отображения сообщения HTML (не все HTML теги работают)
                                     'caption'=> $publication->message,
                                     'parse_mode' => 'HTML',
                                     
@@ -430,7 +430,7 @@ class TelegramController extends Controller
                                 $params = [
                                     'chat_id' => '@'.$chat_id,
                                     //'caption' => $publication->message,
-                                    'document' => curl_file_create(env('APP_URL_DEV').'/'.$file->path.'/'. $file->filename)                                
+                                    'document' => curl_file_create($file->path.'/'. $file->filename)                                
                                 ];                             
                                 
                                 $sendTelegram = self::post_media($params,'sendDocument'); 
