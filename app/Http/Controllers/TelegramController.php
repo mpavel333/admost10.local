@@ -30,6 +30,7 @@ use App\Http\Controllers\User\PublicationsController;
 use App\Http\Controllers\User\OrdersController;
 
 use Crypter;
+use Log;
 
 class TelegramController extends Controller
 {
