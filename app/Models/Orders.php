@@ -68,7 +68,7 @@ class Orders extends Model
                                      ->select('orders.*','channels.name as channel_name','channels.image as channel_image',
                                               'tariffs.format as tariff_format','tariffs.price as tariff_price')
                                      ->orderBy('id', 'DESC')
-                                     ->get();        
+                                     ->paginate(10);       
         
         foreach($orders as $key=>$order){
            
@@ -107,7 +107,7 @@ class Orders extends Model
                                      
                                      ->select('orders.*','channels.name as channel_name','channels.image as channel_image','tariffs.format as tariff_format', 'tariffs.price as tariff_price')
                                      ->orderBy('id', 'DESC')
-                                     ->get();        
+                                     ->paginate(10);        
         
         foreach($orders as $key=>$order){
            

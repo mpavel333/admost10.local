@@ -285,7 +285,9 @@ return [
 
      'text_263' => 'Buy',
      'text_264' => '- After clicking the "Buy" button, funds will be automatically debited from your account in the amount of the cost of the package',
-         
+     
+     'text_265' => 'Balance output, amount:amount UAH',
+     
     'text_' => '',
     'text_' => '',
     'text_' => '',

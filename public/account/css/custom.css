@@ -241,6 +241,15 @@
     color: green;
 }
 
+.account-menu.dropdown-link .dropdown-default {
+    min-width: 208px;
+    background-color: white;
+    padding: 10px;
+}
+
+.tariff_info{
+    padding: 15px;
+}
 
 /***************************************/
 

@@ -75,8 +75,12 @@ class User extends Authenticatable
         };
     }
     
-    public function Package() {
+    public function getUserPackage() {
         return $this->hasOne('App\Models\UserPackage', 'user_id')->where('date_end', '>' ,Carbon::now())->orderBy('id', 'desc');
+    }
+    
+    public function PackageInfo() {
+        if($this->getUserPackage) return json_decode($this->getUserPackage->package);
     }
      
 }

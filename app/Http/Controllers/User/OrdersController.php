@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 
 use Illuminate\Database\Query\JoinClause;
 
@@ -20,6 +21,7 @@ class OrdersController extends Controller
 {
     public function in_orders()
     {
+        Paginator::defaultView('/inc/paginator');
         //$user = Auth::user();
         $orders = Orders::getUserInOrders();  
         
@@ -154,19 +156,10 @@ class OrdersController extends Controller
     } 
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
 
     public function out_orders()
     {
+        Paginator::defaultView('/inc/paginator');
         //$user = Auth::user();
         $orders = Orders::getUserOutOrders();        
         

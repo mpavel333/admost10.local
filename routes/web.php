@@ -97,6 +97,9 @@ Route::group(['prefix' => App\Http\Middleware\LocaleMiddleware::getLocale()], fu
         
             Route::get('/balance', [UserBalanceController::class, 'index'])->name('user.balance.index');  
             Route::post('/balance/add', [UserBalanceController::class, 'submit'])->name('user.balance.add.submit');  
+            
+            Route::get('/balance/out', [UserBalanceController::class, 'out'])->name('user.balance.out');  
+            Route::post('/balance/out', [UserBalanceController::class, 'out_submit'])->name('user.balance.out.submit');  
             //Route::post('/publication', [UserPublicationsController::class, 'submit'])->name('user.publications.submit');  
         
             Route::get('/report', [UserController::class, 'getReport'])->name('user.report.index');  
@@ -211,10 +214,11 @@ Route::group(['prefix' => App\Http\Middleware\LocaleMiddleware::getLocale()], fu
 /////////////////
 
         Route::get('/get_stat', [APItgstatController::class, 'getStat']);
-        
-
-
         Route::get('/check_auth', [TelegramController::class, 'check_auth'])->name('auth.check_auth');
+        
+        
+        
+        Route::get('/autoposting', [TelegramController::class, 'autoposting']);
 
 /*        
         //Route::get('/login_tg', [TelegramController::class, 'login_tg'])->name('auth.login_tg');

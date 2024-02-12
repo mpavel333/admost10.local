@@ -42,6 +42,41 @@ class BalanceController extends Controller
         
         
     } 
+
+
+    public function out()
+    {
+        $user = Auth::user();
+        //$channels = DB::table('channels')->where('user_id', $user->id)->get();        
+        $history = [];
+        return view('user.balance.out',['history'=>$history]);      
+    }       
+
+
+
+    public function out_submit(Request $request)
+    {
+        
+        $user = Auth::user();
+        
+        $system = $request->input('system');
+        $amount = $request->input('amount');
+        
+        if($amount && is_numeric($amount)){
+
+            self::MinBalance($user,$amount);
+            
+            UserController::addReport($user,__('text.text_265', ['amount' => $amount]));
+                    
+            $with=['success'=>__('text.text_265', ['amount' => $amount])];
+        
+        }
+        
+        
+        return redirect()->route('user.balance.out')->with($with); 
+        
+        
+    } 
     
     
     public static function AddBalance($user,$amount)

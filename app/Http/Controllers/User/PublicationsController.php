@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use DB;
 use Auth;
 use App\Models\Publications;
+use Illuminate\Pagination\Paginator;
 
 use App\Http\Controllers\DropzoneController;
 
@@ -125,111 +126,26 @@ class PublicationsController extends Controller
     
     }    
     
-/*
-
-    public function edit_submit(Request $request,$id)
-    {
-        
-        $user = Auth::user();
-
-        $Publication = Publications::find($id);
-        //$Publication->user_id = $user->id;
-        
-        if($request->input('channels_id')) $Publication->channels_id = json_encode($request->input('channels_id'));
-        
-        
-        
-        //$Order->name = $request->input('name');
-        $Publication->link = $request->input('link');
-        $Publication->message = $request->input('message');
-
-        $Publication->hide_text = $request->input('hide_text');
-        
-        
-        if($request->input('links')){
-            $links['links'] = $request->input('links');
-            $links['links_text'] = $request->input('links_text');
-            //print_r($links); die;
-            $Publication->links = json_encode($links,JSON_UNESCAPED_UNICODE);
-        }
-        
-        if($request->input('question')){
-            $Publication->question = json_encode($request->input('question'),JSON_UNESCAPED_UNICODE);
-        }
-        
-        $Publication->notifications = $request->input('notifications') ? 1 : 0;
-        $Publication->place = $request->input('place') ? 1 : 0;
-        
-        $Publication->type = $request->input('type');
-        
-        
-        $Publication->date_published = date('Y-m-d H:i:s',strtotime($request->input('date-1').' '.$request->input('time-1')));
-        $Publication->date_repeat = date('Y-m-d H:i:s',strtotime($request->input('date-2').' '.$request->input('time-2')));
-        $Publication->date_delete = date('Y-m-d H:i:s',strtotime($request->input('date-3').' '.$request->input('time-3')));
-
-        $Publication->save();
-        
-        //////////////////
-        if($request->input('del_files')){
-            foreach($request->input('del_files') as $id){
-                
-            $File = Files::find($id);
-            
-                if($File){
-                    DB::delete('delete from files where id = ?',[$File->id]);
-                    DB::delete('delete from publications_files where file_id = ?',[$File->id]);
-                    if(File::exists($File->path.'/'.$File->filename)) {
-                        File::delete($File->path.'/'.$File->filename);
-                        //$result_message = 'file delete';
-                    }
-                }
-            
-            }
-        }
-        /////////////////////
-        
-        
-        $files = $request->input('files');
-        
-        if($files){
-            foreach($files as $file){
-                DB::table('publications_files')->insert(['publication_id'=>$Publication->id,'file_id'=>$file,"created_at"=>now(),"updated_at"=>now()]);
-                DB::table('files')->where('id',$file)->update(['status'=>1]);
-            }
-        }
-        
-        
-        $with=['success'=>'Публикация обновлена'];
-        
-        //die; 
-        
-        return redirect()->route('user.publications.edit',$id)->with($with);        
-    
-    }  
-*/
-    
     
     public function publications()
     {
+        Paginator::defaultView('/inc/paginator');
+        
         $user = Auth::user();
 
         $publications = DB::table('publications')
-                                     //->join('orders', 'channels.id', '=', 'orders.channel_id')
-                                     //->leftjoin('channels', 'channels.id', '=', 'publications.channel_id')
-                                     
-        //->join('orders', function ($join) {
-        //    $join->on('channels.id', '=', 'orders.channel_id')
-        //         ->where('contacts.user_id', '>', 5);
-       // })                                     
-                                     
          ->where('publications.user_id', $user->id)
-         
-         //->select('publications.*','channels.name as channel_name','channels.image as channel_image')
          ->orderBy('id', 'DESC')
-         ->get();        
+         ->paginate(10);       
+
+        $published = DB::table('publications')
+         ->where('publications.user_id', $user->id)
+         ->where('publications.status', 1)
+         ->orderBy('id', 'DESC')
+         ->count();       
         
         
-        
+
         foreach($publications as $key=>$order){
             
             
@@ -237,9 +153,6 @@ class PublicationsController extends Controller
                 $channels = DB::table('channels')->whereIn('id',json_decode($order->channels_id))->get();
                 if(!empty($channels)) $publications[$key]->channels = $channels;
             }
-            
-            
-            
             
             $files = DB::table('publications_files')->where('publications_files.publication_id', $order->id)
                                               ->join('files', function (JoinClause $join) {
@@ -251,12 +164,10 @@ class PublicationsController extends Controller
                                               ->get();
             
             if(!empty($files)) $publications[$key]->images = $files;
-            
-            
-            //$orders[$key]->chat_messages_count = DB::table('orders_chat')->where('order_id', $order->id)->count();
+
         }
         
-        return view('user.publications.publications',['publications'=>$publications]);      
+        return view('user.publications.publications',['publications'=>$publications,'published'=>$published]);      
     }   
     
     
@@ -300,22 +211,29 @@ class PublicationsController extends Controller
 
 
 
-    
-    
-    
-    
-    
     public function published($id,$hash)
     {
-        
 
         if(hash('sha256', $id.env('ORDERS_SOLT')) !== $hash){
             echo 'hello hack:)'; die;
         }
+        
+        $user = Auth::user();
 
-        DB::table('publications')->where('id', $id)->update(['status' => 1]); 
-       
-        $with=['success'=>'Пост №'.$id.' опубликован в работу'];
+        $published = DB::table('publications')
+         ->where('publications.user_id', $user->id)
+         ->where('publications.status', 1)
+         ->orderBy('id', 'DESC')
+         ->count(); 
+        
+        if($published < $user->PackageInfo()->count_channels_post){
+            
+            DB::table('publications')->where('id', $id)->update(['status' => 1]); 
+            $with=['success'=>'Пост №'.$id.' опубликован в работу'];
+        
+        }else{
+            $with=['error'=>'На вашем тарифе доступно максимум '.$user->PackageInfo()->count_channels_post.' каналов'];
+        }
         
         return redirect()->route('user.publications')->with($with);        
                

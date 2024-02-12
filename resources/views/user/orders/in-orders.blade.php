@@ -310,6 +310,8 @@
 
 @endforeach
 
+{{ $orders->render() }}
+
 
 <script type="text/javascript">
     const ws = new WebSocket('ws://<?php echo env('WEBSOCKET'); ?>');

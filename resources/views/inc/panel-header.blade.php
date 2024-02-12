@@ -72,6 +72,11 @@
                 <?php include 'account/images/plus.svg'; ?>
             </div>
         </a>
+
+        @if(Auth::user()->getUserPackage)
+            <a href="{{route('user.balance.out')}}" class="balance balance-move cl-btn blue-l-btn cl-dark">Вывод баланса</a>
+        @endif
+
         <div class="languages languages-move dropdown-link">
             <div class="current icon">
             
@@ -135,17 +140,14 @@
                     
                     <?php
                     $user = Auth::user();
+                    //print_r($user->getUserPackage);
                     
-                    //print_r($user->Package);
+                    if($user->getUserPackage):
+                        echo '<p><span>Ваш тариф:</span> '.'<a href="'.route('package',$user->PackageInfo()->id).'" target="_blank"><b>'.$user->PackageInfo()->name_ua.'</b></a></p>';
+                        echo '<p><span>От:</span> '.'<b>'.$user->getUserPackage->date_start.'</b></p>';
+                        echo '<p class="tariff_to"><span>До:</span> '.'<b>'.$user->getUserPackage->date_end.'</b></p>';
+                    endif;
                     
-                    if($user->Package){ $Package = json_decode($user->Package->package);
-                
-                    echo '<p><span>Тариф:</span> '.'<b>'.$Package->name_ua.'</b></p>';
-                    //echo '<p><span>Бесплатно дней:</span> '.'<b>'.$Package->free_days.'</b></p>';
-                    echo '<p><span>От:</span> '.'<b>'.$user->Package->date_start.'</b></p>';
-                    echo '<p class="tariff_to"><span>До:</span> '.'<b>'.$user->Package->date_end.'</b></p>';
-                    
-                    }
                     ?>
                 </div>
                 <div class="dropdown-inner">

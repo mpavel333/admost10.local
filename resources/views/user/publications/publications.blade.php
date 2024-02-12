@@ -33,10 +33,26 @@
                         <p>{{ __('text.text_114') }}</p> 
                     </h1>
                     
+                    
+                    
                     <div class="orders-inner">
+                    
+                    @if(Auth::user()->getUserPackage)
+                    
+                    <div class="tariff_info"> 
+                        <p>Ваш тариф: {{ Auth::user()->PackageInfo()->name_ua }} </p>
+                        <p>Старт: {{ Auth::user()->getUserPackage->date_start }} </p>
+                        <p>Завершение: {{ Auth::user()->getUserPackage->date_end }} </p>
+                        @if(Auth::user()->PackageInfo()->delayed_posting)
+                        <p>Количество каналов для отложенного постинга: ({{ $published }}/{{ Auth::user()->PackageInfo()->count_channels_post }}) </p>
+                        @endif
+                    </div>
+                    
+                    @endif
+                    
                         <div class="collapses">
                         
-@foreach ($publications as $publication)
+        @foreach ($publications as $publication)
 
 
         <div class="collapse-block @if($publication->status==1) in_work @elseif($publication->status==2) stopped @endif ">
@@ -188,6 +204,8 @@
                 </div>
             </div>
         </div>
+        
+        
 
 
 <!-- Preview modal -->
@@ -229,6 +247,9 @@
 
 
 @endforeach
+
+
+{{ $publications->render() }}
 
 
 <script type="text/javascript">
