@@ -341,7 +341,7 @@ class TelegramController extends Controller
                                 else:
                                     array_push($media,['type' => 'photo', 'media' => 'attach://image_'.$key]);
                                 endif;
-                                $media_img['image_'.$key] = curl_file_create(env('APP_URL_DEV').'/'.$image->path.'/'. $image->filename);
+                                $media_img['image_'.$key] = curl_file_create($image->path.'/'. $image->filename);
                             }
                             
                             $params = [
