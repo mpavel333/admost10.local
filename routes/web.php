@@ -219,6 +219,14 @@ Route::group(['prefix' => App\Http\Middleware\LocaleMiddleware::getLocale()], fu
         
         
         Route::get('/autoposting', [TelegramController::class, 'autoposting']);
+        
+        
+        Route::get('/cron_start_ddd333', function(){
+            
+            
+            Log::debug('cron_start_ddd333 '.now());
+            
+        });
 
 /*        
         //Route::get('/login_tg', [TelegramController::class, 'login_tg'])->name('auth.login_tg');
