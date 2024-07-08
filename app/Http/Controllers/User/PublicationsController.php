@@ -220,20 +220,27 @@ class PublicationsController extends Controller
         
         $user = Auth::user();
 
-        $published = DB::table('publications')
-         ->where('publications.user_id', $user->id)
-         ->where('publications.status', 1)
-         ->orderBy('id', 'DESC')
-         ->count(); 
-        
-        if($published < $user->PackageInfo()->count_channels_post){
+        if($user->PackageInfo()){
+
+            $published = DB::table('publications')
+            ->where('publications.user_id', $user->id)
+            ->where('publications.status', 1)
+            ->orderBy('id', 'DESC')
+            ->count(); 
             
-            DB::table('publications')->where('id', $id)->update(['status' => 1]); 
-            $with=['success'=>'Пост №'.$id.' опубликован в работу'];
-        
+            
+            if($published < $user->PackageInfo()->count_channels_post){
+                
+                DB::table('publications')->where('id', $id)->update(['status' => 1]); 
+                $with=['success'=>'Пост №'.$id.' опубликован в работу'];
+            
+            }else{
+                $with=['error'=>'На вашем тарифе доступно максимум '.$user->PackageInfo()->count_channels_post.' каналов'];
+            }
+
         }else{
-            $with=['error'=>'На вашем тарифе доступно максимум '.$user->PackageInfo()->count_channels_post.' каналов'];
-        }
+            $with=['error'=>'Для публикации постов необходимо заказать тариф'];
+        }        
         
         return redirect()->route('user.publications')->with($with);        
                

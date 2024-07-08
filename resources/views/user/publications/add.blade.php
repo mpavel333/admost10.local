@@ -133,6 +133,7 @@
                                         </div>
                                     </div>
                                     <div class="step-block for-dates">
+                                        
                                         <div class="tit">{{ __('text.text_168') }}</div>
                                         <div class="dates">
                                             <div class="inputblock date-block">
@@ -151,23 +152,26 @@
                                                         <input class="form-control" id="time-1" name="time-1" type="time" placeholder="00:00" required>
                                                     </div>
                                                 </div>
+                                                <p>
+                                                    оставьте поля пустыми, и дата публикации будет браться автоматически с настроеного вами графика публикаций в настройках канала внизу. 
+                                                    <b>Для тз мы внизу сделаем настройку канала где будет сделан функционал шаблона графика публикаций для того чтоб пользователь 
+                                                        один раз настроил график и все посты выходили согласно настроеному графику. Например он выбрал что в понедельник у него посты выходят
+                                                     в 10:15 и 17:37 и так по каждому дню, а мы уже берем отсюда инфу и при создании нового поста подставляем автоматически</b> 
+                                                </p>
                                             </div>
                                             <div class="inputblock date-block">
-                                                <p>{{ __('text.text_171') }}</p>
-                                                <div class="inputs">
-                                                    <div class="date-input icon-input">
-                                                        <label for="date-2">
-                                                            <img src="images/date.svg" alt="date">
-                                                        </label>
-                                                        <input class="form-control" id="date-2" name="date-2" type="date" placeholder="{{ __('text.text_170') }}" >
-                                                    </div>
-                                                    <div class="time-input icon-input">
-                                                        <label for="time-2">
-                                                            <img src="images/time.svg" alt="date">
-                                                        </label>
-                                                        <input class="form-control" id="time-2" name="time-2" type="time" placeholder="00:00" >
-                                                    </div>
-                                                </div>
+                                                <p>{{ __('text.text_171') }} <input type="checkbox"  name="" id=""></p>
+                                                <p>Нужно поставить чекбокс, при включенном чекбоксе ввыдавать опции выбора повтора публикации:</p>
+                                                    <p> Каждые 
+                                                        <input type="text" value="1" style="width: 30px">
+                                                        <select name="" id="">
+                                                            <option value="">минут</option>
+                                                            <option value="">часов</option>
+                                                            <option value="">дней</option>
+                                                        </select>
+                                                        <input type="text" value="1" style="width: 30px">
+                                                        раз (0 - бесконечно)
+                                                    </p>
                                             </div>
                                             <div class="inputblock date-block">
                                                 <p>{{ __('text.text_172') }}</p>
@@ -185,10 +189,11 @@
                                                         <input class="form-control" id="time-3" name="time-3" type="time" placeholder="00:00" >
                                                     </div>
                                                 </div>
+                                                <p>информация для юзера: бот автоматически может удалять посты не старше 48 часов. Если дата вашего автоматического удаления 
+                                                    превышает 48 часов, наш бот автопостинга пришлет вам напоминание для ручного удаления</p>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="step-block settings">
+                                        <br><br>
                                         <div class="tit">{{ __('text.text_111') }}</div>
                                         <div class="fields-block">
                                             <div class="settings-line">
@@ -200,6 +205,46 @@
                                                 <input id="place-check" name="place" type="checkbox">
                                             </div>
                                         </div>
+                                        <br><br>
+                                        <div class="for-btn text-center mt-4">
+                                            <button type="submit" class="cl-btn big no-stroke">
+                                                <p>{{ __('text.text_182') }}</p>
+                                                <div class="icon ms-2 fill-inherit">
+                                                    <?php include 'images/calendar.svg'; ?>
+                                                </div>
+                                            </button>
+                                            <button>попередній перегляд в бота</button>
+                                            <button>Опублікувати прямо зараз</button>
+                                        </div>
+                                    </div>
+                                    <div class="step-block settings">
+                                        <div class="tit">Попередній перегляд публікації</div>
+                                        <div class="posting-block">
+                                            <div class="posting-head"></div>
+                                            <div class="posting-body">
+                                                <div class="media-block">
+                                                    <div class="attachment_file">
+                                                        <img src="https://telega-images.storage.yandexcloud.net/uploads/user/690/2330516/small_photo_2024-07-01_17-14-50.jpg" alt="">
+                                                    </div>
+                                                </div>
+                                                <div class="text-block">
+                                                    <p><strong>Yoast WordPress SEO Premium 22.8 NULLED + Free 22.8</strong></p>
+                                                    <p><em><code>Last updated:30 May 2024</code></em></p>
+                                                    <p>Yoast SEO Premium Nulled (formerly known as WordPress SEO by Yoast) is the most complete WordPress SEO plugin that exists today for WordPress users. It incorporates everything from a snippet editor and real time page analysis functionality that helps you optimize your pages content, images titles, meta descriptions and more to XML sitemaps, and loads of optimization options in between.</p>
+                                                </div>
+                                            </div>
+                                            <div class="posting-footer">
+                                                <div class="links-block">
+                                                    <div class="links-line">
+                                                        <a href="">Кнопка 1</a><a href="">Кнопка 2</a>
+                                                    </div>
+                                                    <div class="links-line">
+                                                        <a href="">Кнопка 3 на всю ширину</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
                                     </div>
                                     
                                     
@@ -252,6 +297,26 @@
                             
                             @endif
                             
+                        </div>
+                        <div class="block">
+                            <p>Сюда мы выводим все запланированые посты вформате табов кликая по кнопкам - отображается тот или иной вид</p><br><br>
+                            <p><button>Список</button><button>По датам</button><button>Календарь</button></p>
+                            <br><br>
+                            <p><b>Список</b></p>
+                            <img src="https://img001.prntscr.com/file/img001/R9fqxoC5RrueXx0PpeA9ag.png">
+                            <img src="https://img001.prntscr.com/file/img001/R9fqxoC5RrueXx0PpeA9ag.png">
+                            <img src="https://img001.prntscr.com/file/img001/R9fqxoC5RrueXx0PpeA9ag.png">
+                            <br><br>
+                            <img src="https://img001.prntscr.com/file/img001/R9fqxoC5RrueXx0PpeA9ag.png">
+                            <img src="https://img001.prntscr.com/file/img001/R9fqxoC5RrueXx0PpeA9ag.png">
+                            <img src="https://img001.prntscr.com/file/img001/R9fqxoC5RrueXx0PpeA9ag.png">
+                            <br><br>
+                            <p><b>По датам</b></p>
+                            <p><img src="https://img001.prntscr.com/file/img001/NTFMB6w_SL2zRZiKf3dfGw.png"></p>
+                            <br><br>
+                            <p><b>Календарь</b></p>
+                            <p><img src="https://img001.prntscr.com/file/img001/InUxIHu-SMmvwKBXHJP7xA.png"></p>
+                            <p></p>
                         </div>
                     </div>
                 </div>

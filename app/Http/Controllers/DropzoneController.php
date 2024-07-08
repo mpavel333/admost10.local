@@ -13,12 +13,27 @@ use DB;
 class DropzoneController extends Controller
 {
 
+ 
+    public function test_mkdir(Request $request)
+    {
+
+        $path = 'uploads/'.time();
+        if(!is_dir($path)){
+             mkdir($path,true,755);
+             chmod($path, 0755);
+        }
+
+    }
+
+
         public function add(Request $request,$folder='test')
         {
 
             $path = 'uploads/'.date('Y').'/'.date('m').'/'.date('d');
-            if(!is_dir($path)) mkdir($path,true,755);
-            
+            if(!is_dir($path)){
+                 mkdir($path,true,755);
+                 chmod($path, 0755);
+            }
             $files = $request->file('file');
             $ids = [];
             $files_out = [];
