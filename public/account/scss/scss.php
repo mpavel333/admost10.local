@@ -4,6 +4,7 @@ class ScssList {
 		[
 			'css' => 'style.css',
 			'scss' => [
+				'den.scss',
 				'mixin.scss',
 				'fonts.scss',
 				'utilites.scss',

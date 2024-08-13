@@ -1,6 +1,7 @@
 <?php
 require "scss/scss.inc.php";
 
+
 class TmplApp {
 
 	/*
@@ -18,11 +19,11 @@ class TmplApp {
 			if ( empty($cssFile['scss']) ) continue;
 			
 			$scssCode = '';
-			$outputFile = 'css/'.$cssFile['css'];
+			$outputFile = str_replace('scss','css',__DIR__).'/'.$cssFile['css'];
 			
 			foreach( $cssFile['scss'] as $scssFile ){
 				$fileUrl = $scssFile;
-				$scssCode .= file_get_contents('scss/'.$fileUrl);		
+				$scssCode .= file_get_contents(__DIR__.'/'.$fileUrl);		
 			}
 			
 			if ( $scssCode ) {
@@ -30,6 +31,7 @@ class TmplApp {
 				
 				if ( $css ) {
 					$minCss = $this->minifyCss($css);
+
 
 					file_put_contents($outputFile, $minCss);
 				}

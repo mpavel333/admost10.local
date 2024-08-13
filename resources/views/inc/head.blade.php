@@ -1,7 +1,6 @@
 <?php
 error_reporting(1);
 ini_set('display_errors', 1);
-
 require($_SERVER['DOCUMENT_ROOT'].'/account/scss/tmplapp.php');
 $TmplApp = new TmplApp();
 $TmplApp->AutoCompileScss();
@@ -15,6 +14,7 @@ $TmplApp->AutoCompileScss();
 <link rel="stylesheet" href="account/plugins/dropzone/dropzone.css">
 <link rel="stylesheet" href="account/plugins/ion-rangeslider/ion.rangeSlider.min.css">
 <link rel="stylesheet" href="account/css/style.css?t=<?php echo date('U'); ?>">
+<link rel="stylesheet" href="account/css/den.css?t=<?php echo date('U'); ?>">
 
 <link rel="stylesheet" href="account/css/custom.css?t=<?php echo date('U'); ?>">
 

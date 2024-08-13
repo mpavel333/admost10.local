@@ -54,9 +54,25 @@
                                 <div class="s-row">
                                     <div class="step-block message">
                                         <div class="tit">{{ __('text.text_51') }}</div>
-                                        <div class="inputblock">
-                                            <input type="text" placeholder="{{ __('text.text_161') }}" name="link" class="form-control" required="">
+                                        <div class="step-block settings">
+                                        <div class="tit">{{ __('text.text_181') }}</div>
+                                        <div class="fields-block">
+                                            
+                                            <select name="type" required>
+                                                <option value=""></option>
+                                                <option value="1">{{ __('text.text_175') }}</option>
+                                                <option value="2">{{ __('text.text_176') }}</option>
+                                                <option value="3">{{ __('text.text_177') }}</option>
+                                                <option value="4">{{ __('text.text_178') }}</option>
+                                                <option value="5">{{ __('text.text_179') }}</option>
+                                                <option value="6">{{ __('text.text_180') }}</option>
+                                            </select>
+                                            
                                         </div>
+                                    </div>
+                                        <!-- <div class="inputblock">
+                                            <input type="text" placeholder="{{ __('text.text_161') }}" name="link" class="form-control" required="">
+                                        </div> -->
                                         <div class="inputblock message-field">
                                             <textarea class="form-control" name="message" placeholder="{{ __('text.text_162') }}" required=""></textarea>
                                             <div class="file-menu dropdown-link">
@@ -132,6 +148,50 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="step-block settings">
+                                        <div class="tit">Попередній перегляд публікації</div>
+                                        <div class="posting-block prev-post">
+                                            <div class="posting-head"></div>
+                                            <div class="posting-body">
+                                                <div class="media-block">
+                                                    <div class="images-block">
+                                                        <div class="attachment_file">
+                                                            <img src="https://telega-images.storage.yandexcloud.net/uploads/user/690/2330516/small_photo_2024-07-01_17-14-50.jpg" alt="">
+                                                        </div>
+                                                        <div class="attachment_file">
+                                                            <img src="https://telega-images.storage.yandexcloud.net/uploads/user/690/2330516/small_photo_2024-07-01_17-14-50.jpg" alt="">
+                                                        </div>
+                                                        <div class="attachment_file">
+                                                            <img src="https://telega-images.storage.yandexcloud.net/uploads/user/690/2330516/small_photo_2024-07-01_17-14-50.jpg" alt="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="text-block">
+                                                    <strong>Yoast WordPress SEO Premium 22.8 NULLED + Free 22.8</strong><br>
+                                                    <em><code>Last updated:30 May 2024</code></em><br>
+                                                    Yoast SEO Premium Nulled (formerly known as WordPress SEO by Yoast) is the most complete WordPress SEO plugin that exists today for WordPress users. It incorporates everything from a snippet editor and real time page analysis functionality that helps you optimize your pages content, images titles, meta descriptions and more to XML sitemaps, and loads of optimization options in between.
+                                                </div>
+                                            </div>
+                                            <div class="posting-footer">
+                                                <div class="links-block">
+                                                    <div class="links-line">
+                                                        <a href="">Кнопка 1 на всю ширину</a>
+                                                    </div>
+                                                    <div class="links-line">
+                                                        <a href="">Кнопка 1</a><a href="">Кнопка 2</a>
+                                                    </div>
+                                                    <div class="links-line">
+                                                        <a href="">Кнопка 1</a><a href="">Кнопка 2</a><a href="">Кнопка 3</a>
+                                                    </div>
+                                                    <div class="links-line">
+                                                        <a href="">1</a><a href="">2</a><a href="">3</a><a href="">4</a>
+                                                        <a href="">5</a><a href="">6</a><a href="">7</a><a href="">8</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
                                     <div class="step-block for-dates">
                                         
                                         <div class="tit">{{ __('text.text_168') }}</div>
@@ -158,6 +218,7 @@
                                                         один раз настроил график и все посты выходили согласно настроеному графику. Например он выбрал что в понедельник у него посты выходят
                                                      в 10:15 и 17:37 и так по каждому дню, а мы уже берем отсюда инфу и при создании нового поста подставляем автоматически</b> 
                                                 </p>
+                                                
                                             </div>
                                             <div class="inputblock date-block">
                                                 <p>{{ __('text.text_171') }} <input type="checkbox"  name="" id=""></p>
@@ -204,6 +265,92 @@
                                                 <label for="place-check">{{ __('text.text_174') }}</label>
                                                 <input id="place-check" name="place" type="checkbox">
                                             </div>
+                                            <div class="table-time">
+                                                    <div class="line-day">
+                                                        <div class="day-c">Пн.</div>
+                                                        <div class="inpb">
+                                                            <input type="text" value="10:00" />
+                                                            <input type="text" value="13:00" />
+                                                            <input type="text" value="16:00" />
+                                                        </div>
+                                                        <div class="actions">
+                                                            <button>+</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="line-day">
+                                                        <div class="day-c">Вт.</div>
+                                                        <div class="inpb">
+                                                            <input type="text" value="10:00" />
+                                                            <input type="text" value="13:00" />
+                                                            <input type="text" value="16:00" />
+                                                        </div>
+                                                        <div class="actions">
+                                                            <button>+</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="line-day">
+                                                        <div class="day-c">Ср.</div>
+                                                        <div class="inpb">
+                                                            <input type="text" value="10:00" />
+                                                            <input type="text" value="13:00" />
+                                                            <input type="text" value="16:00" />
+                                                        </div>
+                                                        <div class="actions">
+                                                            <button>+</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="line-day">
+                                                        <div class="day-c">Чт.</div>
+                                                        <div class="inpb">
+                                                            <input type="text" value="10:00" />
+                                                            <input type="text" value="13:00" />
+                                                            <input type="text" value="16:00" />
+                                                        </div>
+                                                        <div class="actions">
+                                                            <button>+</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="line-day">
+                                                        <div class="day-c">Пт.</div>
+                                                        <div class="inpb">
+                                                            <input type="text" value="10:00" />
+                                                            <input type="text" value="13:00" />
+                                                            <input type="text" value="16:00" />
+                                                        </div>
+                                                        <div class="actions">
+                                                            <button>+</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="line-day">
+                                                        <div class="day-c">Сб.</div>
+                                                        <div class="inpb">
+                                                            <input type="text" value="10:00" />
+                                                            <input type="text" value="13:00" />
+                                                            <input type="text" value="16:00" />
+                                                        </div>
+                                                        <div class="actions">
+                                                            <button>+</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="line-day">
+                                                        <div class="day-c">Нд.</div>
+                                                        <div class="inpb">
+                                                            <input type="text" value="10:00" />
+                                                            <input type="text" value="13:00" />
+                                                            <input type="text" value="16:00" />
+                                                        </div>
+                                                        <div class="actions">
+                                                            <button>+</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="auto-sign">
+                                                    <div class="sign-head"><input type="checkbox"  name="av" id=""> <label for="av">Автоподпись к посту</label></div>
+                                                    <div class="sign-text">
+                                                        <textarea name="" id="" placeholder="Укажите текст для подписи в постах, он бьудет применен автоматически для всех новых публикаций"></textarea>
+                                                    </div>
+                                                </div>
                                         </div>
                                         <br><br>
                                         <div class="for-btn text-center mt-4">
@@ -217,53 +364,10 @@
                                             <button>Опублікувати прямо зараз</button>
                                         </div>
                                     </div>
-                                    <div class="step-block settings">
-                                        <div class="tit">Попередній перегляд публікації</div>
-                                        <div class="posting-block">
-                                            <div class="posting-head"></div>
-                                            <div class="posting-body">
-                                                <div class="media-block">
-                                                    <div class="attachment_file">
-                                                        <img src="https://telega-images.storage.yandexcloud.net/uploads/user/690/2330516/small_photo_2024-07-01_17-14-50.jpg" alt="">
-                                                    </div>
-                                                </div>
-                                                <div class="text-block">
-                                                    <p><strong>Yoast WordPress SEO Premium 22.8 NULLED + Free 22.8</strong></p>
-                                                    <p><em><code>Last updated:30 May 2024</code></em></p>
-                                                    <p>Yoast SEO Premium Nulled (formerly known as WordPress SEO by Yoast) is the most complete WordPress SEO plugin that exists today for WordPress users. It incorporates everything from a snippet editor and real time page analysis functionality that helps you optimize your pages content, images titles, meta descriptions and more to XML sitemaps, and loads of optimization options in between.</p>
-                                                </div>
-                                            </div>
-                                            <div class="posting-footer">
-                                                <div class="links-block">
-                                                    <div class="links-line">
-                                                        <a href="">Кнопка 1</a><a href="">Кнопка 2</a>
-                                                    </div>
-                                                    <div class="links-line">
-                                                        <a href="">Кнопка 3 на всю ширину</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                    </div>
                                     
                                     
-                                    <div class="step-block settings">
-                                        <div class="tit">{{ __('text.text_181') }}</div>
-                                        <div class="fields-block">
-                                            
-                                            <select name="type" required>
-                                                <option value=""></option>
-                                                <option value="1">{{ __('text.text_175') }}</option>
-                                                <option value="2">{{ __('text.text_176') }}</option>
-                                                <option value="3">{{ __('text.text_177') }}</option>
-                                                <option value="4">{{ __('text.text_178') }}</option>
-                                                <option value="5">{{ __('text.text_179') }}</option>
-                                                <option value="6">{{ __('text.text_180') }}</option>
-                                            </select>
-                                            
-                                        </div>
-                                    </div>
+                                    
+                                    
                                     
                                     
                                 </div>
@@ -302,21 +406,270 @@
                             <p>Сюда мы выводим все запланированые посты вформате табов кликая по кнопкам - отображается тот или иной вид</p><br><br>
                             <p><button>Список</button><button>По датам</button><button>Календарь</button></p>
                             <br><br>
-                            <p><b>Список</b></p>
-                            <img src="https://img001.prntscr.com/file/img001/R9fqxoC5RrueXx0PpeA9ag.png">
-                            <img src="https://img001.prntscr.com/file/img001/R9fqxoC5RrueXx0PpeA9ag.png">
-                            <img src="https://img001.prntscr.com/file/img001/R9fqxoC5RrueXx0PpeA9ag.png">
-                            <br><br>
-                            <img src="https://img001.prntscr.com/file/img001/R9fqxoC5RrueXx0PpeA9ag.png">
-                            <img src="https://img001.prntscr.com/file/img001/R9fqxoC5RrueXx0PpeA9ag.png">
-                            <img src="https://img001.prntscr.com/file/img001/R9fqxoC5RrueXx0PpeA9ag.png">
-                            <br><br>
-                            <p><b>По датам</b></p>
-                            <p><img src="https://img001.prntscr.com/file/img001/NTFMB6w_SL2zRZiKf3dfGw.png"></p>
-                            <br><br>
-                            <p><b>Календарь</b></p>
-                            <p><img src="https://img001.prntscr.com/file/img001/InUxIHu-SMmvwKBXHJP7xA.png"></p>
-                            <p></p>
+                        </div>
+                        <div class="delay-posts">
+                            <ul>
+                                <li>
+                                    <div class="posting-block">
+                                        <div class="posting-head">
+                                           <div class="time">
+                                                <b>06 марта 2024</b> <span>10:05</span>
+                                           </div>
+                                           <div class="actions">
+                                            <button>Ред.</button>
+                                            <button>Опубл.</button>
+                                            <button>Удалить</button>
+                                            <button>Удалить из TG</button>
+                                           </div>     
+                                        </div>
+                                        <div class="posting-body">
+                                            <div class="media-block">
+                                                <div class="images-block">
+                                                    <div class="attachment_file">
+                                                        <img src="https://telega-images.storage.yandexcloud.net/uploads/user/690/2330516/small_photo_2024-07-01_17-14-50.jpg" alt="">
+                                                    </div>
+                                                    <div class="attachment_file">
+                                                        <img src="https://telega-images.storage.yandexcloud.net/uploads/user/690/2330516/small_photo_2024-07-01_17-14-50.jpg" alt="">
+                                                    </div>
+                                                    <div class="attachment_file">
+                                                        <img src="https://telega-images.storage.yandexcloud.net/uploads/user/690/2330516/small_photo_2024-07-01_17-14-50.jpg" alt="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="text-block">
+                                                <strong>Yoast WordPress SEO Premium 22.8 NULLED + Free 22.8</strong><br>
+                                                <em><code>Last updated:30 May 2024</code></em><br>
+                                                Yoast SEO Premium Nulled (formerly known as WordPress SEO by Yoast) is the most complete WordPress SEO plugin that exists today for WordPress users. It incorporates everything from a snippet editor and real time page analysis functionality that helps you optimize your pages content, images titles, meta descriptions and more to XML sitemaps, and loads of optimization options in between.
+                                            </div>
+                                        </div>
+                                        <div class="posting-footer">
+                                            <div class="links-block">
+                                                <div class="links-line">
+                                                    <a href="">Кнопка 1 на всю ширину</a>
+                                                </div>
+                                                <div class="links-line">
+                                                    <a href="">Кнопка 1</a><a href="">Кнопка 2</a>
+                                                </div>
+                                                <div class="links-line">
+                                                    <a href="">Кнопка 1</a><a href="">Кнопка 2</a><a href="">Кнопка 3</a>
+                                                </div>
+                                                <div class="links-line">
+                                                    <a href="">1</a><a href="">2</a><a href="">3</a><a href="">4</a>
+                                                    <a href="">5</a><a href="">6</a><a href="">7</a><a href="">8</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="posting-block">
+                                        <div class="posting-head">
+                                           <div class="time">
+                                                <b>06 марта 2024</b> <span>10:05</span>
+                                           </div>
+                                           <div class="actions">
+                                            <button>Ред.</button>
+                                            <button>Опубл.</button>
+                                            <button>Удалить</button>
+                                            <button>Удалить из TG</button>
+                                           </div>     
+                                        </div>
+                                        <div class="posting-body">
+                                            <div class="media-block">
+                                                <div class="images-block">
+                                                    <div class="attachment_file">
+                                                        <img src="https://telega-images.storage.yandexcloud.net/uploads/user/690/2330516/small_photo_2024-07-01_17-14-50.jpg" alt="">
+                                                    </div>
+                                                    <div class="attachment_file">
+                                                        <img src="https://telega-images.storage.yandexcloud.net/uploads/user/690/2330516/small_photo_2024-07-01_17-14-50.jpg" alt="">
+                                                    </div>
+                                                    <div class="attachment_file">
+                                                        <img src="https://telega-images.storage.yandexcloud.net/uploads/user/690/2330516/small_photo_2024-07-01_17-14-50.jpg" alt="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="text-block">
+                                                <strong>Yoast WordPress SEO Premium 22.8 NULLED + Free 22.8</strong><br>
+                                                <em><code>Last updated:30 May 2024</code></em><br>
+                                                Yoast SEO Premium Nulled (formerly known as WordPress SEO by Yoast) is the most complete WordPress SEO plugin that exists today for WordPress users. It incorporates everything from a snippet editor and real time page analysis functionality that helps you optimize your pages content, images titles, meta descriptions and more to XML sitemaps, and loads of optimization options in between.
+                                            </div>
+                                        </div>
+                                        <div class="posting-footer">
+                                            <div class="links-block">
+                                                <div class="links-line">
+                                                    <a href="">Кнопка 1 на всю ширину</a>
+                                                </div>
+                                                <div class="links-line">
+                                                    <a href="">Кнопка 1</a><a href="">Кнопка 2</a>
+                                                </div>
+                                                <div class="links-line">
+                                                    <a href="">Кнопка 1</a><a href="">Кнопка 2</a><a href="">Кнопка 3</a>
+                                                </div>
+                                                <div class="links-line">
+                                                    <a href="">1</a><a href="">2</a><a href="">3</a><a href="">4</a>
+                                                    <a href="">5</a><a href="">6</a><a href="">7</a><a href="">8</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="posting-block">
+                                        <div class="posting-head">
+                                           <div class="time">
+                                                <b>06 марта 2024</b> <span>10:05</span>
+                                           </div>
+                                           <div class="actions">
+                                            <button>Ред.</button>
+                                            <button>Опубл.</button>
+                                            <button>Удалить</button>
+                                            <button>Удалить из TG</button>
+                                           </div>     
+                                        </div>
+                                        <div class="posting-body">
+                                            <div class="media-block">
+                                                <div class="images-block">
+                                                    <div class="attachment_file">
+                                                        <img src="https://telega-images.storage.yandexcloud.net/uploads/user/690/2330516/small_photo_2024-07-01_17-14-50.jpg" alt="">
+                                                    </div>
+                                                    <div class="attachment_file">
+                                                        <img src="https://telega-images.storage.yandexcloud.net/uploads/user/690/2330516/small_photo_2024-07-01_17-14-50.jpg" alt="">
+                                                    </div>
+                                                    <div class="attachment_file">
+                                                        <img src="https://telega-images.storage.yandexcloud.net/uploads/user/690/2330516/small_photo_2024-07-01_17-14-50.jpg" alt="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="text-block">
+                                                <strong>Yoast WordPress SEO Premium 22.8 NULLED + Free 22.8</strong><br>
+                                                <em><code>Last updated:30 May 2024</code></em><br>
+                                                Yoast SEO Premium Nulled (formerly known as WordPress SEO by Yoast) is the most complete WordPress SEO plugin that exists today for WordPress users. It incorporates everything from a snippet editor and real time page analysis functionality that helps you optimize your pages content, images titles, meta descriptions and more to XML sitemaps, and loads of optimization options in between.
+                                            </div>
+                                        </div>
+                                        <div class="posting-footer">
+                                            <div class="links-block">
+                                                <div class="links-line">
+                                                    <a href="">Кнопка 1 на всю ширину</a>
+                                                </div>
+                                                <div class="links-line">
+                                                    <a href="">Кнопка 1</a><a href="">Кнопка 2</a>
+                                                </div>
+                                                <div class="links-line">
+                                                    <a href="">Кнопка 1</a><a href="">Кнопка 2</a><a href="">Кнопка 3</a>
+                                                </div>
+                                                <div class="links-line">
+                                                    <a href="">1</a><a href="">2</a><a href="">3</a><a href="">4</a>
+                                                    <a href="">5</a><a href="">6</a><a href="">7</a><a href="">8</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="posting-block">
+                                        <div class="posting-head">
+                                           <div class="time">
+                                                <b>06 марта 2024</b> <span>10:05</span>
+                                           </div>
+                                           <div class="actions">
+                                            <button>Ред.</button>
+                                            <button>Опубл.</button>
+                                            <button>Удалить</button>
+                                            <button>Удалить из TG</button>
+                                           </div>     
+                                        </div>
+                                        <div class="posting-body">
+                                            <div class="media-block">
+                                                <div class="images-block">
+                                                    <div class="attachment_file">
+                                                        <img src="https://telega-images.storage.yandexcloud.net/uploads/user/690/2330516/small_photo_2024-07-01_17-14-50.jpg" alt="">
+                                                    </div>
+                                                    <div class="attachment_file">
+                                                        <img src="https://telega-images.storage.yandexcloud.net/uploads/user/690/2330516/small_photo_2024-07-01_17-14-50.jpg" alt="">
+                                                    </div>
+                                                    <div class="attachment_file">
+                                                        <img src="https://telega-images.storage.yandexcloud.net/uploads/user/690/2330516/small_photo_2024-07-01_17-14-50.jpg" alt="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="text-block">
+                                                <strong>Yoast WordPress SEO Premium 22.8 NULLED + Free 22.8</strong><br>
+                                                <em><code>Last updated:30 May 2024</code></em><br>
+                                                Yoast SEO Premium Nulled (formerly known as WordPress SEO by Yoast) is the most complete WordPress SEO plugin that exists today for WordPress users. It incorporates everything from a snippet editor and real time page analysis functionality that helps you optimize your pages content, images titles, meta descriptions and more to XML sitemaps, and loads of optimization options in between.
+                                            </div>
+                                        </div>
+                                        <div class="posting-footer">
+                                            <div class="links-block">
+                                                <div class="links-line">
+                                                    <a href="">Кнопка 1 на всю ширину</a>
+                                                </div>
+                                                <div class="links-line">
+                                                    <a href="">Кнопка 1</a><a href="">Кнопка 2</a>
+                                                </div>
+                                                <div class="links-line">
+                                                    <a href="">Кнопка 1</a><a href="">Кнопка 2</a><a href="">Кнопка 3</a>
+                                                </div>
+                                                <div class="links-line">
+                                                    <a href="">1</a><a href="">2</a><a href="">3</a><a href="">4</a>
+                                                    <a href="">5</a><a href="">6</a><a href="">7</a><a href="">8</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="posting-block">
+                                        <div class="posting-head">
+                                           <div class="time">
+                                                <b>06 марта 2024</b> <span>10:05</span>
+                                           </div>
+                                           <div class="actions">
+                                            <button>Ред.</button>
+                                            <button>Опубл.</button>
+                                            <button>Удалить</button>
+                                            <button>Удалить из TG</button>
+                                           </div>     
+                                        </div>
+                                        <div class="posting-body">
+                                            <div class="media-block">
+                                                <div class="images-block">
+                                                    <div class="attachment_file">
+                                                        <img src="https://telega-images.storage.yandexcloud.net/uploads/user/690/2330516/small_photo_2024-07-01_17-14-50.jpg" alt="">
+                                                    </div>
+                                                    <div class="attachment_file">
+                                                        <img src="https://telega-images.storage.yandexcloud.net/uploads/user/690/2330516/small_photo_2024-07-01_17-14-50.jpg" alt="">
+                                                    </div>
+                                                    <div class="attachment_file">
+                                                        <img src="https://telega-images.storage.yandexcloud.net/uploads/user/690/2330516/small_photo_2024-07-01_17-14-50.jpg" alt="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="text-block">
+                                                <strong>Yoast WordPress SEO Premium 22.8 NULLED + Free 22.8</strong><br>
+                                                <em><code>Last updated:30 May 2024</code></em><br>
+                                                Yoast SEO Premium Nulled (formerly known as WordPress SEO by Yoast) is the most complete WordPress SEO plugin that exists today for WordPress users. It incorporates everything from a snippet editor and real time page analysis functionality that helps you optimize your pages content, images titles, meta descriptions and more to XML sitemaps, and loads of optimization options in between.
+                                            </div>
+                                        </div>
+                                        <div class="posting-footer">
+                                            <div class="links-block">
+                                                <div class="links-line">
+                                                    <a href="">Кнопка 1 на всю ширину</a>
+                                                </div>
+                                                <div class="links-line">
+                                                    <a href="">Кнопка 1</a><a href="">Кнопка 2</a>
+                                                </div>
+                                                <div class="links-line">
+                                                    <a href="">Кнопка 1</a><a href="">Кнопка 2</a><a href="">Кнопка 3</a>
+                                                </div>
+                                                <div class="links-line">
+                                                    <a href="">1</a><a href="">2</a><a href="">3</a><a href="">4</a>
+                                                    <a href="">5</a><a href="">6</a><a href="">7</a><a href="">8</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -335,7 +688,16 @@
     <!-- all plugins -->
     @include('inc.scripts')
     <?php //include 'scripts.php'; ?>
+    <script>
+        let date = new Date();
+        document.getElementById('date-1').valueAsDate = date;
+        document.getElementById('time-1').value = date.getHours() + ":" + date.getMinutes();
 
+        // let nextDay = new Date(date);
+        // nextDay.setDate(date.getDate() + 1);
+        // document.getElementById('date-3').valueAsDate = nextDay;
+        // document.getElementById('time-3').value = date.getHours() + ":" + date.getMinutes();
+    </script>
 </body>
 
 </html>

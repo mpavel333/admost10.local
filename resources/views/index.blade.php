@@ -76,7 +76,7 @@ $TmplApp->AutoCompileScss();
                             <!-- controls mob -->
                             <div class="control-buttons d-flex column-gap-2 d-md-none">
                                 <div class="for-btn w-100">
-                                    <a href="/login" class="login cl-btn dark-l-btn w-100">
+                                    <a href="https://t.me/admost_support" class="login cl-btn dark-l-btn w-100">
                                         <div class="icon">
                                             <?php include 'main-page/images/login.svg'; 
                                                     //<img src="main-page/images/login.svg">
@@ -87,7 +87,7 @@ $TmplApp->AutoCompileScss();
                                     </a>
                                 </div>
                                 <div class="for-btn w-100">
-                                    <a href="/registration" class="login cl-btn white-btn w-100">
+                                    <a href="https://t.me/admost_support" class="login cl-btn white-btn w-100">
                                         <div class="icon">
                                             <?php include 'main-page/images/plus.svg'; 
                                             //<img src="main-page/images/plus.svg">
@@ -107,7 +107,7 @@ $TmplApp->AutoCompileScss();
         <?php if(Auth::guest()){ ?>
 
                 <div class="for-btn">
-                    <a href="{{ route('login') }}" class="login cl-btn blue-l-btn">
+                    <a href="https://t.me/admost_support" class="login cl-btn blue-l-btn">
                         <div class="icon">
                             <?php include 'main-page/images/login.svg'; 
                             //<img src="main-page/images/login.svg">
@@ -118,7 +118,7 @@ $TmplApp->AutoCompileScss();
                     </a>
                 </div>
                 <div class="for-btn">
-                    <a href="{{ route('register') }}" class="login cl-btn">
+                    <a href="https://t.me/admost_support" class="login cl-btn">
                         <div class="icon">
                             <?php include 'main-page/images/plus.svg'; 
                             //<img src="main-page/images/plus.svg">
@@ -216,7 +216,7 @@ $TmplApp->AutoCompileScss();
                                         <!-- desktop btn -->
                                         <div class="col-auto d-none d-xl-block">
                                             <div class="for-btn">
-                                                <a href="{{ route('user.channels.add') }}" class="cl-btn big">
+                                                <a href="https://t.me/admost_support" class="cl-btn big">
                                                     <div class="icon">
                                                         <?php include 'main-page/images/plus.svg'; 
                                                         //<img src="main-page/images/plus.svg">
@@ -238,7 +238,7 @@ $TmplApp->AutoCompileScss();
                     </div>
                     <!-- mobile btn -->
                     <div class="for-btn d-xl-none">
-                        <a href="{{ route('user.channels.add') }}" class="cl-btn big">
+                        <a href="https://t.me/admost_support" class="cl-btn big">
                             <div class="icon">
                                 <?php include 'main-page/images/plus.svg'; 
                                 //<img src="main-page/images/plus.svg">
@@ -425,8 +425,47 @@ $TmplApp->AutoCompileScss();
                                         <div class="inputblock">
                                             <p>{{ __('text.text_17') }}</p>
                                             <select name="subject" class="form-select dark-select">
-                                                <option value="Авто и мото">Авто и мото</option>
-                                                <option value="Хуёто">Хуйото</option>
+                                                <option value="Новини і ЗМІ">Новини і ЗМІ</option>
+                                                <option value="Криптовалюти">Криптовалюти</option>
+                                                <option value="Фільми">Фільми</option>
+                                                <option value="Освіта">Освіта</option>
+                                                <option value="Економіка та фінанси">Економіка та фінанси</option>
+                                                <option value="Технології та додатки">Технології та додатки</option>
+                                                <option value="Ігри">Ігри</option>
+                                                <option value="Бізнес">Бізнес</option>
+                                                <option value="Релігія і духовність">Релігія і духовність</option>
+                                                <option value="Музика">Музика</option>
+                                                <option value="Продажі">Продажі</option>
+                                                <option value="Політика">Політика</option>
+                                                <option value="Спорт">Спорт</option>
+                                                <option value="Заборонений контент">Заборонений контент</option>
+                                                <option value="Гумор та розваги">Гумор та розваги</option>
+                                                <option value="Блоги">Блоги</option>
+                                                <option value="Краса">Краса</option>
+                                                <option value="Мотивація та цитати">Мотивація та цитати</option>
+                                                <option value="Кар'єра">Кар'єра</option>
+                                                <option value="Книги">Книги</option>
+                                                <option value="Мистецтво та дизайн">Мистецтво та дизайн</option>
+                                                <option value="Telegram">Telegram</option>
+                                                <option value="Їжа і напої">Їжа і напої</option>
+                                                <option value="Медицина">Медицина</option>
+                                                <option value="Психологія">Психологія</option>
+                                                <option value="Подорожі">Подорожі</option>
+                                                <option value="ЗОЖ">ЗОЖ</option>
+                                                <option value="Транспорт">Транспорт</option>
+                                                <option value="Факти">Факти</option>
+                                                <option value="Соціальні мережі">Соціальні мережі</option>
+                                                <option value="Природа і тварини">Природа і тварини</option>
+                                                <option value="Діти та сім'я">Діти та сім'я</option>
+                                                <option value="Картинки">Картинки</option>
+                                                <option value="Нерухомість">Нерухомість</option>
+                                                <option value="Дім та архітектура">Дім та архітектура</option>
+                                                <option value="Маркетинг і PR">Маркетинг і PR</option>
+                                                <option value="Юриспруденція">Юриспруденція</option>
+                                                <option value="Лінгвістика">Лінгвістика</option>
+                                                <option value="Еротика">Еротика</option>
+                                                <option value="Ставки і казино">Ставки і казино</option>
+                                                <option value="Інші">Інші</option>
                                             </select>
                                         </div>
                                         <div class="subscribers-slider">
@@ -434,7 +473,7 @@ $TmplApp->AutoCompileScss();
                                                 <p>{{ __('text.text_18') }}</p>
                                                 <div class="count"></div>
                                             </div>
-                                            <input type="text" class="subscribers-count" name="range" value="" data-type="single" data-min="0" data-max="50000000" data-from="0" data-to="500" data-grid="false" />
+                                            <input type="text" class="subscribers-count" name="range" value="" data-type="single" data-min="1000" data-max="100000" data-from="6000" data-step="500" data-grid="false" />
                                         </div>
                                     </form>
                                 </div>
@@ -445,11 +484,11 @@ $TmplApp->AutoCompileScss();
                                         <div class="for-price d-flex align-items-center d-md-block">
                                             <div class="tit me-4 me-md-0 mb-md-3">{!! __('text.text_19') !!}</div>
                                             <div class="price lh-1 text-nowrap">
-                                                <span class="fs-xl-48 fs-34 fw-bold me-1 text-nowrap">300 456</span>{{ __('text.text_20') }}
+                                                <span class="fs-xl-48 fs-34 fw-bold me-1 text-nowrap">21 600</span>{{ __('text.text_20') }}
                                             </div>
                                         </div>
                                         <div class="for-btn">
-                                            <a href="{{ route('user.channels.add') }}" class="cl-btn big px-md-4">
+                                            <a href="https://t.me/admost_support" class="cl-btn big px-md-4">
                                                 <div class="icon">
                                                     <?php include 'main-page/images/plus.svg'; 
                                                     //<img src="main-page/images/plus.svg">
@@ -496,7 +535,7 @@ $TmplApp->AutoCompileScss();
                                             <p>{{ __('text.text_24') }}</p>
                                         </div>
                                         <div class="for-btn">
-                                            <a class="cl-btn" href="{{ route('user.channels.add') }}">
+                                            <a class="cl-btn" href="https://t.me/admost_support">
                                                 <div class="icon">
                                                     <?php include 'main-page/images/plus.svg'; 
                                                     //<img src="main-page/images/plus.svg">
@@ -537,7 +576,7 @@ $TmplApp->AutoCompileScss();
                                             <p>{{ __('text.text_27') }}</p>
                                         </div>
                                         <div class="for-btn">
-                                            <a class="cl-btn" href="{{ route('user.channels.add') }}">
+                                            <a class="cl-btn" href="https://t.me/admost_support">
                                                 <div class="icon">
                                                     <?php include 'main-page/images/plus.svg'; 
                                                     //<img src="main-page/images/plus.svg">
@@ -578,7 +617,7 @@ $TmplApp->AutoCompileScss();
                                             <p>{{ __('text.text_29') }}</p>
                                         </div>
                                         <div class="for-btn">
-                                            <a class="cl-btn" href="{{ route('user.channels.add') }}">
+                                            <a class="cl-btn" href="https://t.me/admost_support">
                                                 <div class="icon">
                                                     <?php include 'main-page/images/plus.svg'; 
                                                     //<img src="main-page/images/plus.svg">
@@ -713,7 +752,7 @@ $TmplApp->AutoCompileScss();
                                     {!! __('text.text_43') !!}
                                 </div>
                                 <div class="for-btn mt-4">
-                                    <a class="cl-btn big" href="{{ route('user.channels.add') }}">
+                                    <a class="cl-btn big" href="https://t.me/admost_support">
                                         <div class="icon">
                                             <?php include 'main-page/images/plus.svg'; 
                                             //<img src="main-page/images/plus.svg">
@@ -916,7 +955,7 @@ $TmplApp->AutoCompileScss();
                                             <p class="txt">{{ __('text.text_49') }}</p>
                                         </div>
                                         <div class="arrow-list">
-                                            <span class="fw-semi color-main">6</span> {{ __('text.text_59') }}
+                                            <span class="fw-semi color-main">7+</span> {{ __('text.text_59') }}
                                             {{ __('text.text_51') }}
                                             {{ __('text.text_52') }}
                                             {{ __('text.text_60') }}
@@ -1063,7 +1102,7 @@ $TmplApp->AutoCompileScss();
                         </div>
                     </div>
                     <div class="for-btn">
-                        <a class="cl-btn big" href="{{ route('user.channels.add') }}">
+                        <a class="cl-btn big" href="https://t.me/admost_support">
                             <div class="icon">
                                 <?php include 'main-page/images/plus.svg'; 
                                 //<img src="main-page/images/plus.svg">
@@ -1153,7 +1192,7 @@ $TmplApp->AutoCompileScss();
                                     <img src="main-page/images/rocket.png" alt="pic">
                                 </div>
                                 <div class="for-btn">
-                                    <a class="cl-btn big" href="{{ route('user.channels.add') }}">
+                                    <a class="cl-btn big" href="https://t.me/admost_support">
                                         <div class="icon">
                                             <?php include 'main-page/images/plus.svg'; 
                                             //<img src="main-page/images/plus.svg">
@@ -1172,7 +1211,7 @@ $TmplApp->AutoCompileScss();
             </div>
         </section>
 
-        <section class="faq">
+        <section class="faq" style="display:none">
             <div class="container">
                 <h2 class="title fs-xl-28 fs-22 fw-semi text-center text-md-start">
                     {{ __('text.text_92') }}
@@ -1240,7 +1279,7 @@ $TmplApp->AutoCompileScss();
                                     <img src="main-page/images/tg-big.png" alt="pic">
                                 </div>
                                 <div class="for-btn">
-                                    <a class="cl-btn big" href="{{ route('user.channels.add') }}">
+                                    <a class="cl-btn big" href="https://t.me/admost_support">
                                         <div class="icon">
                                             <?php include 'main-page/images/plus.svg'; 
                                             //<img src="main-page/images/plus.svg">
@@ -1310,7 +1349,7 @@ $TmplApp->AutoCompileScss();
         <?php if(Auth::guest()){ ?>
 
                                 <div class="for-btn">
-                                    <a href="/login" class="login cl-btn blue-l-btn">
+                                    <a href="https://t.me/admost_support" class="login cl-btn blue-l-btn">
                                         <div class="icon">
                                             <?php include 'main-page/images/login.svg'; 
                                             //<img src="main-page/images/login.svg">
@@ -1320,7 +1359,7 @@ $TmplApp->AutoCompileScss();
                                     </a>
                                 </div>
                                 <div class="for-btn">
-                                    <a href="/registration" class="login cl-btn">
+                                    <a href="https://t.me/admost_support" class="login cl-btn">
                                         <div class="icon">
                                             <?php include 'main-page/images/plus.svg'; 
                                             //<img src="main-page/images/plus.svg">

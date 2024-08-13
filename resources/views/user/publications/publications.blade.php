@@ -280,6 +280,8 @@
     @include('inc.scripts')
     <?php //include 'scripts.php'; ?>
 
+    
+
 </body>
 
 </html>

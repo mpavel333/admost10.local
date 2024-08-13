@@ -1,0 +1,95 @@
+.table-time {
+  .line-day {
+    display: flex;
+    align-items: center;
+    .day-c {
+      font-weight: bold;
+    }
+    .inpb {
+      margin: 0 10px;
+      flex-grow: 1;
+      display: flex;
+      input {
+        width: 50px;
+      }
+    }
+    .actions {
+      button {
+        --color: var(--color-main);
+        --bg: rgba(71, 108, 209, 0.1);
+        --bd: transparent;
+        stroke: var(--color-main);
+      }
+    }
+  }
+}
+
+.delay-posts {
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+    li {
+      width: 25%;
+      list-style: none;
+      padding: 5px;
+      border: 1px solid #f3f3f3;
+    }
+  }
+}
+
+.posting-block {
+  &.prev-post {
+    padding: 15px;
+    background-image: url("https://telega.in/assets/bg-telega-cd611979c826d48114ab909fa062c8bb8a5acbfa7f59bfa3bbbfa3b21688eeac.jpg");
+  }
+  .posting-body {
+    background: #fff;
+    position: relative;
+    border-radius: 16px 16px 16px 0;
+    overflow: hidden;
+
+    .media-block {
+      .images-block {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
+        gap: 4px;
+        .attachment_file {
+          &:first-child {
+            grid-row-start: 1;
+            grid-column-start: 1;
+            grid-row-end: 2;
+            grid-column-end: 3;
+          }
+        }
+      }
+    }
+    .text-block {
+      padding: 15px;
+      font-size: 14px;
+    }
+  }
+  .posting-footer {
+    .links-block {
+      .links-line {
+        display: flex;
+        gap: 5px;
+        margin: 5px 0;
+        a {
+          font-size: 14px;
+          text-decoration: none;
+          width: 100%;
+          background: var(--bg-gray);
+          border-radius: 15px;
+          border-radius: 15px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 50px;
+          background-color: #f3f3f3;
+        }
+      }
+    }
+  }
+}

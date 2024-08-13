@@ -887,3 +887,16 @@ Stack trace:
 #19 D:\OSPanel\domains\admost10.local\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(200): Symfony\Component\Console\Application->run()
 #20 D:\OSPanel\domains\admost10.local\artisan(37): Illuminate\Foundation\Console\Kernel->handle()
 #21 {main}
+2024-02-25 10:00:38 pid:2267762 Workerman[artisan] stopping ...
+2024-02-25 10:00:38 pid:2267762 Workerman[artisan] stopping ...
+2024-02-25 10:00:38 pid:2267762 worker[none:2267763] exit with status 1
+2024-02-25 10:00:38 pid:2267762 Workerman[artisan] has been stopped
+2024-06-19 16:28:30 pid:492036 Workerman[artisan] status 
+2024-06-19 16:28:30 pid:492036 Workerman[artisan] not run
+2024-06-19 16:28:47 pid:492045 Workerman[artisan] start in DAEMON mode
+2024-06-19 16:29:02 pid:492056 Workerman[artisan] status 
+2024-06-19 16:29:18 pid:492065 Workerman[artisan] status 
+2024-07-01 12:00:27 pid:492051 Workerman[artisan] stopping ...
+2024-07-01 12:00:27 pid:492051 Workerman[artisan] stopping ...
+2024-07-01 12:00:27 pid:492051 worker[none:492052] exit with status 1
+2024-07-01 12:00:27 pid:492051 Workerman[artisan] has been stopped
